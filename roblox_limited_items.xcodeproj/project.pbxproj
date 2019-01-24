@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		571752A67E0800537BBD3ADF /* Pods_roblox_limited_items.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */; };
+		C8257B9E21F915F100320828 /* UserItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8257B9D21F915F100320828 /* UserItemsController.swift */; };
+		C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDE921F8805F0053DF8D /* AppDelegate.swift */; };
+		C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDEB21F8805F0053DF8D /* ViewController.swift */; };
+		C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDED21F8805F0053DF8D /* Main.storyboard */; };
+		C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF021F880640053DF8D /* Assets.xcassets */; };
+		C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */; };
+		C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_roblox_limited_items.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.release.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.release.xcconfig"; sourceTree = "<group>"; };
+		C8257B9D21F915F100320828 /* UserItemsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItemsController.swift; sourceTree = "<group>"; };
+		C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roblox_limited_items.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C88BBDE921F8805F0053DF8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C88BBDEB21F8805F0053DF8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C88BBDEE21F8805F0053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C88BBDF021F880640053DF8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C88BBDF321F880640053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C88BBDF521F880640053DF8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUsernameController.swift; sourceTree = "<group>"; };
+		FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.debug.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C88BBDE321F8805F0053DF8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				571752A67E0800537BBD3ADF /* Pods_roblox_limited_items.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6DA3E4CE01137B86B4E8CF8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A56FD96289BFB53D3E91082 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */,
+				663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C88BBDDD21F8805F0053DF8D = {
+			isa = PBXGroup;
+			children = (
+				C88BBDE821F8805F0053DF8D /* roblox_limited_items */,
+				C88BBDE721F8805F0053DF8D /* Products */,
+				7A56FD96289BFB53D3E91082 /* Pods */,
+				6DA3E4CE01137B86B4E8CF8B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C88BBDE721F8805F0053DF8D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C88BBDE821F8805F0053DF8D /* roblox_limited_items */ = {
+			isa = PBXGroup;
+			children = (
+				C88BBDE921F8805F0053DF8D /* AppDelegate.swift */,
+				C88BBDEB21F8805F0053DF8D /* ViewController.swift */,
+				C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */,
+				C88BBDED21F8805F0053DF8D /* Main.storyboard */,
+				C88BBDF021F880640053DF8D /* Assets.xcassets */,
+				C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */,
+				C88BBDF521F880640053DF8D /* Info.plist */,
+				C8257B9D21F915F100320828 /* UserItemsController.swift */,
+			);
+			path = roblox_limited_items;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C88BBDE521F8805F0053DF8D /* roblox_limited_items */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C88BBDF821F880640053DF8D /* Build configuration list for PBXNativeTarget "roblox_limited_items" */;
+			buildPhases = (
+				0ABB013C18FB842867003D5E /* [CP] Check Pods Manifest.lock */,
+				C88BBDE221F8805F0053DF8D /* Sources */,
+				C88BBDE321F8805F0053DF8D /* Frameworks */,
+				C88BBDE421F8805F0053DF8D /* Resources */,
+				90DC48495E615F4FF986EF5E /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = roblox_limited_items;
+			productName = roblox_limited_items;
+			productReference = C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C88BBDDE21F8805F0053DF8D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "David New";
+				TargetAttributes = {
+					C88BBDE521F8805F0053DF8D = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = C88BBDE121F8805F0053DF8D /* Build configuration list for PBXProject "roblox_limited_items" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C88BBDDD21F8805F0053DF8D;
+			productRefGroup = C88BBDE721F8805F0053DF8D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C88BBDE521F8805F0053DF8D /* roblox_limited_items */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C88BBDE421F8805F0053DF8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */,
+				C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */,
+				C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0ABB013C18FB842867003D5E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-roblox_limited_items-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90DC48495E615F4FF986EF5E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C88BBDE221F8805F0053DF8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */,
+				C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */,
+				C8257B9E21F915F100320828 /* UserItemsController.swift in Sources */,
+				C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C88BBDED21F8805F0053DF8D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C88BBDEE21F8805F0053DF8D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C88BBDF321F880640053DF8D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C88BBDF621F880640053DF8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C88BBDF721F880640053DF8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C88BBDF921F880640053DF8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 64F6S6MS6N;
+				INFOPLIST_FILE = roblox_limited_items/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.davidanew.roblox-limited-items";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C88BBDFA21F880640053DF8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 64F6S6MS6N;
+				INFOPLIST_FILE = roblox_limited_items/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.davidanew.roblox-limited-items";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C88BBDE121F8805F0053DF8D /* Build configuration list for PBXProject "roblox_limited_items" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C88BBDF621F880640053DF8D /* Debug */,
+				C88BBDF721F880640053DF8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C88BBDF821F880640053DF8D /* Build configuration list for PBXNativeTarget "roblox_limited_items" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C88BBDF921F880640053DF8D /* Debug */,
+				C88BBDFA21F880640053DF8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C88BBDDE21F8805F0053DF8D /* Project object */;
+}
