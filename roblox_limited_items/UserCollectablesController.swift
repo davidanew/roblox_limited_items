@@ -9,16 +9,15 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
-class UserLIController: UIViewController {
+      
+class UserCollectablesController: UIViewController, SetUsernameDelegate {
     
-    @IBOutlet weak var jsonView: UILabel!
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        jsonView.text = "I am here"
         let url : String = "https://inventory.roblox.com/v1/users/44993610/assets/collectibles?sortOrder=Asc&limit=10"
-        Alamofire.request(url, method: .get).responseJSON {
+/*        Alamofire.request(url, method: .get).responseJSON {
             response in
             if response.result.isSuccess {
                 print("assets JSON response is success")
@@ -29,10 +28,15 @@ class UserLIController: UIViewController {
             else {
                 print("Error assets JSON response is not success")
             }
+ 
         }
+ */
         
     }
     
+    func setUsername(username: String) {
+        print("UserCollectablesController : username set to : \(username)")
+    }
     
     
 }

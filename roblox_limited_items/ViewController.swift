@@ -3,6 +3,16 @@
 
 import UIKit
 
+//next
+//do structure
+
+
+// protocol for recieving username
+
+protocol SetUsernameDelegate {
+    func setUsername(username: String)
+}
+
 class ViewController: UIViewController, SetUsernameDelegate {
 
     override func viewDidLoad() {
@@ -10,16 +20,23 @@ class ViewController: UIViewController, SetUsernameDelegate {
     }
     
     //Set username view controller sends back username
-    func userSetUsername(username: String) {
+    func setUsername(username: String) {
         print("ViewController : username set to : \(username)")
     }
     
-    // set this view controller to be delegate for setUsername function, called from set username view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "setUsername" {
+            // set this view controller to be delegate for setUsername function, called from set username view controller
             let destinationVC = segue.destination as! SetUsernameController
-            destinationVC.delegate = self
+            destinationVC.setUsernameDelegate = self
         }
+        else if segue.identifier == "showCollectables" {
+            // UserCollectablesController is a delegate for this VC so it can be sent the username
+            let destinationVC = segue.destination as! UserCollectablesController
+            destinationVC.setUsername(username: "my test string")
+        }
+        
+        
     }
 }
 

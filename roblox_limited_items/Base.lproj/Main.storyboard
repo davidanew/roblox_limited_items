@@ -89,7 +89,7 @@
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="7Bp-B8-hrl" kind="show" identifier="showCollectables" id="sL2-Y8-uxR"/>
+                                                    <segue destination="7Bp-B8-hrl" kind="show" identifier="showCollectables" animates="NO" id="sL2-Y8-uxR"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -156,33 +156,28 @@
             </objects>
             <point key="canvasLocation" x="1463.2" y="-224.4377811094453"/>
         </scene>
-        <!--User Items Controller-->
+        <!--User Collectables Controller-->
         <scene sceneID="OFt-8t-zmd">
             <objects>
-                <viewController id="7Bp-B8-hrl" customClass="UserItemsController" sceneMemberID="viewController">
+                <viewController id="7Bp-B8-hrl" customClass="UserCollectablesController" customModule="roblox_limited_items" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g07-CC-FZA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMC-JP-NLM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Jy-Ar-y9q">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fJj-An-9dn" firstAttribute="trailing" secondItem="wMC-JP-NLM" secondAttribute="trailing" id="0VK-Ko-tPw"/>
-                            <constraint firstItem="fJj-An-9dn" firstAttribute="bottom" secondItem="wMC-JP-NLM" secondAttribute="bottom" id="6lM-KN-ngd"/>
-                            <constraint firstItem="wMC-JP-NLM" firstAttribute="top" secondItem="fJj-An-9dn" secondAttribute="top" id="cVv-0X-V4a"/>
-                            <constraint firstItem="wMC-JP-NLM" firstAttribute="leading" secondItem="fJj-An-9dn" secondAttribute="leading" id="yuO-DJ-8q6"/>
+                            <constraint firstItem="8Jy-Ar-y9q" firstAttribute="top" secondItem="fJj-An-9dn" secondAttribute="top" id="8pd-RN-9aO"/>
+                            <constraint firstItem="fJj-An-9dn" firstAttribute="trailing" secondItem="8Jy-Ar-y9q" secondAttribute="trailing" id="SfU-XS-LRW"/>
+                            <constraint firstItem="8Jy-Ar-y9q" firstAttribute="leading" secondItem="fJj-An-9dn" secondAttribute="leading" id="pAd-6s-UOg"/>
+                            <constraint firstItem="fJj-An-9dn" firstAttribute="bottom" secondItem="8Jy-Ar-y9q" secondAttribute="bottom" id="wDp-Lg-aQg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fJj-An-9dn"/>
                     </view>
-                    <connections>
-                        <outlet property="jsonView" destination="wMC-JP-NLM" id="z7g-NU-MWD"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="red-4W-uzk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

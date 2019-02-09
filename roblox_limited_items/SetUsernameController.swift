@@ -5,13 +5,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-// protocol for recieving username, used in main view controller
-protocol SetUsernameDelegate {
-    func userSetUsername(username: String)
-}
-
 class SetUsernameController : UIViewController, UITextFieldDelegate {
-    var delegate : SetUsernameDelegate?
+    var setUsernameDelegate : SetUsernameDelegate?
     // for user to enter thier username
     @IBOutlet weak var setUsernameTextField: UITextField!
     
@@ -36,7 +31,7 @@ class SetUsernameController : UIViewController, UITextFieldDelegate {
         }
         else {
             print("username null error")
-            // error pop up
+            // TODO error pop up
         }
     }
     
@@ -69,7 +64,7 @@ class SetUsernameController : UIViewController, UITextFieldDelegate {
                         if returnedUsername == username {
                             print("returned username : \(returnedUsername)")
                             // set username in main view controller
-                            self.delegate?.userSetUsername(username: username)
+                            self.setUsernameDelegate?.setUsername(username: username)
                             // return to main view controller
                             self.dismiss(animated: false, completion: nil)
                         }
