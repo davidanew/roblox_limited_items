@@ -10,8 +10,10 @@ import UIKit
 import Alamofire
 import SwiftyJSON
       
-class UserCollectablesController: UIViewController, SetUsernameDelegate {
+class UserCollectablesController: UIViewController, RecieveIdentifierDelegate {
     
+//    var identifier = Identifier()
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -34,8 +36,8 @@ class UserCollectablesController: UIViewController, SetUsernameDelegate {
         
     }
     
-    func setUsername(username: String) {
-        print("UserCollectablesController : username set to : \(username)")
+    func RecieveIdentifier(identifier: Identifier) {
+        print("UserCollectablesController : username set to : \(identifier.username!)")
     }
     
     

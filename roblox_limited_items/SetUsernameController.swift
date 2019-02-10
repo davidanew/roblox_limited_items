@@ -6,8 +6,12 @@ import Alamofire
 import SwiftyJSON
 
 class SetUsernameController : UIViewController, UITextFieldDelegate {
-    var setUsernameDelegate : SetUsernameDelegate?
-    // for user to enter thier username
+    // this class passes identifier date to a RecieveIdentifierDelegate
+    var recieverIdentifierDelegate : RecieveIdentifierDelegate?
+    // Identifier is a struct containing username and id
+    var identifier = Identifier()
+    
+    // for user to enter their username
     @IBOutlet weak var setUsernameTextField: UITextField!
     
     override func viewDidLoad() {
@@ -61,10 +65,14 @@ class SetUsernameController : UIViewController, UITextFieldDelegate {
                         print("Id is \(id)")
                         // Extract the username sting which is part of the JSON
                         let returnedUsername : String = valueJSON["Username"].stringValue
+                        // compare returned username with the set username. Success if they are the same
                         if returnedUsername == username {
                             print("returned username : \(returnedUsername)")
-                            // set username in main view controller
-                            self.setUsernameDelegate?.setUsername(username: username)
+                            //fill identifier with username and Id
+                            self.identifier.username=username
+                            self.identifier.id=id
+                            // set username in main view controller using delegate
+                            self.recieverIdentifierDelegate?.RecieveIdentifier(identifier: self.identifier)
                             // return to main view controller
                             self.dismiss(animated: false, completion: nil)
                         }
