@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U7r-bt-94Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -88,9 +88,6 @@
                                                 <state key="normal" title="See Your Limited Items">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
-                                                <connections>
-                                                    <segue destination="7Bp-B8-hrl" kind="show" identifier="showCollectables" animates="NO" id="sL2-Y8-uxR"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,9 +151,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1463.2" y="-224.4377811094453"/>
+            <point key="canvasLocation" x="3225" y="-1023"/>
         </scene>
-        <!--User Collectables Controller-->
+        <!--New Items Controller-->
+        <scene sceneID="KFK-r9-8fD">
+            <objects>
+                <viewController id="R93-dj-CCs" userLabel="New Items Controller" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XSL-IO-yi7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kcs-69-1Zx"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" badgeValue="New Limited Items" id="0r8-Qi-Svk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2YM-Vs-SUx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2404" y="-1707.7961019490256"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="OFt-8t-zmd">
             <objects>
                 <viewController id="7Bp-B8-hrl" customClass="UserCollectablesController" customModule="roblox_limited_items" customModuleProvider="target" sceneMemberID="viewController">
@@ -165,23 +178,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Jy-Ar-y9q">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3w-Ua-0nI">
+                                <rect key="frame" x="0.0" y="588" width="375" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="edt-RL-yH2"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="54c-o3-goN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="u3w-Ua-0nI" firstAttribute="leading" secondItem="fJj-An-9dn" secondAttribute="leading" id="2lZ-67-4sG"/>
                             <constraint firstItem="8Jy-Ar-y9q" firstAttribute="top" secondItem="fJj-An-9dn" secondAttribute="top" id="8pd-RN-9aO"/>
+                            <constraint firstItem="fJj-An-9dn" firstAttribute="trailing" secondItem="u3w-Ua-0nI" secondAttribute="trailing" id="EdN-xa-re3"/>
                             <constraint firstItem="fJj-An-9dn" firstAttribute="trailing" secondItem="8Jy-Ar-y9q" secondAttribute="trailing" id="SfU-XS-LRW"/>
+                            <constraint firstItem="u3w-Ua-0nI" firstAttribute="top" secondItem="8Jy-Ar-y9q" secondAttribute="bottom" id="em8-4h-5sw"/>
                             <constraint firstItem="8Jy-Ar-y9q" firstAttribute="leading" secondItem="fJj-An-9dn" secondAttribute="leading" id="pAd-6s-UOg"/>
-                            <constraint firstItem="fJj-An-9dn" firstAttribute="bottom" secondItem="8Jy-Ar-y9q" secondAttribute="bottom" id="wDp-Lg-aQg"/>
+                            <constraint firstItem="fJj-An-9dn" firstAttribute="bottom" secondItem="u3w-Ua-0nI" secondAttribute="bottom" id="xqO-GD-oS0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fJj-An-9dn"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" badgeValue="My Limited Items" id="c4h-YA-Z9R"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="red-4W-uzk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2381.5999999999999" y="-224.4377811094453"/>
+            <point key="canvasLocation" x="2400.8000000000002" y="-1023.2383808095952"/>
         </scene>
         <!--Set Username Controller-->
         <scene sceneID="7CU-kl-4et">
@@ -275,7 +302,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7lC-mo-RVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2382" y="-1125"/>
+            <point key="canvasLocation" x="4034" y="-1023"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="CAx-wN-G0b">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="U7r-bt-94Y" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UGx-HQ-oij">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="R93-dj-CCs" kind="relationship" relationship="viewControllers" id="wEp-4Z-oTt"/>
+                        <segue destination="7Bp-B8-hrl" kind="relationship" relationship="viewControllers" id="8jF-jt-ldR"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ikz-R9-b8k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1461.5999999999999" y="-1365.9670164917543"/>
         </scene>
     </scenes>
 </document>
