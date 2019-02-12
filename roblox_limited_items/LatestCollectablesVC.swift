@@ -12,12 +12,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     let apiInterface = ApiInterface()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return apiInterface.getLatestCollectablesList().count
+        return apiInterface.tempData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.default , reuseIdentifier: "catalogCell")
-        cell.textLabel?.text = apiInterface.getLatestCollectablesList()[indexPath.row]
+        cell.textLabel?.text = apiInterface.tempData[indexPath.row]
         return cell
     }
 

@@ -9,41 +9,49 @@
 import XCTest
 @testable import roblox_limited_items
 
+/*
 protocol RecieveCatalogDelegate {
     func recieveCatalog(catalog : [String]) ->Bool
 }
+*/
 
 
 
-class ApiInterfaceTests: XCTestCase, RecieveCatalogDelegate {
+class ApiInterfaceTests: XCTestCase {
     
-    let getLatestCollectablesListWithProtocolExpectation = XCTestExpectation(description: "getLatestCollectablesListWithProtocolExpectation")
+//    let getLatestCollectablesListWithProtocolExpectation = XCTestExpectation(description: "getLatestCollectablesListWithProtocolExpectation")
+    let getLatestCollectablesExpectation = XCTestExpectation(description: "getLatestCollectablesExpectation")
 
     func testGetLatestCollectablesList() {
-        var testStringArray : [String]
+ //       var testStringArray : [String]
         print("running test")
         let iut = ApiInterface()
-        testStringArray = iut.getLatestCollectablesList()
-        print ("result from getLatestCollectablesList \(testStringArray)")
-        iut.recieveCatalogDelegate = self as! RecieveCatalogDelegate
-        iut.getLatestCollectablesListWithProtocol()
-        wait(for: [getLatestCollectablesListWithProtocolExpectation], timeout: 10)
-        
-        //XCTAssertTrue(false)
-        
-        //let destinationVC = segue.destination as! SetUsernameController
-        //destinationVC.recieverIdentifierDelegate = self
+//        testStringArray = iut.getLatestCollectablesList()
+//        print ("result from getLatestCollectablesList \(testStringArray)")
+//        iut.recieveCatalogDelegate = self as! RecieveCatalogDelegate
+//        iut.getLatestCollectablesListWithProtocol()
+//        wait(for: [getLatestCollectablesListWithProtocolExpectation], timeout: 10)
+        print("trying callback test")
+        iut.getLatestCollectables(completionHandler: getLatestCollectablesCompletionHandler)
+        wait(for: [getLatestCollectablesExpectation], timeout: 10)
+
+
     }
+
+    func getLatestCollectablesCompletionHandler(catalog : [String]) -> Void {
+        print("callback successful, recieved \(catalog)")
+        getLatestCollectablesExpectation.fulfill()
+    }
+    
+}
+
+/*
+extension ApiInterfaceTests {
     func recieveCatalog(catalog: [String]) -> Bool {
         print ("result from getLatestCollectablesListWithProtocol \(catalog)")
         getLatestCollectablesListWithProtocolExpectation.fulfill()
         return true
     }
-    
-    
 }
-
-extension ApiInterfaceTests {
-
-}
+*/
 

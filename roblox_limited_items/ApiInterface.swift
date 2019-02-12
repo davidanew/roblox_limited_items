@@ -7,11 +7,17 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 class ApiInterface {
-    var recieveCatalogDelegate : RecieveCatalogDelegate?
+    var tempData : [String]
+    var getLatestCollectablesCompletionHandler : (([String]) -> Void )?
     
-
+    //var completionHandler: ((Float)->Void)?
+    //    var recieveCatalogDelegate : RecieveCatalogDelegate?
+    
+/*
     func getLatestCollectablesList() -> [String] {
         return ["a","b"]
     }
@@ -27,4 +33,42 @@ class ApiInterface {
             print("delegateReturn nil error")
         }
     }
+ 
+ */
+    init() {
+        tempData = ["a","b"]
+        
+    }
+
+    //TODO work out what escaping does
+    
+    func getLatestCollectables(completionHandler : @escaping ([String]) -> Void ) {
+        getLatestCollectablesCompletionHandler = completionHandler
+        //completionHandler(["a","b"])
+        let url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD"
+        Alamofire.request(url, method: .get).responseJSON { response in
+            if response.result.isSuccess {
+                print("Success! Got the bitcoin data")
+                
+            } else {
+                print("Error: \(String(describing: response.result.error))")
+            }
+            self.alamoFireLatestCollectablesCompletionHandler()
+        }
+        
+    }
+    
+    func alamoFireLatestCollectablesCompletionHandler() {
+        getLatestCollectablesCompletionHandler(tempData!)
+        
+    }
+        
+    
 }
+
+
+/*
+ func classBFunction(_ completion: (String) -> Void) {
+    completion("all working")
+}
+ */
