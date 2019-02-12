@@ -8,4 +8,7 @@
 
 import Foundation
 
+protocol RecieveCatalogDelegate {
+    func recieveCatalog(catalog : [String]) -> Bool
+}
 

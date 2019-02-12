@@ -9,28 +9,41 @@
 import XCTest
 @testable import roblox_limited_items
 
-class ApiInterfaceTests: XCTestCase {
+protocol RecieveCatalogDelegate {
+    func recieveCatalog(catalog : [String]) ->Bool
+}
 
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
 
-    override func tearDown() {
-        super.tearDown()
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
+class ApiInterfaceTests: XCTestCase, RecieveCatalogDelegate {
     
-    func testFirstTest() {
+    let getLatestCollectablesListWithProtocolExpectation = XCTestExpectation(description: "getLatestCollectablesListWithProtocolExpectation")
+
+    func testGetLatestCollectablesList() {
         var testStringArray : [String]
-        print("running my first test")
+        print("running test")
         let iut = ApiInterface()
         testStringArray = iut.getLatestCollectablesList()
-        print (testStringArray)
+        print ("result from getLatestCollectablesList \(testStringArray)")
+        iut.recieveCatalogDelegate = self as! RecieveCatalogDelegate
+        iut.getLatestCollectablesListWithProtocol()
+        wait(for: [getLatestCollectablesListWithProtocolExpectation], timeout: 10)
+        
         //XCTAssertTrue(false)
+        
+        //let destinationVC = segue.destination as! SetUsernameController
+        //destinationVC.recieverIdentifierDelegate = self
+    }
+    func recieveCatalog(catalog: [String]) -> Bool {
+        print ("result from getLatestCollectablesListWithProtocol \(catalog)")
+        getLatestCollectablesListWithProtocolExpectation.fulfill()
+        return true
     }
     
     
+}
+
+extension ApiInterfaceTests {
 
 }
+

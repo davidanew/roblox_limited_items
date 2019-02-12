@@ -9,10 +9,22 @@
 import Foundation
 
 class ApiInterface {
+    var recieveCatalogDelegate : RecieveCatalogDelegate?
     
+
     func getLatestCollectablesList() -> [String] {
         return ["a","b"]
-        
     }
-
+    
+    func getLatestCollectablesListWithProtocol() {
+        
+        if let delegateReturn = recieveCatalogDelegate?.recieveCatalog(catalog: ["a","b"]) {
+            if delegateReturn == false {
+                print("delagate returned false")
+            }
+        }
+        else {
+            print("delegateReturn nil error")
+        }
+    }
 }
