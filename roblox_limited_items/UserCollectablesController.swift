@@ -18,8 +18,8 @@ class UserCollectablesController: UIViewController, RecieveIdentifierDelegate {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let url : String = "https://inventory.roblox.com/v1/users/44993610/assets/collectibles?sortOrder=Asc&limit=10"
-/*        Alamofire.request(url, method: .get).responseJSON {
+/* let url : String = "https://inventory.roblox.com/v1/users/44993610/assets/collectibles?sortOrder=Asc&limit=10"
+       Alamofire.request(url, method: .get).responseJSON {
             response in
             if response.result.isSuccess {
                 print("assets JSON response is success")

@@ -4,6 +4,9 @@
 import UIKit
 
 //NEXT
+//alomofire testing async protocol delegate
+// seperate text file for notes
+// page for plan?
 //handle nils
 //code recieve in other class
 //update text in username text box when view is going to be displayed

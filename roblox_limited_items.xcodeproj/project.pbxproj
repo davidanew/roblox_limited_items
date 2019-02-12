@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		571752A67E0800537BBD3ADF /* Pods_roblox_limited_items.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */; };
 		C8257B9E21F915F100320828 /* UserCollectablesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8257B9D21F915F100320828 /* UserCollectablesController.swift */; };
+		C837292F2212E5EF0058F292 /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837292E2212E5EF0058F292 /* protocols.swift */; };
 		C84C9D81220F3C7000E31FC8 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C9D80220F3C7000E31FC8 /* model.swift */; };
 		C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDE921F8805F0053DF8D /* AppDelegate.swift */; };
 		C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDEB21F8805F0053DF8D /* ViewController.swift */; };
@@ -16,12 +17,26 @@
 		C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF021F880640053DF8D /* Assets.xcassets */; };
 		C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */; };
 		C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */; };
+		C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */; };
+		C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6A22119645007F9A6D /* ApiInterface.swift */; };
+		C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C8BC6D752211AE52007F9A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C88BBDDE21F8805F0053DF8D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C88BBDE521F8805F0053DF8D;
+			remoteInfo = roblox_limited_items;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_roblox_limited_items.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.release.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.release.xcconfig"; sourceTree = "<group>"; };
 		C8257B9D21F915F100320828 /* UserCollectablesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectablesController.swift; sourceTree = "<group>"; };
+		C837292E2212E5EF0058F292 /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		C84C9D80220F3C7000E31FC8 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
 		C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roblox_limited_items.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88BBDE921F8805F0053DF8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -31,6 +46,11 @@
 		C88BBDF321F880640053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C88BBDF521F880640053DF8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUsernameController.swift; sourceTree = "<group>"; };
+		C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCollectablesVC.swift; sourceTree = "<group>"; };
+		C8BC6D6A22119645007F9A6D /* ApiInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterface.swift; sourceTree = "<group>"; };
+		C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = roblox_limited_items_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterfaceTests.swift; sourceTree = "<group>"; };
+		C8BC6D742211AE52007F9A6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.debug.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,6 +60,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				571752A67E0800537BBD3ADF /* Pods_roblox_limited_items.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8BC6D6D2211AE52007F9A6D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				C88BBDE821F8805F0053DF8D /* roblox_limited_items */,
+				C8BC6D712211AE52007F9A6D /* roblox_limited_items_tests */,
 				C88BBDE721F8805F0053DF8D /* Products */,
 				7A56FD96289BFB53D3E91082 /* Pods */,
 				6DA3E4CE01137B86B4E8CF8B /* Frameworks */,
@@ -77,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */,
+				C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +113,9 @@
 		C88BBDE821F8805F0053DF8D /* roblox_limited_items */ = {
 			isa = PBXGroup;
 			children = (
+				C8BC6D6A22119645007F9A6D /* ApiInterface.swift */,
+				C837292E2212E5EF0058F292 /* protocols.swift */,
+				C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */,
 				C88BBDED21F8805F0053DF8D /* Main.storyboard */,
 				C88BBDEB21F8805F0053DF8D /* ViewController.swift */,
 				C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */,
@@ -95,6 +127,15 @@
 				C88BBDF521F880640053DF8D /* Info.plist */,
 			);
 			path = roblox_limited_items;
+			sourceTree = "<group>";
+		};
+		C8BC6D712211AE52007F9A6D /* roblox_limited_items_tests */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */,
+				C8BC6D742211AE52007F9A6D /* Info.plist */,
+			);
+			path = roblox_limited_items_tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +160,24 @@
 			productReference = C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C8BC6D6F2211AE52007F9A6D /* roblox_limited_items_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8BC6D772211AE52007F9A6D /* Build configuration list for PBXNativeTarget "roblox_limited_items_tests" */;
+			buildPhases = (
+				C8BC6D6C2211AE52007F9A6D /* Sources */,
+				C8BC6D6D2211AE52007F9A6D /* Frameworks */,
+				C8BC6D6E2211AE52007F9A6D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C8BC6D762211AE52007F9A6D /* PBXTargetDependency */,
+			);
+			name = roblox_limited_items_tests;
+			productName = roblox_limited_items_tests;
+			productReference = C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -131,6 +190,10 @@
 				TargetAttributes = {
 					C88BBDE521F8805F0053DF8D = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					C8BC6D6F2211AE52007F9A6D = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = C88BBDE521F8805F0053DF8D;
 					};
 				};
 			};
@@ -148,6 +211,7 @@
 			projectRoot = "";
 			targets = (
 				C88BBDE521F8805F0053DF8D /* roblox_limited_items */,
+				C8BC6D6F2211AE52007F9A6D /* roblox_limited_items_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -160,6 +224,13 @@
 				C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */,
 				C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */,
 				C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8BC6D6E2211AE52007F9A6D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,11 +294,30 @@
 				C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */,
 				C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */,
 				C8257B9E21F915F100320828 /* UserCollectablesController.swift in Sources */,
+				C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */,
+				C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */,
 				C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */,
+				C837292F2212E5EF0058F292 /* protocols.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8BC6D6C2211AE52007F9A6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C8BC6D762211AE52007F9A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C88BBDE521F8805F0053DF8D /* roblox_limited_items */;
+			targetProxy = C8BC6D752211AE52007F9A6D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C88BBDED21F8805F0053DF8D /* Main.storyboard */ = {
@@ -403,6 +493,46 @@
 			};
 			name = Release;
 		};
+		C8BC6D782211AE52007F9A6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 64F6S6MS6N;
+				INFOPLIST_FILE = roblox_limited_items_tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.davidanew.roblox-limited-items-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/roblox_limited_items.app/roblox_limited_items";
+			};
+			name = Debug;
+		};
+		C8BC6D792211AE52007F9A6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 64F6S6MS6N;
+				INFOPLIST_FILE = roblox_limited_items_tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.davidanew.roblox-limited-items-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/roblox_limited_items.app/roblox_limited_items";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -420,6 +550,15 @@
 			buildConfigurations = (
 				C88BBDF921F880640053DF8D /* Debug */,
 				C88BBDFA21F880640053DF8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8BC6D772211AE52007F9A6D /* Build configuration list for PBXNativeTarget "roblox_limited_items_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8BC6D782211AE52007F9A6D /* Debug */,
+				C8BC6D792211AE52007F9A6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
