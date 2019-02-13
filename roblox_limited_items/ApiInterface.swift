@@ -11,64 +11,39 @@ import Alamofire
 import SwiftyJSON
 
 class ApiInterface {
+    // don't know ig this is needed. but for now stote this as needed for table view
     var tempData : [String]
-    var getLatestCollectablesCompletionHandler : (([String]) -> Void )?
-    
-    //var completionHandler: ((Float)->Void)?
-    //    var recieveCatalogDelegate : RecieveCatalogDelegate?
-    
-/*
-    func getLatestCollectablesList() -> [String] {
-        return ["a","b"]
-    }
-    
-    func getLatestCollectablesListWithProtocol() {
-        
-        if let delegateReturn = recieveCatalogDelegate?.recieveCatalog(catalog: ["a","b"]) {
-            if delegateReturn == false {
-                print("delagate returned false")
-            }
-        }
-        else {
-            print("delegateReturn nil error")
-        }
-    }
- 
- */
     init() {
         tempData = ["a","b"]
-        
     }
-
-    //TODO work out what escaping does
     
-    func getLatestCollectables(completionHandler : @escaping ([String]) -> Void ) {
-        getLatestCollectablesCompletionHandler = completionHandler
-        //completionHandler(["a","b"])
+    // get the JSON and pass it to the latest collectables function. the call back for thr calling code is needed as the operation
+    // is asyncronous
+    func getLatestCollectables(getLatestCollectablesCompletionHandler : @escaping ([String]) -> Void ) {
+        // just put this simple bitcoin url in for now for testing
         let url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD"
         Alamofire.request(url, method: .get).responseJSON { response in
-            if response.result.isSuccess {
-                print("Success! Got the bitcoin data")
-                
-            } else {
-                print("Error: \(String(describing: response.result.error))")
+            let success : Bool = response.result.isSuccess
+            // this variable holds the JSON to be returned. it also i used as a flag to show if ther was success
+            // when not successful this will be nil
+            var valueJSON : JSON?
+            // if alamofire says the operation is successful
+            if success {
+                // set the JSON value
+                if let value = response.result.value {
+                    valueJSON = JSON(value)
+                }
             }
-            self.alamoFireLatestCollectablesCompletionHandler()
+            // TODO look at weak self and seans video
+            // call back to json handler, also needs root callback function
+            self.processLatestCollectablesJSON(  value : valueJSON , getLatestCollectablesCompletionHandler : getLatestCollectablesCompletionHandler)
         }
-        
     }
-    
-    func alamoFireLatestCollectablesCompletionHandler() {
-        getLatestCollectablesCompletionHandler(tempData!)
-        
+
+    func processLatestCollectablesJSON(value : JSON? , getLatestCollectablesCompletionHandler : @escaping ([String]) -> Void ) {
+        //TODO dont pass back the data, just a flag to say data is updated in this class
+        // call root callback funtion
+        getLatestCollectablesCompletionHandler(tempData)
     }
-        
-    
 }
 
-
-/*
- func classBFunction(_ completion: (String) -> Void) {
-    completion("all working")
-}
- */
