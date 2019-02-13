@@ -10,3 +10,13 @@ target 'roblox_limited_items' do
   pod 'Alamofire'
 
 end
+
+target 'roblox_limited_items_test' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for roblox_limited_items_test
+  pod 'SwiftyJSON'
+
+end
+

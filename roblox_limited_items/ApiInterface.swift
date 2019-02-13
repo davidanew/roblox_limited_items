@@ -22,9 +22,32 @@ class ApiInterface {
     func getLatestCollectables(getLatestCollectablesCompletionHandler : @escaping ([String]) -> Void ) {
         // just put this simple bitcoin url in for now for testing
         let url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD"
+//        Alamofire.request(url, method: .get).responseJSON { response in
+//            let success : Bool = response.result.isSuccess
+//            // this variable holds the JSON to be returned. it also i used as a flag to show if ther was success
+//            // when not successful this will be nil
+//            var valueJSON : JSON?
+//            // if alamofire says the operation is successful
+//            if success {
+//                // set the JSON value
+//                if let value = response.result.value {
+//                    valueJSON = JSON(value)
+//                }
+//            }
+//            // TODO look at weak self and seans video
+//            // call back to json handler, also needs root callback function
+//
+//            self.processLatestCollectablesJSON(  value : valueJSON , getLatestCollectablesCompletionHandler : getLatestCollectablesCompletionHandler)
+//        }
+        jsonAlamofire(url: url, jsonHandler: processLatestCollectablesJSON, rootCompletionHandler: getLatestCollectablesCompletionHandler)
+//        jsonAlamofire(url: url, rootCompletionHandler: getLatestCollectablesCompletionHandler)
+    }
+    
+    func jsonAlamofire(url : String , jsonHandler : @escaping (JSON?, (([String]) -> Void)?) -> Void , rootCompletionHandler : (([String]) -> Void)? ) {
+//      func jsonAlamofire(url : String , rootCompletionHandler : @escaping ([String]) -> Void ) {
         Alamofire.request(url, method: .get).responseJSON { response in
             let success : Bool = response.result.isSuccess
-            // this variable holds the JSON to be returned. it also i used as a flag to show if ther was success
+            // this variable holds the JSON to be returned. it also is used as a flag to show if ther was success
             // when not successful this will be nil
             var valueJSON : JSON?
             // if alamofire says the operation is successful
@@ -36,14 +59,16 @@ class ApiInterface {
             }
             // TODO look at weak self and seans video
             // call back to json handler, also needs root callback function
-            self.processLatestCollectablesJSON(  value : valueJSON , getLatestCollectablesCompletionHandler : getLatestCollectablesCompletionHandler)
+            jsonHandler(  valueJSON ,rootCompletionHandler)
+            
         }
     }
 
-    func processLatestCollectablesJSON(value : JSON? , getLatestCollectablesCompletionHandler : @escaping ([String]) -> Void ) {
+    func processLatestCollectablesJSON(value : JSON? , getLatestCollectablesCompletionHandler : (([String]) -> Void)? ) {
+    //func processLatestCollectablesJSON( getLatestCollectablesCompletionHandler : @escaping ([String]) -> Void ) {
         //TODO dont pass back the data, just a flag to say data is updated in this class
         // call root callback funtion
-        getLatestCollectablesCompletionHandler(tempData)
+        getLatestCollectablesCompletionHandler?(tempData)
     }
 }
 
