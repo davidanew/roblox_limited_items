@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+//import Kingfisher
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     let apiInterface = ApiInterface()
@@ -21,7 +21,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        apiInterface.getLatestCollectables(getLatestCollectablesCompletionHandler: getLatestCollectablesHandler)
+        apiInterface.getLatestCollectables(completionHandler: getLatestCollectablesHandler)
     }
     
     func getLatestCollectablesHandler(returnArray : [String]) {
@@ -54,12 +54,13 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         else {
             cell.detailTextLabel?.text = "error"
         }
-        if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
-            cell.imageView?.kf.setImage(with: URL(string: thumbnailUrl), placeholder: nil)
-        }
-        else {
+ //       if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
+ //           cell.imageView?.kf.setImage(with: URL(string: thumbnailUrl), placeholder: nil)
+ //           cell.imageView?.image = UIImage(named: "egg")
+ //       }
+ //       else {
             cell.imageView?.image = UIImage(named: "egg")
-        }
+  //      }
         return cell
     }
 

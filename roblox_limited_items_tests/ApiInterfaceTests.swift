@@ -12,16 +12,16 @@ class ApiInterfaceTests: XCTestCase {
     // this is the expectation handler for this
     let getLatestCollectablesExpectation = XCTestExpectation(description: "getLatestCollectablesExpectation")
     // jsonAlamofire is asycncronous and needs a callback function
-    let jsonAlamofireExpectation = XCTestExpectation(description: "jsonAlamofireExpectation")
+//    let jsonAlamofireExpectation = XCTestExpectation(description: "jsonAlamofireExpectation")
     
     //instructions https://developer.roblox.com/articles/Catalog-API
     let numCollectibles = 30
-    let urlLatestCollectables =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage=30"
-    let urlLatestAll =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&ResultsPerPage=30"
-    let urlBitcoin = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD"
+//    let urlLatestCollectables =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage=30"
+//    let urlLatestAll =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&ResultsPerPage=30"
+//    let urlBitcoin = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD"
     
-    var jsonLatestCollectables : JSON?
-    
+//    var jsonLatestCollectables : JSON?
+ /*
     func testJsonAlamofire() {
         print("Running testJsonAlamofire")
         let url = urlLatestCollectables
@@ -54,12 +54,13 @@ class ApiInterfaceTests: XCTestCase {
         jsonLatestCollectables = json
         jsonAlamofireExpectation.fulfill()
     }
+*/
     
     // test getLatestCollectables in ApiInterface
     func testGetLatestCollectables() {
         print("Running testGetLatestCollectablesList")
         // run funnction, it needs the name of the callback
-        iut.getLatestCollectables(getLatestCollectablesCompletionHandler: getLatestCollectablesCompletionHandler)
+        iut.getLatestCollectables(completionHandler: getLatestCollectablesCompletionHandler)
         //the funtion will call getLatestCollectablesCompletionHandler, which will fulfill the expectation
         wait(for: [getLatestCollectablesExpectation], timeout: 5)
 //        print(iut.jsonLatestCollectables)
