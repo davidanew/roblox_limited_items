@@ -21,6 +21,7 @@
 		C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */; };
 		C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6A22119645007F9A6D /* ApiInterface.swift */; };
 		C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */; };
+		C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FC5C152215A97D00D134CC /* jsonExamples.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = roblox_limited_items_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterfaceTests.swift; sourceTree = "<group>"; };
 		C8BC6D742211AE52007F9A6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8FC5C152215A97D00D134CC /* jsonExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonExamples.swift; sourceTree = "<group>"; };
 		FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.debug.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 				C88BBDF021F880640053DF8D /* Assets.xcassets */,
 				C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */,
 				C88BBDF521F880640053DF8D /* Info.plist */,
+				C8FC5C152215A97D00D134CC /* jsonExamples.swift */,
 			);
 			path = roblox_limited_items;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -308,6 +312,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */,
 				C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */,
 				C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */,
 				C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */,
