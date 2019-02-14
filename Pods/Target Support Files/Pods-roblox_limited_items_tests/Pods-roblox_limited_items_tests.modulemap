@@ -1,0 +1,6 @@
+framework module Pods_roblox_limited_items_tests {
+  umbrella header "Pods-roblox_limited_items_tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

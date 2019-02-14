@@ -11,7 +11,7 @@ target 'roblox_limited_items' do
 
 end
 
-target 'roblox_limited_items_test' do
+target 'roblox_limited_items_tests' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 

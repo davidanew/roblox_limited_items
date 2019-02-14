@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		571752A67E0800537BBD3ADF /* Pods_roblox_limited_items.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */; };
+		9C16A1C0DC607A9621619B54 /* Pods_roblox_limited_items_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4370C050465F96E1F7B9BC /* Pods_roblox_limited_items_tests.framework */; };
 		C8257B9E21F915F100320828 /* UserCollectablesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8257B9D21F915F100320828 /* UserCollectablesController.swift */; };
 		C837292F2212E5EF0058F292 /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837292E2212E5EF0058F292 /* protocols.swift */; };
-		C84C9D81220F3C7000E31FC8 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C9D80220F3C7000E31FC8 /* model.swift */; };
+		C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C9D80220F3C7000E31FC8 /* Models.swift */; };
 		C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDE921F8805F0053DF8D /* AppDelegate.swift */; };
 		C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDEB21F8805F0053DF8D /* ViewController.swift */; };
 		C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDED21F8805F0053DF8D /* Main.storyboard */; };
@@ -33,11 +34,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		440D5AA32AD8D0D8D3D50D26 /* Pods-roblox_limited_items_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items_tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items_tests/Pods-roblox_limited_items_tests.debug.xcconfig"; sourceTree = "<group>"; };
+		530B9B4513DBE8FD691A4112 /* Pods-roblox_limited_items_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items_tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items_tests/Pods-roblox_limited_items_tests.release.xcconfig"; sourceTree = "<group>"; };
 		5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_roblox_limited_items.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.release.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.release.xcconfig"; sourceTree = "<group>"; };
+		6A4370C050465F96E1F7B9BC /* Pods_roblox_limited_items_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_roblox_limited_items_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8257B9D21F915F100320828 /* UserCollectablesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectablesController.swift; sourceTree = "<group>"; };
 		C837292E2212E5EF0058F292 /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
-		C84C9D80220F3C7000E31FC8 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		C84C9D80220F3C7000E31FC8 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roblox_limited_items.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88BBDE921F8805F0053DF8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C88BBDEB21F8805F0053DF8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C16A1C0DC607A9621619B54 /* Pods_roblox_limited_items_tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */,
+				6A4370C050465F96E1F7B9BC /* Pods_roblox_limited_items_tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -86,6 +92,8 @@
 			children = (
 				FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */,
 				663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */,
+				440D5AA32AD8D0D8D3D50D26 /* Pods-roblox_limited_items_tests.debug.xcconfig */,
+				530B9B4513DBE8FD691A4112 /* Pods-roblox_limited_items_tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -120,7 +128,7 @@
 				C88BBDEB21F8805F0053DF8D /* ViewController.swift */,
 				C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */,
 				C8257B9D21F915F100320828 /* UserCollectablesController.swift */,
-				C84C9D80220F3C7000E31FC8 /* model.swift */,
+				C84C9D80220F3C7000E31FC8 /* Models.swift */,
 				C88BBDE921F8805F0053DF8D /* AppDelegate.swift */,
 				C88BBDF021F880640053DF8D /* Assets.xcassets */,
 				C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */,
@@ -164,9 +172,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C8BC6D772211AE52007F9A6D /* Build configuration list for PBXNativeTarget "roblox_limited_items_tests" */;
 			buildPhases = (
+				F8182201410A9FAC3F0F4C8C /* [CP] Check Pods Manifest.lock */,
 				C8BC6D6C2211AE52007F9A6D /* Sources */,
 				C8BC6D6D2211AE52007F9A6D /* Frameworks */,
 				C8BC6D6E2211AE52007F9A6D /* Resources */,
+				1112E8158E98978FF413A764 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -259,6 +269,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1112E8158E98978FF413A764 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items_tests/Pods-roblox_limited_items_tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items_tests/Pods-roblox_limited_items_tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		90DC48495E615F4FF986EF5E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -283,6 +315,28 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F8182201410A9FAC3F0F4C8C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-roblox_limited_items_tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -290,7 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C84C9D81220F3C7000E31FC8 /* model.swift in Sources */,
+				C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */,
 				C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */,
 				C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */,
 				C8257B9E21F915F100320828 /* UserCollectablesController.swift in Sources */,
@@ -495,6 +549,7 @@
 		};
 		C8BC6D782211AE52007F9A6D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 440D5AA32AD8D0D8D3D50D26 /* Pods-roblox_limited_items_tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -515,6 +570,7 @@
 		};
 		C8BC6D792211AE52007F9A6D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 530B9B4513DBE8FD691A4112 /* Pods-roblox_limited_items_tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
