@@ -9,15 +9,12 @@
 /* Begin PBXBuildFile section */
 		571752A67E0800537BBD3ADF /* Pods_roblox_limited_items.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */; };
 		9C16A1C0DC607A9621619B54 /* Pods_roblox_limited_items_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4370C050465F96E1F7B9BC /* Pods_roblox_limited_items_tests.framework */; };
-		C8257B9E21F915F100320828 /* UserCollectablesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8257B9D21F915F100320828 /* UserCollectablesController.swift */; };
-		C837292F2212E5EF0058F292 /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837292E2212E5EF0058F292 /* protocols.swift */; };
+		C837292F2212E5EF0058F292 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837292E2212E5EF0058F292 /* Protocols.swift */; };
 		C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C9D80220F3C7000E31FC8 /* Models.swift */; };
 		C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDE921F8805F0053DF8D /* AppDelegate.swift */; };
-		C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDEB21F8805F0053DF8D /* ViewController.swift */; };
 		C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDED21F8805F0053DF8D /* Main.storyboard */; };
 		C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF021F880640053DF8D /* Assets.xcassets */; };
 		C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */; };
-		C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */; };
 		C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */; };
 		C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6A22119645007F9A6D /* ApiInterface.swift */; };
 		C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */; };
@@ -42,17 +39,14 @@
 		5F8D876115CE33B2CE2A7F11 /* Pods_roblox_limited_items.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_roblox_limited_items.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.release.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.release.xcconfig"; sourceTree = "<group>"; };
 		6A4370C050465F96E1F7B9BC /* Pods_roblox_limited_items_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_roblox_limited_items_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8257B9D21F915F100320828 /* UserCollectablesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectablesController.swift; sourceTree = "<group>"; };
-		C837292E2212E5EF0058F292 /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
+		C837292E2212E5EF0058F292 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		C84C9D80220F3C7000E31FC8 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roblox_limited_items.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88BBDE921F8805F0053DF8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C88BBDEB21F8805F0053DF8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C88BBDEE21F8805F0053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C88BBDF021F880640053DF8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C88BBDF321F880640053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C88BBDF521F880640053DF8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUsernameController.swift; sourceTree = "<group>"; };
 		C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCollectablesVC.swift; sourceTree = "<group>"; };
 		C8BC6D6A22119645007F9A6D /* ApiInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterface.swift; sourceTree = "<group>"; };
 		C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = roblox_limited_items_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,15 +121,12 @@
 		C88BBDE821F8805F0053DF8D /* roblox_limited_items */ = {
 			isa = PBXGroup;
 			children = (
+				C837292E2212E5EF0058F292 /* Protocols.swift */,
+				C84C9D80220F3C7000E31FC8 /* Models.swift */,
 				C8BC6D6A22119645007F9A6D /* ApiInterface.swift */,
 				C8D2BE2E221608CD0073996B /* ImageInterface.swift */,
-				C837292E2212E5EF0058F292 /* protocols.swift */,
 				C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */,
 				C88BBDED21F8805F0053DF8D /* Main.storyboard */,
-				C88BBDEB21F8805F0053DF8D /* ViewController.swift */,
-				C88BBDFB21F8C7090053DF8D /* SetUsernameController.swift */,
-				C8257B9D21F915F100320828 /* UserCollectablesController.swift */,
-				C84C9D80220F3C7000E31FC8 /* Models.swift */,
 				C88BBDE921F8805F0053DF8D /* AppDelegate.swift */,
 				C88BBDF021F880640053DF8D /* Assets.xcassets */,
 				C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */,
@@ -357,13 +348,10 @@
 			files = (
 				C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */,
 				C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */,
-				C88BBDFC21F8C7090053DF8D /* SetUsernameController.swift in Sources */,
-				C88BBDEC21F8805F0053DF8D /* ViewController.swift in Sources */,
-				C8257B9E21F915F100320828 /* UserCollectablesController.swift in Sources */,
 				C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */,
 				C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */,
 				C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */,
-				C837292F2212E5EF0058F292 /* protocols.swift in Sources */,
+				C837292F2212E5EF0058F292 /* Protocols.swift in Sources */,
 				C8D2BE2F221608CD0073996B /* ImageInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -43,7 +43,9 @@ class ApiInterface {
     }
     
     func printJson() {
-        print(jsonLatestCollectables)
+        if let json = jsonLatestCollectables {
+            print(json)
+        }
     }
     
     func getIsForSale(index : Int) -> String?{
