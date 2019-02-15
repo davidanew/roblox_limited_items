@@ -1,7 +1,7 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import XCTest
-import SwiftyJSON
+//import SwiftyJSON
 @testable import roblox_limited_items
 
 class ApiInterfaceTests: XCTestCase {
@@ -17,7 +17,6 @@ class ApiInterfaceTests: XCTestCase {
     
     // test getLatestCollectables
     func testGetLatestCollectables() {
-        print("Running testGetLatestCollectables")
         // run funnction, it needs the name of the callback
         // todo put in closure
         iut.getLatestCollectables(completionHandler: getLatestCollectablesCompletionHandler)
