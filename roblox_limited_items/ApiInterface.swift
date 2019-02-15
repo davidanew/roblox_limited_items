@@ -42,6 +42,17 @@ class ApiInterface {
         }
     }
     
+    func printJson() {
+        print(jsonLatestCollectables)
+    }
+    
+    func getIsForSale(index : Int) -> String?{
+        let isForSale : String?
+        isForSale = jsonLatestCollectables?[index]["IsForSale"].stringValue
+        return isForSale
+    }
+    
+    
     // returns "true" or "false" optional sting based on JSON
     // value of isLimitedUnique for  given index
     func getIsLimitedUnique(index : Int) -> String?{
@@ -72,6 +83,18 @@ class ApiInterface {
         let updated : String?
         updated = jsonLatestCollectables?[index]["Updated"].stringValue
         return updated
+    }
+    
+    func getRemaining(index : Int) -> String?{
+        let remaining : String?
+        remaining = jsonLatestCollectables?[index]["Remaining"].stringValue
+        return remaining
+    }
+    
+    func getPrice(index : Int) -> String?{
+        let price : String?
+        price = jsonLatestCollectables?[index]["Price"].stringValue
+        return price
     }
     
     //Get number on entries (optional) in jsonLatestCollectables buffer
