@@ -5,10 +5,26 @@ import Alamofire
 
 // handle calls to get image objects
 class ImageInterface {
-    func getImage(url : String, row : Int , callBack : (Int) -> Void) {
-        print("will attempt to get image \(url)")
-        callBack(row)
+    // dictionary to act as cache for images
+    var imageCache: [String:UIImage] = [:]
+
+    func getImage(url : String, row : Int , callBack : @escaping (Int) -> Void) -> UIImage? {
+        if let image = imageCache[url] {
+            print("image in cache")
+            return image
+        }
+        else {
+            print("image not in cache")
+
+            Alamofire.request(url).response{ response in
+                print("alamofire cb")
+                if let data = response.data{
+                    let image = UIImage(data:data)
+                    self.imageCache[url] = image
+                    callBack(row)
+                }
+            }
+            return nil
+        }
     }
-    
-    
 }
