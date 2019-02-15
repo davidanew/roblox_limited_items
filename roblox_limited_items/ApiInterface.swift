@@ -4,123 +4,89 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+//handle calls to api and store resultant JSON objects
 class ApiInterface {
     
-    let urlLatestCollectables =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage=30"
-    
+    //Roblox search API instructions https://developer.roblox.com/articles/Catalog-API
+    let urlLatestCollectablesBase =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage="
+    //number of collectables to load in one go, max is 30
+    let numLatestCollectables = 30
+    //this to be constucted in initialiser
+    var urlLatestCollectables = ""
+    //buffer for latest collectables
     var jsonLatestCollectables : JSON?
-
-    // for now stote this as needed for table view
-    // update - this will be a json object
-//    var tempData : [String]
-//    init() {
-//        tempData = ["a","b"]
-//    }
+    
+    //cinstruct full url for collectables
+    init() {
+        urlLatestCollectables = urlLatestCollectablesBase + String(numLatestCollectables)
+    }
     
     // Function to get the latest collectables list from roblox
     // this function is called externally to the class. the call must include a handler that handles the return
-    // of this function. most lightly this handler will runa gui update.
-    //currently the callback is sent a string, this will likeley have to change
+    // of this function. most lightly this handler will run gui update.
+    // currently the callback is sent a string, this will likeley have to change
     func getLatestCollectables(completionHandler : @escaping ([String]) -> Void ) {
         let url = urlLatestCollectables
- //       jsonAlamofire(url: url, jsonHandler: processLatestCollectablesJSON, rootCompletionHandler: getLatestCollectablesCompletionHandler)
- //       jsonAlamofire(url: url, jsonProperty: jsonLatestCollectables, completionHandler: getLatestCollectablesCompletionHandler)
         Alamofire.request(url, method: .get).responseJSON { response in
             let success : Bool = response.result.isSuccess
-            // this variable holds the JSON to be returned. it also is used as a flag to show if there was success
-            // when not successful this will be nil
-            //           var valueJSON : JSON?
             // if alamofire says the operation is successful
             if success {
-                // set the JSON value
+                // set the jsonLatestCollectables buffer to the response
                 if let value = response.result.value {
                     self.jsonLatestCollectables = JSON(value)
                 }
             }
-            // TODO look at  seans video on memory and referencing
-            // call back to json handler, also needs root callback function
-            //           jsonHandler(  valueJSON ,rootCompletionHandler)
+            // this completion handler signams that the JSON retrival is done and buffer
+            // has results or is nil
             completionHandler([""])
-            
         }
-        
     }
     
-    // generic funtion to get a json object from a URL.
-    // this is a confusing setup
-    // A json handler is sent becuase the return is asyncronous. The json handler needs tp be sent the the root completion handler,
-    // hence the nested statements
-    // the root completion handler needs to be sent so it can be sent to the json handler!
-    // the root completion handler is optional as in testing we don't need the root completion handler
-//    func jsonAlamofire(url : String , jsonHandler : @escaping (JSON?, (([String]) -> Void)?) -> Void , rootCompletionHandler : (([String]) -> Void)? ) {
-//    func jsonAlamofire(url : String , jsonProperty:  inout JSON?, completionHandler : @escaping ([String]) -> Void ) {
-//        Alamofire.request(url, method: .get).responseJSON { response in
-//            let success : Bool = response.result.isSuccess
-            // this variable holds the JSON to be returned. it also is used as a flag to show if there was success
-            // when not successful this will be nil
- //           var valueJSON : JSON?
-            // if alamofire says the operation is successful
- //           if success {
-                // set the JSON value
- //               if let value = response.result.value {
- //                   jsonProperty = JSON(value)
-  //              }
- //           }
-            // TODO look at  seans video on memory and referencing
-            // call back to json handler, also needs root callback function
- //           jsonHandler(  valueJSON ,rootCompletionHandler)
- //           completionHandler([""])
-            
- //       }
-//    }
-
-//    func processLatestCollectablesJSON(json : JSON? , getLatestCollectablesCompletionHandler : (([String]) -> Void)? ) {
-        
-//        //TODO dont pass back the data, just a flag to say data is updated in this class
-//        // call root callback funtion
-//        jsonLatestCollectables = json
-        
-//        getLatestCollectablesCompletionHandler?([""])
- //   }
-    
-    //get limited status function here
-    
+    // returns "true" or "false" optional sting based on JSON
+    // value of isLimitedUnique for  given index
     func getIsLimitedUnique(index : Int) -> String?{
         let isLimitedUnique : String?
         isLimitedUnique = jsonLatestCollectables?[index]["IsLimitedUnique"].stringValue
         return isLimitedUnique
     }
     
+    // returns "true" or "false" optional sting based on JSON
+    // value of isLimited for given index
     func getIsLimited(index : Int) -> String?{
         let isLimited : String?
         isLimited = jsonLatestCollectables?[index]["IsLimited"].stringValue
         return isLimited
     }
     
+    // returns item name Name optional sting based on JSON
+    // value of Name for given index
     func getName(index : Int) -> String?{
         let name : String?
         name = jsonLatestCollectables?[index]["Name"].stringValue
         return name
     }
     
+    // returns updated time optional sting based on JSON
+    // value of Updated for given index
     func getUpdated(index : Int) -> String?{
         let updated : String?
         updated = jsonLatestCollectables?[index]["Updated"].stringValue
         return updated
     }
     
+    //Get number on entries (optional) in jsonLatestCollectables buffer
     func getNumEntries() -> Int?{
         let numEntries : Int?
         numEntries = jsonLatestCollectables?.count
         return numEntries
     }
     
+    // returns Thumbnail URL optional sting based on JSON
+    // value of thumbnailUrl for given index
     func getThumbnailUrl(index : Int) -> String?{
         let thumbnailUrl : String?
         thumbnailUrl = jsonLatestCollectables?[index]["ThumbnailUrl"].stringValue
         return thumbnailUrl
     }
-    
-    
 }
 
