@@ -32,7 +32,9 @@ class ApiInterfaceTests: XCTestCase {
             //TODO add missing getter tests
             XCTAssertNotNil(iut.getName(index : itemNum))
             XCTAssertNotNil(iut.getUpdated(index : itemNum))
+   //         print iut.getRemaining(index: itemNum)
         }
+        iut.printJson()
     }
     
     //TODO look at closures and tidy up
