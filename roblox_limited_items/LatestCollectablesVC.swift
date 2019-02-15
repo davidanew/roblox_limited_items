@@ -53,19 +53,43 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         else {
             cell.textLabel?.text = "error"
         }
-        // populate the detailed text with the "Updated" field
-        if let updated = apiInterface.getUpdated(index: indexPath.row) {
-            cell.detailTextLabel?.text = updated
-        }
-        else {
-            cell.detailTextLabel?.text = "error"
-        }
-        if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
-            imageInterface.getImage(url : thumbnailUrl, row: indexPath.row ) {row in
-                let indexPath = IndexPath(item: row, section: 0)
-                self.tableView.reloadRows(at: [indexPath], with: .top)
+//        // populate the detailed text with the "Updated" field
+//        if let updated = apiInterface.getUpdated(index: indexPath.row) {
+//            cell.detailTextLabel?.text = updated
+//        }
+//        else {
+//            cell.detailTextLabel?.text = "error"
+//        }
+        if let price = apiInterface.getPrice(index: (indexPath.row)) {
+            if let remaining = apiInterface.getRemaining(index: (indexPath.row)) {
+                if (price != "" && remaining != "") {
+                    cell.detailTextLabel?.text = "\(remaining) available @ \(price) Robux"
+                }
+                else if remaining == "" {
+                    cell.detailTextLabel?.text = "None available"
+                }
+                else if let isForSale = apiInterface.getIsForSale(index: indexPath.row) {
+                    if isForSale == "false" {
+                        cell.detailTextLabel?.text = "Not for sale"
+                    }
+                }
             }
-            cell.imageView?.image = UIImage(named: "egg")
+        }
+            
+        
+        if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
+            var image : UIImage?
+
+            image = imageInterface.getImage(url : thumbnailUrl, row: indexPath.row ) {row in
+                let indexPath = IndexPath(item: row, section: 0)
+                self.tableView.reloadRows(at: [indexPath], with: .left)
+            }
+            
+            if let thisImage = image {
+                cell.imageView?.image = thisImage
+                
+            }
+            //cell.imageView?.image = UIImage(named: "egg")
         }
         return cell
     }
