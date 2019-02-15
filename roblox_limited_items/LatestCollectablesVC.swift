@@ -10,28 +10,31 @@ import UIKit
 //import Kingfisher
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
+    // object to handle API calles
     let apiInterface = ApiInterface()
+    // object to handle HTTP calls to get image
+    let imageInterface = ImageInterface()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    //    apiInterface.getLatestCollectables(getLatestCollectablesCompletionHandler: getLatestCollectablesHandler)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //trigger gtiing get the list of latest collectables. This is ansync operation with
+        //callback of getLatestCollectablesHandler
         apiInterface.getLatestCollectables(completionHandler: getLatestCollectablesHandler)
     }
     
+    //TODO please look at closures and put this in viewWillAppear
     func getLatestCollectablesHandler(returnArray : [String]) {
-//        print ("got here")
         tableView.reloadData()
-        
-
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //on refresh get number of entries according to apiInterface
         if let numEntries = apiInterface.getNumEntries(){
             return numEntries
         }
@@ -41,26 +44,29 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //on refresh update the current cell
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle , reuseIdentifier: "catalogCell")
+        // populate name with one held by apiInterface
         if let name = apiInterface.getName(index: (indexPath.row)){
             cell.textLabel?.text = name
         }
         else {
             cell.textLabel?.text = "error"
         }
+        // populate the detailed text with the "Updated" field
         if let updated = apiInterface.getUpdated(index: indexPath.row) {
             cell.detailTextLabel?.text = updated
         }
         else {
             cell.detailTextLabel?.text = "error"
         }
- //       if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
- //           cell.imageView?.kf.setImage(with: URL(string: thumbnailUrl), placeholder: nil)
- //           cell.imageView?.image = UIImage(named: "egg")
- //       }
- //       else {
+        if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
+            imageInterface.getImage(url : thumbnailUrl, row: indexPath.row ) {row in
+                let indexPath = IndexPath(item: row, section: 0)
+                self.tableView.reloadRows(at: [indexPath], with: .top)
+            }
             cell.imageView?.image = UIImage(named: "egg")
-  //      }
+        }
         return cell
     }
 
