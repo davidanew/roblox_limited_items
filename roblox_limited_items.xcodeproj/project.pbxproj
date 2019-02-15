@@ -22,6 +22,7 @@
 		C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6A22119645007F9A6D /* ApiInterface.swift */; };
 		C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */; };
 		C8D2BE2F221608CD0073996B /* ImageInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2BE2E221608CD0073996B /* ImageInterface.swift */; };
+		C8F87B842216CB4500A909C8 /* ImageInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F87B832216CB4500A909C8 /* ImageInterfaceTests.swift */; };
 		C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FC5C152215A97D00D134CC /* jsonExamples.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterfaceTests.swift; sourceTree = "<group>"; };
 		C8BC6D742211AE52007F9A6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8D2BE2E221608CD0073996B /* ImageInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInterface.swift; sourceTree = "<group>"; };
+		C8F87B832216CB4500A909C8 /* ImageInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInterfaceTests.swift; sourceTree = "<group>"; };
 		C8FC5C152215A97D00D134CC /* jsonExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonExamples.swift; sourceTree = "<group>"; };
 		FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.debug.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */,
+				C8F87B832216CB4500A909C8 /* ImageInterfaceTests.swift */,
 				C8BC6D742211AE52007F9A6D /* Info.plist */,
 			);
 			path = roblox_limited_items_tests;
@@ -370,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */,
+				C8F87B842216CB4500A909C8 /* ImageInterfaceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
