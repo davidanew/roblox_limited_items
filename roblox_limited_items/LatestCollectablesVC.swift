@@ -1,7 +1,6 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
-//import Kingfisher
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     // object to handle API calles
@@ -9,15 +8,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     // object to handle HTTP calls to get image
     let imageInterface = ImageInterface()
     
+    // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //trigger gtiing get the list of latest collectables. This is ansync operation with
+        //trigger getting get the list of latest collectables. This is ansync operation with
         //callback of getLatestCollectablesHandler
         apiInterface.getLatestCollectables(completionHandler: getLatestCollectablesHandler)
     }
@@ -27,6 +23,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         tableView.reloadData()
     }
     
+    // Called by ios to get the number of cells in view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //on refresh get number of entries according to apiInterface
         if let numEntries = apiInterface.getNumEntries(){
@@ -37,23 +34,21 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         }
     }
     
+    // Called by ios to get information on a single cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //on refresh update the current cell
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle , reuseIdentifier: "catalogCell")
-        // populate name with one held by apiInterface
+        // populate name of the item
         if let name = apiInterface.getName(index: (indexPath.row)){
             cell.textLabel?.text = name
         }
         else {
             cell.textLabel?.text = "error"
         }
-//        // populate the detailed text with the "Updated" field
-//        if let updated = apiInterface.getUpdated(index: indexPath.row) {
-//            cell.detailTextLabel?.text = updated
-//        }
-//        else {
-//            cell.detailTextLabel?.text = "error"
-//        }
+        
+        // This section updated the subtile (detail text)
+        // We want the number of items remaining in here and also the price
+        // But the API is not consistant
+        // Still working out how to handle this
         if let price = apiInterface.getPrice(index: (indexPath.row)) {
             if let remaining = apiInterface.getRemaining(index: (indexPath.row)) {
                 if (price != "" && remaining != "") {
@@ -70,26 +65,32 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             }
         }
             
-        
+        // Get the thumbnail URL image using imageInterface
         if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
             var image : UIImage?
-
+            
+            // call getImage
+            // This will return an image if it is in the cache
+            // else getImage is passes a callback
+            // getImage needs teh row as it is sent in the callback
             image = imageInterface.getImage(url : thumbnailUrl, row: indexPath.row ) {row in
+                // the callback recieves the row
                 let indexPath = IndexPath(item: row, section: 0)
+                // refresh row
                 self.tableView.reloadRows(at: [indexPath], with: .left)
             }
-            
+            // TODO, try dummy image (maybe just roblox symbol)
+            // This will solve refresh animation problems
+            // display image in cell if valid
             if let thisImage = image {
                 cell.imageView?.image = thisImage
-                
             }
             //cell.imageView?.image = UIImage(named: "egg")
         }
         return cell
     }
-
-}
-
-
-//let url = URL(string: "https://example.com/image.png")
-//imageView.kf.setImage(with: url)
+    
+    // if row is tapped on then go to the detail VC
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ShowItemDetail", sender: self)
+    }
