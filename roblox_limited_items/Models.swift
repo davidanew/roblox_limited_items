@@ -1,12 +1,5 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import Foundation
-/*
-// struct that contains the username and ID. This is passed between view contollers
-struct Identifier {
-    var username : String?
-    var id : Int?
-}
-*/
 
-
+// no models at the moment, trying to abstract them through the classes
