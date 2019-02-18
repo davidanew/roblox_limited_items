@@ -1,10 +1,4 @@
-//
-//  ImageInterfaceTests.swift
-//  roblox_limited_items_tests
-//
-//  Created by David New on 15/02/2019.
 //  Copyright © 2019 David New. All rights reserved.
-//
 
 import Foundation
 import XCTest
