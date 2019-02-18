@@ -44,4 +44,18 @@ class ApiInterfaceTests: XCTestCase {
         // fulfill expectation in testGetLatestCollectablesList
         getLatestCollectablesExpectation.fulfill()
     }
+    
+    func testSetLatestCollectables(){
+        testGetLatestCollectables()
+        if let testJson = iut.getLatestCollectablesData(){
+            iut.jsonLatestCollectables = nil
+            iut.setLatestCollectablesData(latestCollectablesData: testJson)
+            XCTAssertTrue(iut.getIsLimitedUnique(index : 0) == "true" || iut.getIsLimited(index : 0) == "true")
+        }
+        else {
+            XCTFail()
+        }
+        
+    }
+    
 }
