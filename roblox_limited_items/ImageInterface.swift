@@ -7,22 +7,28 @@ import Alamofire
 class ImageInterface {
     // dictionary to act as cache for images
     var imageCache: [String:UIImage] = [:]
-
+    
+    // This funtion returns the image if it is in the cache. Otherwise it calls alomofire with user supplied callback
+    // this callback most likely will trigger a refresh
     func getImage(url : String, row : Int , callBack : @escaping (Int) -> Void) -> UIImage? {
         if let image = imageCache[url] {
- //           print("image in cache")
+            // image at that URL is already in the cache
             return image
         }
         else {
- //           print("image not in cache")
-
+            // Image is not in the cache
             Alamofire.request(url).response{ response in
- //               print("alamofire cb")
+ //             // alamofire callback
                 if let data = response.data{
+                    // data is not nil
                     let image = UIImage(data:data)
+                    // put image in cache
                     self.imageCache[url] = image
+                    // callBack to say data is valid
                     callBack(row)
                 }
+                //TODO - some error checking, is there a timout from alomofire
+                //Do we need this?
             }
             return nil
         }
