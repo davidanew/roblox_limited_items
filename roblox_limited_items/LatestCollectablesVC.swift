@@ -1,12 +1,14 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
+import SwiftyJSON
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     // object to handle API calles
     let apiInterface = ApiInterface()
     // object to handle HTTP calls to get image
     let imageInterface = ImageInterface()
+    var selectedRow : Int?
     
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
@@ -49,6 +51,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         // We want the number of items remaining in here and also the price
         // But the API is not consistant
         // Still working out how to handle this
+        /*
         if let price = apiInterface.getPrice(index: (indexPath.row)) {
             if let remaining = apiInterface.getRemaining(index: (indexPath.row)) {
                 if (price != "" && remaining != "") {
@@ -64,7 +67,29 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 }
             }
         }
-            
+        */
+        
+        if let isForSale = apiInterface.getIsForSale(index: indexPath.row) {
+            if isForSale == "true" {
+                if let price = apiInterface.getPrice(index: indexPath.row) {
+                    if let numRemaining = apiInterface.getRemaining(index: indexPath.row) {
+                        if numRemaining != "" {
+                            cell.detailTextLabel?.text = "\(numRemaining) available @ \(price) Robux"
+                        }
+                        else {
+                            cell.detailTextLabel?.text = "\(price) Robux"
+                        }
+                    }
+                    else {
+                        cell.detailTextLabel?.text = "\(price) Robux"
+                    }
+                }
+            }
+            else {
+                cell.detailTextLabel?.text = "Not for Sale"
+            }
+        }
+        
         // Get the thumbnail URL image using imageInterface
         if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
             var image : UIImage?
@@ -92,9 +117,25 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     // if row is tapped on then go to the detail VC
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = indexPath.row
         self.performSegue(withIdentifier: "ShowItemDetail", sender: self)
     }
     
     //prepare for segue
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowItemDetail" {
+            let destinationVC = segue.destination as!  ItemDetailVC
+            if let dataToSend : JSON = apiInterface.getLatestCollectablesData() {
+                if let rowToSend = selectedRow {
+                    destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
+                }
+                else {
+                    print("segue tried to send nil row")
+                }
+            }
+            else {
+                print ("segue tried to send nil JSON")
+            }
+        }
+    }
 }
