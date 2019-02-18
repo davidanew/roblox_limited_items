@@ -27,7 +27,6 @@ class ApiInterface {
     // currently the callback is sent a string, this will likley have to change as it is not needed
     // TODO = remove redundant string in completion handler - should be a bool?
     // bool would be good as refresh won't be run
-    
     func setLatestCollectablesData(latestCollectablesData : JSON){
         jsonLatestCollectables = latestCollectablesData
     }
