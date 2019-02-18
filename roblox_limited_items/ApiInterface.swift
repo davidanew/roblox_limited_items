@@ -16,15 +16,17 @@ class ApiInterface {
     //buffer for latest collectables
     var jsonLatestCollectables : JSON?
     
-    //cinstruct full url for collectables
+    //construct full url for collectables
     init() {
         urlLatestCollectables = urlLatestCollectablesBase + String(numLatestCollectables)
     }
     
     // Function to get the latest collectables list from roblox
     // this function is called externally to the class. the call must include a handler that handles the return
-    // of this function. most lightly this handler will run gui update.
-    // currently the callback is sent a string, this will likeley have to change
+    // of this function. Most lightly this handler will run gui update.
+    // currently the callback is sent a string, this will likley have to change as it is not needed
+    // TODO = remove redundant string in completion handler - should be a bool?
+    // bool would be good as refresh won't be run
     func getLatestCollectables(completionHandler : @escaping ([String]) -> Void ) {
         let url = urlLatestCollectables
         Alamofire.request(url, method: .get).responseJSON { response in
@@ -36,18 +38,26 @@ class ApiInterface {
                     self.jsonLatestCollectables = JSON(value)
                 }
             }
-            // this completion handler signams that the JSON retrival is done and buffer
+            // TODO - it woul be good if alamofire has a timeout so w can tell the user there is a networl
+            // problem
+            // this completion handler signals that the JSON retrieval is done and buffer
             // has results or is nil
             completionHandler([""])
         }
     }
     
     func printJson() {
+        //this just for debugging
         if let json = jsonLatestCollectables {
             print(json)
         }
     }
     
+    //TODO, funtion to return sinf entry JSON and also to set JSON
+    // this is needed for abstaction of passing data to detail VC
+    
+    // returns "true" or "false" optional sting based on JSON
+    // value of isForSale for  given index
     func getIsForSale(index : Int) -> String?{
         let isForSale : String?
         isForSale = jsonLatestCollectables?[index]["IsForSale"].stringValue
@@ -87,12 +97,17 @@ class ApiInterface {
         return updated
     }
     
+    
+    // returns updated time optional sting based on JSON
+    // value of Remaining for given index
     func getRemaining(index : Int) -> String?{
         let remaining : String?
         remaining = jsonLatestCollectables?[index]["Remaining"].stringValue
         return remaining
     }
     
+    // returns updated time optional sting based on JSON
+    // value of Price for given index
     func getPrice(index : Int) -> String?{
         let price : String?
         price = jsonLatestCollectables?[index]["Price"].stringValue
