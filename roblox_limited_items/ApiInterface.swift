@@ -27,6 +27,11 @@ class ApiInterface {
     // currently the callback is sent a string, this will likley have to change as it is not needed
     // TODO = remove redundant string in completion handler - should be a bool?
     // bool would be good as refresh won't be run
+    
+    func setLatestCollectablesData(latestCollectablesData : JSON){
+        jsonLatestCollectables = latestCollectablesData
+    }
+    
     func getLatestCollectables(completionHandler : @escaping ([String]) -> Void ) {
         let url = urlLatestCollectables
         Alamofire.request(url, method: .get).responseJSON { response in
@@ -53,8 +58,10 @@ class ApiInterface {
         }
     }
     
-    //TODO, funtion to return sinf entry JSON and also to set JSON
-    // this is needed for abstaction of passing data to detail VC
+    func getLatestCollectablesData() -> JSON? {
+        return jsonLatestCollectables
+    }
+
     
     // returns "true" or "false" optional sting based on JSON
     // value of isForSale for  given index
