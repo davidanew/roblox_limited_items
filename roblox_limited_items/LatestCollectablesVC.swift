@@ -8,6 +8,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     let apiInterface = ApiInterface()
     // object to handle HTTP calls to get image
     let imageInterface = ImageInterface()
+    // need to store selected row as prepare for segue is asyncronous
     var selectedRow : Int?
     
     // need this outlet so we can force refreshes
@@ -50,25 +51,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         // This section updated the subtile (detail text)
         // We want the number of items remaining in here and also the price
         // But the API is not consistant
-        // Still working out how to handle this
-        /*
-        if let price = apiInterface.getPrice(index: (indexPath.row)) {
-            if let remaining = apiInterface.getRemaining(index: (indexPath.row)) {
-                if (price != "" && remaining != "") {
-                    cell.detailTextLabel?.text = "\(remaining) available @ \(price) Robux"
-                }
-                else if remaining == "" {
-                    cell.detailTextLabel?.text = "None available"
-                }
-                else if let isForSale = apiInterface.getIsForSale(index: indexPath.row) {
-                    if isForSale == "false" {
-                        cell.detailTextLabel?.text = "Not for sale"
-                    }
-                }
-            }
-        }
-        */
-        
+        // so the code is messy
         if let isForSale = apiInterface.getIsForSale(index: indexPath.row) {
             if isForSale == "true" {
                 if let price = apiInterface.getPrice(index: indexPath.row) {
@@ -117,15 +100,19 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     // if row is tapped on then go to the detail VC
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //save selected row for segue
         selectedRow = indexPath.row
         self.performSegue(withIdentifier: "ShowItemDetail", sender: self)
     }
     
     //prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //if we are using the segue that goes to the detail VC
         if segue.identifier == "ShowItemDetail" {
             let destinationVC = segue.destination as!  ItemDetailVC
+            //If we have valid data to send (which should always be true)
             if let dataToSend : JSON = apiInterface.getLatestCollectablesData() {
+                //also if row number is valid
                 if let rowToSend = selectedRow {
                     destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
                 }

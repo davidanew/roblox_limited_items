@@ -45,17 +45,21 @@ class ApiInterfaceTests: XCTestCase {
         getLatestCollectablesExpectation.fulfill()
     }
     
+    // test the functions that pass data between the view controllers
     func testSetLatestCollectables(){
+        //Need to get a JSON as test data
         testGetLatestCollectables()
         if let testJson = iut.getLatestCollectablesData(){
+            // clear the JSON data sto intialise the test
             iut.jsonLatestCollectables = nil
+            //call the function under test
             iut.setLatestCollectablesData(latestCollectablesData: testJson)
+            //make sure we can extract data
             XCTAssertTrue(iut.getIsLimitedUnique(index : 0) == "true" || iut.getIsLimited(index : 0) == "true")
         }
         else {
+            //If getting the initial test data fails
             XCTFail()
         }
-        
     }
-    
 }

@@ -2,4 +2,5 @@
 
 import Foundation
 
-// no models at the moment, trying to abstract them through the classes
+// Consider using a struct to carry the JSON when passing to another VC
+

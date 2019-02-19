@@ -4,9 +4,12 @@ import UIKit
 import SwiftyJSON
 
 class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
+    //need API interface to hold data and use functions for retieval
     var apiInterface = ApiInterface()
+    // This is the row in the collectables data that the item is at
     var rowInData : Int?
     
+    // At the moment just output data to labels
     @IBOutlet weak var Label1: UILabel!
     @IBOutlet weak var Label2: UILabel!
     @IBOutlet weak var Label3: UILabel!
@@ -15,18 +18,18 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     @IBOutlet weak var Label6: UILabel!
     @IBOutlet weak var Label8: UILabel!
     
+    // This function used to send JSON data into this instance of apiInterface
+    // Also need row for the item of interest
     func setLatestCollectablesData (latestCollectablesData: JSON, detailsForRow: Int) {
+        //Set the new data in apiInterface
         apiInterface.setLatestCollectablesData(latestCollectablesData: latestCollectablesData)
+        //Keep the row number
         rowInData = detailsForRow
- //       if let row = rowInData {
- //           if let name = apiInterface.getName(index: row) {
- //               print("\(name)")
- //           }
- //       }
     }
     
      override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // try out putting the value sin the labels
         if let row = rowInData {
             Label1.text = apiInterface.getName(index: row)
             Label2.text = apiInterface.getRemaining(index: row)

@@ -50,13 +50,16 @@ class ApiInterface {
         }
     }
     
+    /*
     func printJson() {
         //this just for debugging
         if let json = jsonLatestCollectables {
             print(json)
         }
     }
+    */
     
+    //get JSON to pass during segue
     func getLatestCollectablesData() -> JSON? {
         return jsonLatestCollectables
     }
