@@ -13,6 +13,7 @@ class ImageInterface {
     func getImage(url : String, row : Int , closure : @escaping (Int) -> Void) -> UIImage? {
         if let image = imageCache[url] {
             // image at that URL is already in the cache
+            // callback will not be used
             return image
         }
         else {

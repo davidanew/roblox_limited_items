@@ -13,10 +13,14 @@ class ApiInterface {
     let numLatestCollectables = 30
     //this to be constucted in initialiser
     var urlLatestCollectables = ""
+    //for getting the URL of the large thumbnail
+    //TODO is this actually a thumbnail - may need to rename
+    //This has a placeholder _ASSETID_ which is substitituted in retrieveLargeThumbnailData
     let largeThumbnailURLTemplate = "https://thumbnails.roblox.com/v1/assets?assetIds=_ASSETID_&size=420x420&format=Png"
 
     //buffer for latest collectables
     var jsonLatestCollectables : JSON?
+    //buffer for large thumbnail
     var jsonLargeThumbnail : JSON?
     
     //construct full url for collectables
@@ -24,16 +28,14 @@ class ApiInterface {
         urlLatestCollectables = urlLatestCollectablesBase + String(numLatestCollectables)
     }
     
-    // Function to get the latest collectables list from roblox
-    // this function is called externally to the class. the call must include a handler that handles the return
-    // of this function. Most lightly this handler will run gui update.
-    // currently the callback is sent a string, this will likley have to change as it is not needed
-    // TODO = remove redundant string in completion handler - should be a bool?
-    // bool would be good as refresh won't be run
+    // this function is used to set the collectables data when the detail VC is loaded
     func setLatestCollectablesData(latestCollectablesData : JSON){
         jsonLatestCollectables = latestCollectablesData
     }
     
+    // Function to get the latest collectables list from roblox
+    // this function is called externally to the class. the call must include a handler that handles the return
+    // of this function. Most lightly this handler will run gui update.
     func retrieveLatestCollectablesData(closure : @escaping (Bool) -> Void ) {
         let url = urlLatestCollectables
         Alamofire.request(url, method: .get).responseJSON { response in
@@ -55,15 +57,16 @@ class ApiInterface {
     
     func retrieveLargeThumbnailData(index : Int, closure : @escaping (Bool) -> Void)  {
         if let assetId = getAssetId(index: index){
+            //put asset in request
             let url = largeThumbnailURLTemplate.replacingOccurrences(of: "_ASSETID_", with: "\(assetId)")
-            print ("large thumbnail url")
-            print(url)
+ //           print ("large thumbnail url")
+ //           print(url)
             Alamofire.request(url, method: .get).responseJSON { response in
                 let alamofireSuccess : Bool = response.result.isSuccess
                 var jsonSuccess : Bool = false
                 // if alamofire says the operation is successful
                 if alamofireSuccess {
-                    // set the jsonLatestCollectables buffer to the response
+                    // set the jsonLargeThumbnail buffer to the response
                     if let value = response.result.value {
                         self.jsonLargeThumbnail = JSON(value)
                         jsonSuccess = true
@@ -72,14 +75,13 @@ class ApiInterface {
                 if !jsonSuccess {
                     self.jsonLargeThumbnail = nil
                 }
-                // TODO - it woul be good if alamofire has a timeout so w can tell the user there is a networl
-                // problem
-                // this completion handler signals that the JSON retrieval is done and buffer
-                // has results or is nil
+                // TODO same comments as retrieveLatestCollectablesData
                 closure(jsonSuccess)
             }
         }
     }
+    
+    //TODO: fold all these functions into single lines
     
     func getLargeThumbnailUrl() -> String?{
         var thumbnailUrl : String?

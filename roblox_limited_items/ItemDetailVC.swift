@@ -6,6 +6,7 @@ import SwiftyJSON
 class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     //need API interface to hold data and use functions for retieval
     var apiInterface = ApiInterface()
+    //need image interface to get large thumbnail
     var imageInterface = ImageInterface()
     // This is the row in the collectables data that the item is at
     var rowInData : Int?
@@ -21,6 +22,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     @IBOutlet weak var label7: UILabel!
     
     // This function used to send JSON data into this instance of apiInterface
+    // after segue from collectables VC
     // Also need row for the item of interest
     func setLatestCollectablesData (latestCollectablesData: JSON, detailsForRow: Int) {
         //Set the new data in apiInterface
@@ -31,24 +33,21 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     
      override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // try out putting the value sin the labels
+        // if there is a valid row number (which should have been set by
+        // setLatestCollectablesData called from the source segue
         if let row = rowInData {
- /*           if let imageUrl = apiInterface.getLargeThumbnailData(index: row){
-                //row could be optional here as not needed for non table view
-                image1.image = imageInterface.getImage(url: imageUrl, row: row, closure: { (row) in
-                    self.image1.image = self.imageInterface.getImage(url: imageUrl, row: row, closure: { (row) in
-                        print("double image cache miss")
-                    })
-                })
-            } */
-            
-            // TODO: put this code in test!
-            // may need to daisy chain with expectations
             apiInterface.retrieveLargeThumbnailData(index: row) { (success) in
-                // if success
+                // when retrieveLargeThumbnailData finishes it will run this:
+                // check that there is a url returned.
                 if let imageUrl = self.apiInterface.getLargeThumbnailUrl() {
+                    // attempt to set the image view. If image is valid the view will be updated and the closure will
+                    // not be run. On the first run this will alays fail as the image is not in the cache
                     self.image1.image = self.imageInterface.getImage(url: imageUrl, row: row, closure: { (row) in
+                        // this closure will run if the image is not in the cache. it should return the image
+                        // and update the imageview
                         self.image1.image = self.imageInterface.getImage(url: imageUrl, row: row, closure: { (row) in
+                            //If this closure is run it means that the image has still not been retrieved
+                            //TODO think about error checking here
                             print("double image cache miss")
                         })
                     })
@@ -61,29 +60,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
             label3.text = apiInterface.getPrice(index: row)
             label4.text = apiInterface.getUpdated(index: row)
             label5.text = apiInterface.getIsForSale(index: row)
-            
-            
         }
     }
 }
 
-/*
-func getIsForSale(index : Int) -> String?{
-
-func getIsLimitedUnique(index : Int) -> String?{
- 
-func getIsLimited(index : Int) -> String?{
- 
-func getName(index : Int) -> String?{
- 
-func getUpdated(index : Int) -> String?{
-
-func getRemaining(index : Int) -> String?{
-
-func getPrice(index : Int) -> String?{
- 
-func getNumEntries() -> Int?{
- 
-func getThumbnailUrl(index : Int) -> String?{
- 
-*/

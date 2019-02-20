@@ -16,24 +16,16 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // UPDATE //trigger getting get the list of latest collectables. This is ansync operation with
-        //callback of getLatestCollectablesHandler
+        //Get the list of latest collectables
         apiInterface.retrieveLatestCollectablesData{ (success) in
             if success {
+                // reload data will make all cells request there data from apiIterface
+                // which should all now be valid
                 self.tableView.reloadData()
             }
         }
     }
-    
 
-    
-    //TODO please look at closures and put this in viewWillAppear
- /*   func getLatestCollectablesHandler(success : Bool) {
-        if success {
-            tableView.reloadData()
-        }
-    }
- */
     // Called by ios to get the number of cells in view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //on refresh get number of entries according to apiInterface
@@ -47,6 +39,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     // Called by ios to get information on a single cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // this is the cell that will be returned by the function
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle , reuseIdentifier: "catalogCell")
         // populate name of the item
         if let name = apiInterface.getName(index: (indexPath.row)){
@@ -55,17 +48,15 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         else {
             cell.textLabel?.text = "error"
         }
-        
+        //set the subtitle
         cell.detailTextLabel?.text = getSubtitleText(row : indexPath.row)
-
         // Get the thumbnail URL image using imageInterface
         if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
             var image : UIImage?
-            
             // call getImage
             // This will return an image if it is in the cache
-            // else getImage is passes a callback
-            // getImage needs teh row as it is sent in the callback
+            // else getImage is passed a callback
+            // getImage needs the row as it is sent in the callback
             image = imageInterface.getImage(url : thumbnailUrl, row: indexPath.row ) {row in
                 // the callback recieves the row
                 let indexPath = IndexPath(item: row, section: 0)
@@ -83,11 +74,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         return cell
     }
     
+    // This function construct text for subtile (detail text)
+    // We want the number of items remaining in here and also the price
     func getSubtitleText(row : Int) -> String? {
-        // This section updated the subtile (detail text)
-        // We want the number of items remaining in here and also the price
-        // But the API is not consistant
-        // so the code is messy
         if let isForSale = apiInterface.getIsForSale(index: row) {
             if isForSale == "true" {
                 if let price = apiInterface.getPrice(index: row) {
@@ -99,7 +88,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 }
             }
         }
+        // if we had valid data for everything the function would have exited by noy
         if let updated = apiInterface.getUpdated(index: row) {
+            // just show when the item was updated if there is not valid data
             return "Updated \(updated)"
         }
         return nil
@@ -109,6 +100,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //save selected row for segue
         selectedRow = indexPath.row
+        // go to detail VC
         self.performSegue(withIdentifier: "ShowItemDetail", sender: self)
     }
     
@@ -117,10 +109,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         //if we are using the segue that goes to the detail VC
         if segue.identifier == "ShowItemDetail" {
             let destinationVC = segue.destination as!  ItemDetailVC
-            //If we have valid data to send (which should always be true)
+            //If we have valid data to send (which should always be true as the
+            // user clicked on a cell)
             if let dataToSend : JSON = apiInterface.getLatestCollectablesData() {
                 //also if row number is valid
                 if let rowToSend = selectedRow {
+                    //send the data (Uses setLatestCollectablesDelegate)
                     destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
                 }
                 else {
