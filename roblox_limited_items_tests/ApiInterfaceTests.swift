@@ -11,17 +11,25 @@ class ApiInterfaceTests: XCTestCase {
     let iut = ApiInterface()
     // getlatestCollectables is asyncronous so needs a callback function
     // this is the expectation handler for this
-    let getLatestCollectablesExpectation = XCTestExpectation(description: "getLatestCollectablesExpectation")
+    let retrieveLatestCollectablesDataExpectation = XCTestExpectation(description: "retrieveLatestCollectablesDataExpectation")
+    let retrieveLargeThumbnailDataExpectation = XCTestExpectation(description: "retrieveLargeThumbnailDataExpectation")
     //TODO get this from apiInterface
     let numCollectibles = 30
     
     // test getLatestCollectables
-    func testGetLatestCollectables() {
+    func testRetrieveLatestCollectablesData() {
         // run funnction, it needs the name of the callback
         // todo put in closure
-        iut.getLatestCollectables(completionHandler: getLatestCollectablesCompletionHandler)
-        //the function will call getLatestCollectablesCompletionHandler, which will fulfill the expectation
-        wait(for: [getLatestCollectablesExpectation], timeout: 5)
+//        iut.retrieveLatestCollectables(completionHandler: getLatestCollectablesCompletionHandler)
+        iut.retrieveLatestCollectablesData { (success) in
+//            print("callback successful, recieved \(catalog)")
+            // fulfill expectation in testGetLatestCollectablesList
+            if success {
+                self.retrieveLatestCollectablesDataExpectation.fulfill()
+            }
+        }
+        //update comment//the function will call getLatestCollectablesCompletionHandler, which will fulfill the expectation
+        wait(for: [retrieveLatestCollectablesDataExpectation], timeout: 5)
         // check JSON is not nil
         XCTAssertNotNil(iut.getNumEntries())
         // loop through all items
@@ -32,23 +40,27 @@ class ApiInterfaceTests: XCTestCase {
             //TODO add missing getter tests
             XCTAssertNotNil(iut.getName(index : itemNum))
             XCTAssertNotNil(iut.getUpdated(index : itemNum))
-   //         print iut.getRemaining(index: itemNum)
+            //could call image interface to see if image is recieved
+ //           XCTAssertNotNil(iut.retrieveLargeThumbnailData(index: itemNum))
+            
+ //               print (iut.getLargeThumbnailUrl(index: itemNum))
         }
-        iut.printJson()
+//        iut.printJson()
     }
     
     //TODO look at closures and tidy up
     // the callback for testGetLatestCollectablesList
-    func getLatestCollectablesCompletionHandler(catalog : [String]) {
+/*    func getLatestCollectablesCompletionHandler(catalog : [String]) {
         print("callback successful, recieved \(catalog)")
         // fulfill expectation in testGetLatestCollectablesList
         getLatestCollectablesExpectation.fulfill()
     }
+*/
     
     // test the functions that pass data between the view controllers
-    func testSetLatestCollectables(){
+    func testSetLatestCollectablesData(){
         //Need to get a JSON as test data
-        testGetLatestCollectables()
+        testRetrieveLatestCollectablesData()
         if let testJson = iut.getLatestCollectablesData(){
             // clear the JSON data sto intialise the test
             iut.jsonLatestCollectables = nil
@@ -59,6 +71,31 @@ class ApiInterfaceTests: XCTestCase {
         }
         else {
             //If getting the initial test data fails
+            XCTFail()
+        }
+    }
+    
+    func testRetrieveLargeThumbnailData () {
+        // may need to daisy chain with expectations
+        //var url : String?
+        
+        testRetrieveLatestCollectablesData()
+        let row = 0
+        iut.retrieveLargeThumbnailData(index: row) { (success) in
+           self.retrieveLargeThumbnailDataExpectation.fulfill()
+        }
+        wait(for: [retrieveLargeThumbnailDataExpectation], timeout: 5)
+        //url = iut.getLargeThumbnailUrl()
+        //print("large thumbnail url:")
+        //print (url)
+//        print (iut.jsonLargeThumbnail)
+//        print (iut.jsonLatestCollectables)
+        if let url = iut.getLargeThumbnailUrl() {
+ //           print ("return from getlargethumbnail")
+//            print (url)
+            XCTAssertFalse(url == "")
+        }
+        else {
             XCTFail()
         }
     }
