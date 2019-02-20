@@ -16,16 +16,24 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //trigger getting get the list of latest collectables. This is ansync operation with
+        // UPDATE //trigger getting get the list of latest collectables. This is ansync operation with
         //callback of getLatestCollectablesHandler
-        apiInterface.getLatestCollectables(completionHandler: getLatestCollectablesHandler)
+        apiInterface.retrieveLatestCollectablesData{ (success) in
+            if success {
+                self.tableView.reloadData()
+            }
+        }
     }
+    
+
     
     //TODO please look at closures and put this in viewWillAppear
-    func getLatestCollectablesHandler(returnArray : [String]) {
-        tableView.reloadData()
+ /*   func getLatestCollectablesHandler(success : Bool) {
+        if success {
+            tableView.reloadData()
+        }
     }
-    
+ */
     // Called by ios to get the number of cells in view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //on refresh get number of entries according to apiInterface
@@ -48,31 +56,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             cell.textLabel?.text = "error"
         }
         
-        // This section updated the subtile (detail text)
-        // We want the number of items remaining in here and also the price
-        // But the API is not consistant
-        // so the code is messy
-        if let isForSale = apiInterface.getIsForSale(index: indexPath.row) {
-            if isForSale == "true" {
-                if let price = apiInterface.getPrice(index: indexPath.row) {
-                    if let numRemaining = apiInterface.getRemaining(index: indexPath.row) {
-                        if numRemaining != "" {
-                            cell.detailTextLabel?.text = "\(numRemaining) available @ \(price) Robux"
-                        }
-                        else {
-                            cell.detailTextLabel?.text = "\(price) Robux"
-                        }
-                    }
-                    else {
-                        cell.detailTextLabel?.text = "\(price) Robux"
-                    }
-                }
-            }
-            else {
-                cell.detailTextLabel?.text = "Not for Sale"
-            }
-        }
-        
+        cell.detailTextLabel?.text = getSubtitleText(row : indexPath.row)
+
         // Get the thumbnail URL image using imageInterface
         if let thumbnailUrl = apiInterface.getThumbnailUrl(index: indexPath.row) {
             var image : UIImage?
@@ -96,6 +81,28 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             //cell.imageView?.image = UIImage(named: "egg")
         }
         return cell
+    }
+    
+    func getSubtitleText(row : Int) -> String? {
+        // This section updated the subtile (detail text)
+        // We want the number of items remaining in here and also the price
+        // But the API is not consistant
+        // so the code is messy
+        if let isForSale = apiInterface.getIsForSale(index: row) {
+            if isForSale == "true" {
+                if let price = apiInterface.getPrice(index: row) {
+                    if let numRemaining = apiInterface.getRemaining(index: row) {
+                        if numRemaining != "" && numRemaining != "0"{
+                            return ("\(numRemaining) available @ \(price) Robux")
+                        }
+                    }
+                }
+            }
+        }
+        if let updated = apiInterface.getUpdated(index: row) {
+            return "Updated \(updated)"
+        }
+        return nil
     }
     
     // if row is tapped on then go to the detail VC
