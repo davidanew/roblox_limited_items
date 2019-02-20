@@ -10,7 +10,7 @@ class ImageInterface {
     
     // This funtion returns the image if it is in the cache. Otherwise it calls alomofire with user supplied callback
     // this callback most likely will trigger a refresh
-    func getImage(url : String, row : Int , callBack : @escaping (Int) -> Void) -> UIImage? {
+    func getImage(url : String, row : Int , closure : @escaping (Int) -> Void) -> UIImage? {
         if let image = imageCache[url] {
             // image at that URL is already in the cache
             return image
@@ -25,7 +25,7 @@ class ImageInterface {
                     // put image in cache
                     self.imageCache[url] = image
                     // callBack to say data is valid
-                    callBack(row)
+                    closure(row)
                 }
                 //TODO - some error checking, is there a timout from alomofire
                 //Do we need this?
