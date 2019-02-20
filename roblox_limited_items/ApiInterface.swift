@@ -13,8 +13,11 @@ class ApiInterface {
     let numLatestCollectables = 30
     //this to be constucted in initialiser
     var urlLatestCollectables = ""
+    let largeThumbnailURLTemplate = "https://thumbnails.roblox.com/v1/assets?assetIds=_ASSETID_&size=420x420&format=Png"
+
     //buffer for latest collectables
     var jsonLatestCollectables : JSON?
+    var jsonLargeThumbnail : JSON?
     
     //construct full url for collectables
     init() {
@@ -31,7 +34,7 @@ class ApiInterface {
         jsonLatestCollectables = latestCollectablesData
     }
     
-    func getLatestCollectables(completionHandler : @escaping ([String]) -> Void ) {
+    func retrieveLatestCollectablesData(closure : @escaping (Bool) -> Void ) {
         let url = urlLatestCollectables
         Alamofire.request(url, method: .get).responseJSON { response in
             let success : Bool = response.result.isSuccess
@@ -46,38 +49,67 @@ class ApiInterface {
             // problem
             // this completion handler signals that the JSON retrieval is done and buffer
             // has results or is nil
-            completionHandler([""])
+            closure(success)
         }
     }
     
-    /*
-    func printJson() {
-        //this just for debugging
-        if let json = jsonLatestCollectables {
-            print(json)
+    func retrieveLargeThumbnailData(index : Int, closure : @escaping (Bool) -> Void)  {
+        if let assetId = getAssetId(index: index){
+            let url = largeThumbnailURLTemplate.replacingOccurrences(of: "_ASSETID_", with: "\(assetId)")
+            print ("large thumbnail url")
+            print(url)
+            Alamofire.request(url, method: .get).responseJSON { response in
+                let alamofireSuccess : Bool = response.result.isSuccess
+                var jsonSuccess : Bool = false
+                // if alamofire says the operation is successful
+                if alamofireSuccess {
+                    // set the jsonLatestCollectables buffer to the response
+                    if let value = response.result.value {
+                        self.jsonLargeThumbnail = JSON(value)
+                        jsonSuccess = true
+                    }
+                }
+                if !jsonSuccess {
+                    self.jsonLargeThumbnail = nil
+                }
+                // TODO - it woul be good if alamofire has a timeout so w can tell the user there is a networl
+                // problem
+                // this completion handler signals that the JSON retrieval is done and buffer
+                // has results or is nil
+                closure(jsonSuccess)
+            }
         }
     }
-    */
     
+    func getLargeThumbnailUrl() -> String?{
+        var thumbnailUrl : String?
+        thumbnailUrl = jsonLargeThumbnail?["data"][0]["imageUrl"].stringValue
+        return thumbnailUrl
+    }
+    
+    func getAssetId(index : Int) -> String? {
+        var assetId : String?
+        assetId = jsonLatestCollectables?[index]["AssetId"].stringValue
+        return assetId
+    }
+   
     //get JSON to pass during segue
     func getLatestCollectablesData() -> JSON? {
         return jsonLatestCollectables
     }
-
     
     // returns "true" or "false" optional sting based on JSON
     // value of isForSale for  given index
     func getIsForSale(index : Int) -> String?{
-        let isForSale : String?
+        var isForSale : String?
         isForSale = jsonLatestCollectables?[index]["IsForSale"].stringValue
         return isForSale
     }
     
-    
     // returns "true" or "false" optional sting based on JSON
     // value of isLimitedUnique for  given index
     func getIsLimitedUnique(index : Int) -> String?{
-        let isLimitedUnique : String?
+        var isLimitedUnique : String?
         isLimitedUnique = jsonLatestCollectables?[index]["IsLimitedUnique"].stringValue
         return isLimitedUnique
     }
@@ -85,7 +117,7 @@ class ApiInterface {
     // returns "true" or "false" optional sting based on JSON
     // value of isLimited for given index
     func getIsLimited(index : Int) -> String?{
-        let isLimited : String?
+        var isLimited : String?
         isLimited = jsonLatestCollectables?[index]["IsLimited"].stringValue
         return isLimited
     }
@@ -93,24 +125,27 @@ class ApiInterface {
     // returns item name Name optional sting based on JSON
     // value of Name for given index
     func getName(index : Int) -> String?{
-        let name : String?
+        var name : String?
         name = jsonLatestCollectables?[index]["Name"].stringValue
         return name
+    }
+    
+    func getDescription(index : Int) -> String?{
+        return jsonLatestCollectables?[index]["Description"].stringValue
     }
     
     // returns updated time optional sting based on JSON
     // value of Updated for given index
     func getUpdated(index : Int) -> String?{
-        let updated : String?
+        var updated : String?
         updated = jsonLatestCollectables?[index]["Updated"].stringValue
         return updated
     }
     
-    
     // returns updated time optional sting based on JSON
     // value of Remaining for given index
     func getRemaining(index : Int) -> String?{
-        let remaining : String?
+        var remaining : String?
         remaining = jsonLatestCollectables?[index]["Remaining"].stringValue
         return remaining
     }
@@ -118,14 +153,14 @@ class ApiInterface {
     // returns updated time optional sting based on JSON
     // value of Price for given index
     func getPrice(index : Int) -> String?{
-        let price : String?
+        var price : String?
         price = jsonLatestCollectables?[index]["Price"].stringValue
         return price
     }
     
     //Get number on entries (optional) in jsonLatestCollectables buffer
     func getNumEntries() -> Int?{
-        let numEntries : Int?
+        var numEntries : Int?
         numEntries = jsonLatestCollectables?.count
         return numEntries
     }
@@ -133,7 +168,7 @@ class ApiInterface {
     // returns Thumbnail URL optional sting based on JSON
     // value of thumbnailUrl for given index
     func getThumbnailUrl(index : Int) -> String?{
-        let thumbnailUrl : String?
+        var thumbnailUrl : String?
         thumbnailUrl = jsonLatestCollectables?[index]["ThumbnailUrl"].stringValue
         return thumbnailUrl
     }
