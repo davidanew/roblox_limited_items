@@ -15,7 +15,7 @@ class ImageInterfaceTest : XCTestCase {
     func testGetImage () {
         // first call to getImage will return nothing as image is in the cache
         // TODO - we can move these brackets in the closure?
-        _ = iut.getImage(url: "https://t5.rbxcdn.com/59fc630773d822e9330ccc6bb8daf02a", row: 1, callBack: { (row) in
+        _ = iut.getImage(url: "https://t5.rbxcdn.com/59fc630773d822e9330ccc6bb8daf02a", row: 1, closure: { (row) in
             print ("callback recived for row \(row)")
             // make sure row number was sent back
             XCTAssertEqual(row, 1)
@@ -25,7 +25,7 @@ class ImageInterfaceTest : XCTestCase {
         // wait for getImage callback
         wait(for: [getImageExpectation], timeout: 5)
         // now image should be in the cache
-        image = iut.getImage(url: "https://t5.rbxcdn.com/59fc630773d822e9330ccc6bb8daf02a", row: 1, callBack: { (row) in
+        image = iut.getImage(url: "https://t5.rbxcdn.com/59fc630773d822e9330ccc6bb8daf02a", row: 1, closure: { (row) in
             // if callabck is run then the image has been requested again
             // this should not happen as it should be in the cache
             XCTFail()
