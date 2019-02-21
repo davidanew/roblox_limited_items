@@ -54,13 +54,57 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                     
                 }
             }
+            if let name = apiInterface.getName(index: row) {label1.attributedText = getAttributedString(title: "Name", body: name)}
+            if let updated = apiInterface.getUpdated(index: row) {label2.attributedText = getAttributedString(title: "Updated", body: updated)}
+            if let price = apiInterface.getPrice(index: row) {
+                if price != "" {
+                    label3.attributedText = getAttributedString(title: "Price", body: price)
+                }
+                else {
+                    label3.attributedText = getAttributedString(title: "Price", body: "N/A")
+                }
+            }
+            if let availability = getAvailability(row: row) {label4.attributedText = getAttributedString(title: "Availability", body: availability)}
+            if let sales = apiInterface.getSales(index: row) {label5.attributedText = getAttributedString(title: "Sales", body: sales)}
+            if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label6.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
             
-            label1.text = apiInterface.getName(index: row)
-            label2.text = apiInterface.getDescription(index: row)
-            label3.text = apiInterface.getPrice(index: row)
-            label4.text = apiInterface.getUpdated(index: row)
-            label5.text = apiInterface.getIsForSale(index: row)
+            
+            label7.text = nil
         }
+    }
+    
+    func getAvailability(row : Int) -> String? {
+        if let isForSale = apiInterface.getIsForSale(index: row) {
+            if isForSale == "true" {
+                if let numRemaining = apiInterface.getRemaining(index: row) {
+                    if numRemaining != "" && numRemaining != "0"{
+                        return ("\(numRemaining) available from Roblox")
+                    }
+                    else {
+                        return "Not available from Roblox"
+                    }
+                }
+                else {
+                    return nil
+                }
+            }
+            else {
+                return "Not available from Roblox"
+            }
+        }
+        else {
+            return nil
+        }
+    }
+    
+    func getAttributedString(title : String , body : String) -> NSMutableAttributedString {
+        let attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)]
+        let titleCr = title + "\n"
+        let bodyAs = NSMutableAttributedString(string:body)
+        let titleAs = NSMutableAttributedString(string: titleCr, attributes:attrs)
+        let textAs = titleAs
+        textAs.append(bodyAs)
+        return textAs
     }
 }
 
