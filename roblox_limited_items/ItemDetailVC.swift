@@ -54,6 +54,8 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                     
                 }
             }
+            // Set uilables with the information
+            // uses getAttributedString to get attributed text with bold title
             if let name = apiInterface.getName(index: row) {label1.attributedText = getAttributedString(title: "Name", body: name)}
             if let updated = apiInterface.getUpdated(index: row) {label2.attributedText = getAttributedString(title: "Updated", body: updated)}
             if let price = apiInterface.getPrice(index: row) {
@@ -64,6 +66,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                     label3.attributedText = getAttributedString(title: "Price", body: "N/A")
                 }
             }
+            //use getAvailability to work out if item is available from roblox
             if let availability = getAvailability(row: row) {label4.attributedText = getAttributedString(title: "Availability", body: availability)}
             if let sales = apiInterface.getSales(index: row) {label5.attributedText = getAttributedString(title: "Sales", body: sales)}
             if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label6.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
@@ -73,11 +76,13 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
         }
     }
     
+    // Looks at "isForSale" and "remaining" JSON data to work out if the item is available from roblox
     func getAvailability(row : Int) -> String? {
         if let isForSale = apiInterface.getIsForSale(index: row) {
             if isForSale == "true" {
                 if let numRemaining = apiInterface.getRemaining(index: row) {
                     if numRemaining != "" && numRemaining != "0"{
+                        //this is only returned if "isForSale" and "remaining" are valid, else later returns are done
                         return ("\(numRemaining) available from Roblox")
                     }
                     else {
@@ -97,13 +102,23 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
         }
     }
     
+    //Puts two strings in attributed text
+    //The tile string is put in bold
+    //the body string is on a new line in normal text
     func getAttributedString(title : String , body : String) -> NSMutableAttributedString {
+        //attributes used for bold text
         let attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 17)]
+        //add carraige return to tile so body is on new line
         let titleCr = title + "\n"
+        // body text as Attributed String
         let bodyAs = NSMutableAttributedString(string:body)
+        // title as attribted string
         let titleAs = NSMutableAttributedString(string: titleCr, attributes:attrs)
+        // first part of text
         let textAs = titleAs
+        // add second part
         textAs.append(bodyAs)
+        // return constucted text
         return textAs
     }
 }
