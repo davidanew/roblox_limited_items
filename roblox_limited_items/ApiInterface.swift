@@ -133,6 +133,11 @@ class ApiInterface {
     }
     
     func getDescription(index : Int) -> String?{
+     //   var description = String?
+        if let description = jsonLatestCollectables?[index]["Description"].stringValue {
+ //           return description.replacingOccurrences(of: "\r\n", with: "")
+            return description
+        }
         return jsonLatestCollectables?[index]["Description"].stringValue
     }
     
@@ -152,6 +157,10 @@ class ApiInterface {
         return remaining
     }
     
+    func getSales(index : Int) -> String? { return jsonLatestCollectables?[index]["Sales"].stringValue }
+    
+    func getLimitedAltText(index : Int) -> String? {return jsonLatestCollectables?[index]["LimitedAltText"].stringValue}
+    
     // returns updated time optional sting based on JSON
     // value of Price for given index
     func getPrice(index : Int) -> String?{
@@ -166,6 +175,7 @@ class ApiInterface {
         numEntries = jsonLatestCollectables?.count
         return numEntries
     }
+    
     
     // returns Thumbnail URL optional sting based on JSON
     // value of thumbnailUrl for given index
