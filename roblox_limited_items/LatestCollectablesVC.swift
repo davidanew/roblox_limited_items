@@ -1,7 +1,7 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
-import SwiftyJSON
+//import SwiftyJSON
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     // object to handle API calles
@@ -13,6 +13,35 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
+    let refreshControl = UIRefreshControl()
+    
+    override func viewDidLoad() {
+        tableView.refreshControl = refreshControl
+   //     refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    //    self.refreshtable.addSubview(refreshControl)
+        
+    //    self.refreshtable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    }
+    
+    @objc func refresh(_ sender: Any) {
+        refreshTableView()
+    }
+    
+    func refreshTableView(){
+        apiInterface.retrieveLatestCollectablesData{ (success) in
+            if success {
+                // reload data will make all cells request there data from apiIterface
+                // which should all now be valid
+                self.tableView.reloadData()
+            }
+            else {
+                self.internetError()
+            }
+            self.refreshControl.endRefreshing()
+        }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -22,6 +51,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 // reload data will make all cells request there data from apiIterface
                 // which should all now be valid
                 self.tableView.reloadData()
+            }
+            else {
+                self.internetError()
             }
         }
     }
@@ -41,6 +73,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // this is the cell that will be returned by the function
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle , reuseIdentifier: "catalogCell")
+        //had to add here as doesn't seem to work when set on storyboard
+        cell.accessoryType = .disclosureIndicator
         // populate name of the item
         if let name = apiInterface.getName(index: (indexPath.row)){
             cell.textLabel?.text = name
@@ -61,10 +95,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 // the callback recieves the row
                 let indexPath = IndexPath(item: row, section: 0)
                 // refresh row
-                self.tableView.reloadRows(at: [indexPath], with: .left)
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
             }
-            // TODO, try dummy image (maybe just roblox symbol)
-            // This will solve refresh animation problems
             // display image in cell if valid
             if let thisImage = image {
                 cell.imageView?.image = thisImage
@@ -111,7 +143,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             let destinationVC = segue.destination as!  ItemDetailVC
             //If we have valid data to send (which should always be true as the
             // user clicked on a cell)
-            if let dataToSend : JSON = apiInterface.getLatestCollectablesData() {
+             let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
                 //also if row number is valid
                 if let rowToSend = selectedRow {
                     //send the data (Uses setLatestCollectablesDelegate)
@@ -120,10 +152,16 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 else {
                     print("segue tried to send nil row")
                 }
-            }
-            else {
-                print ("segue tried to send nil JSON")
-            }
+ //           }
+ //           else {
+ //               print ("segue tried to send nil JSON")
+ //           }
         }
+    }
+    
+    func internetError(){
+        let alert = UIAlertController(title: "Problem getting data from Roblox", message: "Swipe down to refresh to try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
