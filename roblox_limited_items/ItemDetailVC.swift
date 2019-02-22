@@ -1,7 +1,7 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
-import SwiftyJSON
+//import SwiftyJSON
 
 class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     //need API interface to hold data and use functions for retieval
@@ -24,7 +24,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     // This function used to send JSON data into this instance of apiInterface
     // after segue from collectables VC
     // Also need row for the item of interest
-    func setLatestCollectablesData (latestCollectablesData: JSON, detailsForRow: Int) {
+    func setLatestCollectablesData (latestCollectablesData: ApiInterfaceData, detailsForRow: Int) {
         //Set the new data in apiInterface
         apiInterface.setLatestCollectablesData(latestCollectablesData: latestCollectablesData)
         //Keep the row number
@@ -47,14 +47,14 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                         // and update the imageview
                         self.image1.image = self.imageInterface.getImage(url: imageUrl, row: row, closure: { (row) in
                             //If this closure is run it means that the image has still not been retrieved
-                            //TODO think about error checking here
+                            //If image does not load we will just leave it blank
                             print("double image cache miss")
                         })
                     })
                     
                 }
             }
-            // Set uilables with the information
+            // Set uilabels with the information
             // uses getAttributedString to get attributed text with bold title
             if let name = apiInterface.getName(index: row) {label1.attributedText = getAttributedString(title: "Name", body: name)}
             if let updated = apiInterface.getUpdated(index: row) {label2.attributedText = getAttributedString(title: "Updated", body: updated)}
