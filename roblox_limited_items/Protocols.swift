@@ -8,7 +8,7 @@ import SwiftyJSON
 //it would be good if ther was a way of abstracting the datatype
 //could use a struct with single entry
 protocol setLatestCollectablesDelegate {
-        func setLatestCollectablesData (latestCollectablesData : JSON , detailsForRow: Int)
+        func setLatestCollectablesData (latestCollectablesData : ApiInterfaceData , detailsForRow: Int)
 }
 
 
