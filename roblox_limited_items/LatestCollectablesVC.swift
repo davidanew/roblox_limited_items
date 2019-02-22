@@ -16,15 +16,13 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
+        //add refresh control
         tableView.refreshControl = refreshControl
-   //     refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-    //    self.refreshtable.addSubview(refreshControl)
-        
-    //    self.refreshtable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     @objc func refresh(_ sender: Any) {
+        //when refresh control is triggered we need to refresh the table view
         refreshTableView()
     }
     
@@ -38,6 +36,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             else {
                 self.internetError()
             }
+            // remove refresh control
             self.refreshControl.endRefreshing()
         }
         
@@ -143,19 +142,15 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             let destinationVC = segue.destination as!  ItemDetailVC
             //If we have valid data to send (which should always be true as the
             // user clicked on a cell)
-             let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
-                //also if row number is valid
-                if let rowToSend = selectedRow {
-                    //send the data (Uses setLatestCollectablesDelegate)
-                    destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
-                }
-                else {
-                    print("segue tried to send nil row")
-                }
- //           }
- //           else {
- //               print ("segue tried to send nil JSON")
- //           }
+            let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
+            //also if row number is valid
+            if let rowToSend = selectedRow {
+                //send the data (Uses setLatestCollectablesDelegate)
+                destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
+            }
+            else {
+                print("segue tried to send nil row")
+            }
         }
     }
     

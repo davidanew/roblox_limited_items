@@ -11,7 +11,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     // This is the row in the collectables data that the item is at
     var rowInData : Int?
     
-    // At the moment just output data to labels
+    // Data is displayed in an imageview and labels
     @IBOutlet weak var image1: UIImageView!
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var label2: UILabel!
@@ -27,15 +27,16 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     func setLatestCollectablesData (latestCollectablesData: ApiInterfaceData, detailsForRow: Int) {
         //Set the new data in apiInterface
         apiInterface.setLatestCollectablesData(latestCollectablesData: latestCollectablesData)
-        //Keep the row number
+        //Keep the row number as a property
         rowInData = detailsForRow
     }
     
      override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // if there is a valid row number (which should have been set by
-        // setLatestCollectablesData called from the source segue
+        // setLatestCollectablesData called from the source segue)
         if let row = rowInData {
+            //call apiInterface to request the data and fill it's buffer
             apiInterface.retrieveLargeThumbnailData(index: row) { (success) in
                 // when retrieveLargeThumbnailData finishes it will run this:
                 // check that there is a url returned.
@@ -70,8 +71,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
             if let availability = getAvailability(row: row) {label4.attributedText = getAttributedString(title: "Availability", body: availability)}
             if let sales = apiInterface.getSales(index: row) {label5.attributedText = getAttributedString(title: "Sales", body: sales)}
             if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label6.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
-            
-            
+            //This label unused at the moment
             label7.text = nil
         }
     }

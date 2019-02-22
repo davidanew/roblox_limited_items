@@ -4,7 +4,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-
+// Conatianer for the data that is passed between view controllers
 struct ApiInterfaceData {
     var data : JSON?
 }
@@ -16,13 +16,14 @@ class ApiInterface {
     let urlLatestCollectablesBase =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage="
     //number of collectables to load in one go, max is 30
     let numLatestCollectables = 30
-    //this to be constucted in initialiser
+    //this hs to be constucted in initialiser
     var urlLatestCollectables = ""
     //for getting the URL of the large thumbnail
-    //TODO is this actually a thumbnail - may need to rename
     //This has a placeholder _ASSETID_ which is substitituted in retrieveLargeThumbnailData
     let largeThumbnailURLTemplate = "https://thumbnails.roblox.com/v1/assets?assetIds=_ASSETID_&size=420x420&format=Png"
-
+    //The data is held in two JSON buffers as the Alomofire calls are asyncronous
+    //The closures for these fill the buffers
+    //before this the buffers are invalid
     //buffer for latest collectables
     var jsonLatestCollectables : JSON?
     //buffer for large thumbnail
@@ -33,17 +34,12 @@ class ApiInterface {
         urlLatestCollectables = urlLatestCollectablesBase + String(numLatestCollectables)
     }
     
-    //get JSON to pass during segue
-    //func getLatestCollectablesData() -> JSON? {
-    //    return jsonLatestCollectables
-   // }
-    
+    //get data to pass during segue
     func getLatestCollectablesData() ->ApiInterfaceData {
         var apiInterFaceData = ApiInterfaceData()
         apiInterFaceData.data = jsonLatestCollectables
         return apiInterFaceData
     }
-    
     
     // this function is used to set the collectables data when the detail VC is loaded
     func setLatestCollectablesData(latestCollectablesData : ApiInterfaceData){
@@ -51,7 +47,7 @@ class ApiInterface {
     }
     
     // Function to get the latest collectables list from roblox
-    // this function is called externally to the class. the call must include a handler that handles the return
+    // this function is called externally to the class. the call must include a closure that handles the return
     // of this function. Most lightly this handler will run gui update.
     func retrieveLatestCollectablesData(closure : @escaping (Bool) -> Void ) {
         let url = urlLatestCollectables
@@ -80,12 +76,14 @@ class ApiInterface {
     }
     
     //retrieves large thunmbnail url
+    //index is for retrieveLargeThumbnailData. Closure is called during
+    //alomofire closure
     func retrieveLargeThumbnailData(index : Int, closure : @escaping (Bool) -> Void)  {
         // need the asset Id from jsonLatestCollectables
         if let assetId = getAssetId(index: index){
             // construct the URL to request the thumbnail URL
             let url = largeThumbnailURLTemplate.replacingOccurrences(of: "_ASSETID_", with: "\(assetId)")
-            // Alamofire reques to get the data
+            // Alamofire request to get the data
             Alamofire.request(url, method: .get).responseJSON { response in
                 let alamofireSuccess : Bool = response.result.isSuccess
                 var jsonSuccess : Bool = false
@@ -103,13 +101,14 @@ class ApiInterface {
                 if !jsonSuccess {
                     self.jsonLargeThumbnail = nil
                 }
-                // TODO same comments as retrieveLatestCollectablesData
+                // this closure signals that the JSON retrieval is done and buffer
+                // has results or is nil
                 closure(jsonSuccess)
             }
         }
     }
     
-    //getters for varios parameters in JSON
+    //getters for various parameters in JSON
     func getLargeThumbnailUrl() -> String?{return jsonLargeThumbnail?["data"][0]["imageUrl"].stringValue}
     func getAssetId(index : Int) -> String? {return jsonLatestCollectables?[index]["AssetId"].stringValue}
     func getIsForSale(index : Int) -> String?{return jsonLatestCollectables?[index]["IsForSale"].stringValue}
@@ -123,9 +122,5 @@ class ApiInterface {
     func getLimitedAltText(index : Int) -> String? {return jsonLatestCollectables?[index]["LimitedAltText"].stringValue}
     func getPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["Price"].stringValue}
     func getThumbnailUrl(index : Int) -> String?{return jsonLatestCollectables?[index]["ThumbnailUrl"].stringValue }
-    
-   
-    
-    
 }
 

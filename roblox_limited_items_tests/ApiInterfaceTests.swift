@@ -31,6 +31,7 @@ class ApiInterfaceTests: XCTestCase {
         for itemNum in 0..<numCollectibles{
             //check that this is a limited item
             XCTAssertTrue(iut.getIsLimitedUnique(index : itemNum) == "true" || iut.getIsLimited(index : itemNum) == "true")
+            //other getter tests
             XCTAssertNotNil(iut.getAssetId(index : itemNum))
             XCTAssertNotNil(iut.getIsForSale(index : itemNum))
             XCTAssertNotNil(iut.getIsLimitedUnique(index : itemNum))
