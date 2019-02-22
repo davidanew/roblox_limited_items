@@ -13,9 +13,6 @@ class ApiInterfaceTests: XCTestCase {
     let retrieveLatestCollectablesDataExpectation = XCTestExpectation(description: "retrieveLatestCollectablesDataExpectation")
     // also need expectation for retrieveLargeThumbnailData
     let retrieveLargeThumbnailDataExpectation = XCTestExpectation(description: "retrieveLargeThumbnailDataExpectation")
-    //TODO get this from apiInterface
-    let numCollectibles = 30
-    
     // test getLatestCollectablesData
     func testRetrieveLatestCollectablesData() {
         iut.retrieveLatestCollectablesData { (success) in
@@ -30,14 +27,22 @@ class ApiInterfaceTests: XCTestCase {
         // check JSON is not nil
         XCTAssertNotNil(iut.getNumEntries())
         // loop through all items
+        let numCollectibles = iut.numLatestCollectables
         for itemNum in 0..<numCollectibles{
-            //theck that this is a limited item
+            //check that this is a limited item
             XCTAssertTrue(iut.getIsLimitedUnique(index : itemNum) == "true" || iut.getIsLimited(index : itemNum) == "true")
-            //check the other getters
-            //TODO add missing getter tests
+            XCTAssertNotNil(iut.getAssetId(index : itemNum))
+            XCTAssertNotNil(iut.getIsForSale(index : itemNum))
+            XCTAssertNotNil(iut.getIsLimitedUnique(index : itemNum))
+            XCTAssertNotNil(iut.getIsLimited(index : itemNum))
             XCTAssertNotNil(iut.getName(index : itemNum))
+            XCTAssertNotNil(iut.getDescription(index : itemNum))
             XCTAssertNotNil(iut.getUpdated(index : itemNum))
-            //TODO could call image interface to see if image is recieved
+            XCTAssertNotNil(iut.getRemaining(index : itemNum))
+            XCTAssertNotNil(iut.getSales(index : itemNum))
+            XCTAssertNotNil(iut.getLimitedAltText(index : itemNum))
+            XCTAssertNotNil(iut.getPrice(index : itemNum))
+            XCTAssertNotNil(iut.getThumbnailUrl(index : itemNum))
         }
     }
     
@@ -45,11 +50,12 @@ class ApiInterfaceTests: XCTestCase {
     func testSetLatestCollectablesData(){
         //Need to get a JSON as test data
         testRetrieveLatestCollectablesData()
-        if let testJson = iut.getLatestCollectablesData(){
+        let testData = iut.getLatestCollectablesData()
+        if testData.data != nil {
             // clear the JSON data to intialise the test
             iut.jsonLatestCollectables = nil
             //call the function under test
-            iut.setLatestCollectablesData(latestCollectablesData: testJson)
+            iut.setLatestCollectablesData(latestCollectablesData: testData)
             //make sure we can extract data
             XCTAssertTrue(iut.getIsLimitedUnique(index : 0) == "true" || iut.getIsLimited(index : 0) == "true")
         }
@@ -62,7 +68,6 @@ class ApiInterfaceTests: XCTestCase {
     // test retrieveLargeThumbnailData
     func testRetrieveLargeThumbnailData () {
         //need the collectables data first
-        //TODO - shoudl this run the test or the function?
         testRetrieveLatestCollectablesData()
         //just get the first row for the test
         let row = 0
