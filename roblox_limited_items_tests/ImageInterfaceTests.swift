@@ -14,7 +14,6 @@ class ImageInterfaceTest : XCTestCase {
     // test getImage function
     func testGetImage () {
         // first call to getImage will return nothing as image is in the cache
-        // TODO - we can move these brackets in the closure?
         _ = iut.getImage(url: "https://t5.rbxcdn.com/59fc630773d822e9330ccc6bb8daf02a", row: 1, closure: { (row) in
             print ("callback recived for row \(row)")
             // make sure row number was sent back
