@@ -1,6 +1,12 @@
 //  Copyright © 2019 David New. All rights reserved.
 
-// first action - get single json
-// do detail screen item passing working, test in unit tests
-// get detail screen working
+// weak and no wifi tests
+// check against roblox website
+// look up limited unique and unique
+// need images
+// dummy image for unfilled cells
+// test with james and ali
+// what about roblox copyright
+
+
 
