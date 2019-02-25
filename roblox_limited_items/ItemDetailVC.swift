@@ -1,7 +1,6 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
-//import SwiftyJSON
 
 class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     //need API interface to hold data and use functions for retieval
@@ -20,16 +19,6 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     @IBOutlet weak var label5: UILabel!
     @IBOutlet weak var label6: UILabel!
     @IBOutlet weak var label7: UILabel!
-    
-    // This function used to send JSON data into this instance of apiInterface
-    // after segue from collectables VC
-    // Also need row for the item of interest
-    func setLatestCollectablesData (latestCollectablesData: ApiInterfaceData, detailsForRow: Int) {
-        //Set the new data in apiInterface
-        apiInterface.setLatestCollectablesData(latestCollectablesData: latestCollectablesData)
-        //Keep the row number as a property
-        rowInData = detailsForRow
-    }
     
      override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,6 +72,16 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
             }
             if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label7.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
         }
+    }
+    
+    // This function used to send JSON data into this instance of apiInterface
+    // after segue from collectables VC
+    // Also need row for the item of interest
+    func setLatestCollectablesData (latestCollectablesData: ApiInterfaceData, detailsForRow: Int) {
+        //Set the new data in apiInterface
+        apiInterface.setLatestCollectablesData(latestCollectablesData: latestCollectablesData)
+        //Keep the row number as a property
+        rowInData = detailsForRow
     }
     
     // Looks at "isForSale" and "remaining" JSON data to work out if the item is available from roblox

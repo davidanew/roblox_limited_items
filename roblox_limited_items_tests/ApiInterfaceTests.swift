@@ -44,6 +44,7 @@ class ApiInterfaceTests: XCTestCase {
             XCTAssertNotNil(iut.getLimitedAltText(index : itemNum))
             XCTAssertNotNil(iut.getPrice(index : itemNum))
             XCTAssertNotNil(iut.getThumbnailUrl(index : itemNum))
+            XCTAssertNotNil(iut.getBestPrice(index: itemNum))
         }
        // print (iut.jsonLatestCollectables)
     }

@@ -10,94 +10,31 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     let imageInterface = ImageInterface()
     // need to store selected row as prepare for segue is asyncronous
     var selectedRow : Int?
-    //Need outlet for constaint as the label height is set to 0 after a few seconds
-    //TODO reverse order of these
-    @IBOutlet weak var refreshToastHeight: NSLayoutConstraint!
-    //Label that is only shown after starup giving instrcutions on how to refresh
-    @IBOutlet weak var refreshToast: UILabel!
-    // need this outlet so we can force refreshes
-    @IBOutlet weak var tableView: UITableView!
-    //TODO put these with other var/let
     //Add refresh control so pulling down refreshes the view
     let refreshControl = UIRefreshControl()
     // How long we wait to see if a refresh is done
     let refreshTimerInterval : TimeInterval = 5
-    // How long to keep the refresh instructios toast displayed
-    let refreshToastActiveInterval : TimeInterval = 5
+    // Timer that checks that the table has been updated
+    var refreshTimer : Timer?
     // These two variables track the refresh operation
     var requestedRefreshAt : Date?
     var successfulRefreshAt : Date?
-    // TODO move this so can do comments
-    // Timer that checks that the table has been updated
-    var refreshTimer : Timer?
     // Timer for removing the refresh instrucions toast
     var refreshToastTimer : Timer?
+    // How long to keep the refresh instructios toast displayed
+    let refreshToastActiveInterval : TimeInterval = 5
     
-    //This function is called by the refresh timer
-    //There could be no data returned by apiinterface
-    //This function handles that situation
-    func refreshTimerHandler(timer: Timer){
-        //dont't need this variable
-        _ = timer
-        print ("timer returned")
-        let numberOfRowsDisplayed = tableView.numberOfRows(inSection: 0)
-        //If there is no data displayed the call tableviewIsEmpty
-        if numberOfRowsDisplayed < 1 {
-            tableviewIsEmpty()
-        }
-        //else check that the refresh has been done after the refresh was requested
-        else if let thisSuccessfulRefreshAt = successfulRefreshAt {
-            if let thisRequestedRefreshAt = requestedRefreshAt {
-                print (thisSuccessfulRefreshAt)
-                print (thisRequestedRefreshAt)
-                print (thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt))
-                //if request is after the call tableviewIsOutOfDate
-                if thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt) < 0 {
-                    tableviewIsOutOfDate()
-                }
-            }
-        }
-    }
+    //Label that is only shown after starup giving instrcutions on how to refresh
+    @IBOutlet weak var refreshToast: UILabel!
+    //Need outlet for constaint as the label height is set to 0 after a few seconds
+    @IBOutlet weak var refreshToastHeight: NSLayoutConstraint!
+    // need this outlet so we can force refreshes
+    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         //add refresh control
         tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-    }
-    
-    //TODO rename this
-    @objc func refresh(_ sender: Any) {
-        //when refresh control is triggered we need to refresh the table view
-        refreshTableView()
-    }
-    
-    //This run when:
-    //The view loads
-    //refresh is requested by the user pulling down on the table view
-    //The refresh timer dialog box
-    func refreshTableView(){
-        //log the time that the refresh was requested for use with the request timer
-        requestedRefreshAt = Date()
-        //stop any running refresh timer otherwise we will get multiple calls to refreshTimerHandler
-        refreshTimer?.invalidate()
-        //start refresh timer
-        // after refreshTimerInterval the funtion refreshTimerHandler will be called to make sure
-        // the table is refreshed
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshTimerInterval, repeats: false, block: { timer in self.refreshTimerHandler(timer: timer)})
-        //start refresh indicator if not already running
-        if (!refreshControl.isRefreshing)  {refreshControl.beginRefreshing()}
-        
-        apiInterface.retrieveLatestCollectablesData{ (success) in
-            if success {
-                // reload data will make all cells request there data from apiIterface
-                // which should all now be valid
-                self.tableView.reloadData()
-                //log the time that the refresh was completed for use with the request timer
-                self.successfulRefreshAt = Date()
-                // remove the refresh animation
-                self.refreshControl.endRefreshing()
-            }
-        }
+        refreshControl.addTarget(self, action: #selector(refreshControlRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,7 +47,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         //get first datas
         refreshTableView()
     }
-
+    
     // Called by ios to get the number of cells in view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //on refresh get number of entries according to apiInterface
@@ -188,21 +125,63 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         self.performSegue(withIdentifier: "ShowItemDetail", sender: self)
     }
     
-    //prepare for segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //if we are using the segue that goes to the detail VC
-        if segue.identifier == "ShowItemDetail" {
-            let destinationVC = segue.destination as!  ItemDetailVC
-            //If we have valid data to send (which should always be true as the
-            // user clicked on a cell)
-            let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
-            //also if row number is valid
-            if let rowToSend = selectedRow {
-                //send the data (Uses setLatestCollectablesDelegate)
-                destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
+    //This run when:
+    //The view loads
+    //refresh is requested by the user pulling down on the table view
+    //The refresh timer dialog box
+    func refreshTableView(){
+        //log the time that the refresh was requested for use with the request timer
+        requestedRefreshAt = Date()
+        //stop any running refresh timer otherwise we will get multiple calls to refreshTimerHandler
+        refreshTimer?.invalidate()
+        //start refresh timer
+        // after refreshTimerInterval the funtion refreshTimerHandler will be called to make sure
+        // the table is refreshed
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshTimerInterval, repeats: false, block: { timer in self.refreshTimerHandler(timer: timer)})
+        //start refresh indicator if not already running
+        if (!refreshControl.isRefreshing)  {refreshControl.beginRefreshing()}
+        
+        apiInterface.retrieveLatestCollectablesData{ (success) in
+            if success {
+                // reload data will make all cells request there data from apiIterface
+                // which should all now be valid
+                self.tableView.reloadData()
+                //log the time that the refresh was completed for use with the request timer
+                self.successfulRefreshAt = Date()
+                // remove the refresh animation
+                self.refreshControl.endRefreshing()
             }
-            else {
-                print("segue tried to send nil row")
+        }
+    }
+    
+    //called by refreshControl
+    @objc func refreshControlRefresh(_ sender: Any) {
+        //when refresh control is triggered we need to refresh the table view
+        refreshTableView()
+    }
+    
+    //This function is called by the refresh timer
+    //There could be no data returned by apiinterface
+    //This function handles that situation
+    func refreshTimerHandler(timer: Timer){
+        //dont't need this variable
+        _ = timer
+        print ("timer returned")
+        let numberOfRowsDisplayed = tableView.numberOfRows(inSection: 0)
+        //If there is no data displayed the call tableviewIsEmpty
+        if numberOfRowsDisplayed < 1 {
+            tableviewIsEmpty()
+        }
+            //else check that the refresh has been done after the refresh was requested
+        else if let thisSuccessfulRefreshAt = successfulRefreshAt {
+            if let thisRequestedRefreshAt = requestedRefreshAt {
+                print (thisSuccessfulRefreshAt)
+                print (thisRequestedRefreshAt)
+                print (thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt))
+                //if request is after the call tableviewIsOutOfDate
+                if thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt) < 0 {
+                    tableviewIsOutOfDate()
+                }
             }
         }
     }
@@ -234,5 +213,24 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         //user already knows how to refresh 
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    //prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //if we are using the segue that goes to the detail VC
+        if segue.identifier == "ShowItemDetail" {
+            let destinationVC = segue.destination as!  ItemDetailVC
+            //If we have valid data to send (which should always be true as the
+            // user clicked on a cell)
+            let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
+            //also if row number is valid
+            if let rowToSend = selectedRow {
+                //send the data (Uses setLatestCollectablesDelegate)
+                destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
+            }
+            else {
+                print("segue tried to send nil row")
+            }
+        }
     }
 }

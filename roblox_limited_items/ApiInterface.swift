@@ -5,11 +5,10 @@ import Alamofire
 import SwiftyJSON
 import os.log
 
-// Conatianer for the data that is passed between view controllers
+// Contianer for the data that is passed between view controllers
 struct ApiInterfaceData {
     var data : JSON?
 }
-
 
 struct Log {
     static var general = OSLog(subsystem: "com.roblox_limited_items.ApiInterface", category: "general")
@@ -17,7 +16,6 @@ struct Log {
 
 //handle calls to api and store resultant JSON objects
 class ApiInterface {
-    
     //Roblox search API instructions https://developer.roblox.com/articles/Catalog-API
     let urlLatestCollectablesBase =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage="
     //number of collectables to load in one go, max is 30
@@ -82,15 +80,13 @@ class ApiInterface {
         }
     }
     
-    //Get number on entries in jsonLatestCollectables buffer
-    func getNumEntries() -> Int?{ return jsonLatestCollectables?.count
-    }
-    
     //retrieves large thunmbnail url
     //index is for retrieveLargeThumbnailData. Closure is called during
     //alomofire closure
     func retrieveLargeThumbnailData(index : Int, closure : @escaping (Bool) -> Void)  {
         // need the asset Id from jsonLatestCollectables
+        //Invalidate old data so the wrong icon is not shown
+        self.jsonLargeThumbnail = nil
         if let assetId = getAssetId(index: index){
             // construct the URL to request the thumbnail URL
             let url = largeThumbnailURLTemplate.replacingOccurrences(of: "_ASSETID_", with: "\(assetId)")
@@ -106,19 +102,15 @@ class ApiInterface {
                         jsonSuccess = true
                     }
                 }
-                //TODO this could be removed
-                else{
-                    print ("Alamofire fail")
-                }
-                //TODO this should be moved before alomofire call
-                if !jsonSuccess {
-                    self.jsonLargeThumbnail = nil
-                }
                 // this closure signals that the JSON retrieval is done and buffer
                 // has results or is nil
                 closure(jsonSuccess)
             }
         }
+    }
+    
+    //Get number on entries in jsonLatestCollectables buffer
+    func getNumEntries() -> Int?{ return jsonLatestCollectables?.count
     }
     
     //getters for various parameters in JSON
@@ -134,7 +126,6 @@ class ApiInterface {
     func getSales(index : Int) -> String? { return jsonLatestCollectables?[index]["Sales"].stringValue}
     func getLimitedAltText(index : Int) -> String? {return jsonLatestCollectables?[index]["LimitedAltText"].stringValue}
     func getPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["Price"].stringValue}
-    // TODO test this
     func getBestPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["BestPrice"].stringValue}
     func getThumbnailUrl(index : Int) -> String?{return jsonLatestCollectables?[index]["ThumbnailUrl"].stringValue }
 }
