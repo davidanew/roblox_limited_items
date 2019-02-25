@@ -35,6 +35,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
         super.viewWillAppear(animated)
         // if there is a valid row number (which should have been set by
         // setLatestCollectablesData called from the source segue)
+        //image1.image = UIImage(named: "RC420")
         if let row = rowInData {
             //call apiInterface to request the data and fill it's buffer
             apiInterface.retrieveLargeThumbnailData(index: row) { (success) in
@@ -61,18 +62,26 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
             if let updated = apiInterface.getUpdated(index: row) {label2.attributedText = getAttributedString(title: "Updated", body: updated)}
             if let price = apiInterface.getPrice(index: row) {
                 if price != "" {
-                    label3.attributedText = getAttributedString(title: "Price", body: price)
+                    label3.attributedText = getAttributedString(title: "Roblox Price", body: price)
                 }
                 else {
-                    label3.attributedText = getAttributedString(title: "Price", body: "N/A")
+                    label3.attributedText = getAttributedString(title: "Roblox Price", body: "N/A")
                 }
             }
             //use getAvailability to work out if item is available from roblox
-            if let availability = getAvailability(row: row) {label4.attributedText = getAttributedString(title: "Availability", body: availability)}
-            if let sales = apiInterface.getSales(index: row) {label5.attributedText = getAttributedString(title: "Sales", body: sales)}
-            if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label6.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
-            //This label unused at the moment
-            label7.text = nil
+            if let availability = getAvailability(row: row) {label4.attributedText = getAttributedString(title: "Roblox Availability", body: availability)}
+            if let sales = apiInterface.getSales(index: row) {label5.attributedText = getAttributedString(title: "Roblox Sales", body: sales)}
+            
+            if let bestPrice = apiInterface.getBestPrice(index: row) {
+                if bestPrice != "" {
+                    label6.attributedText = getAttributedString(title: "Best Reseller Price", body: bestPrice)
+                }
+                else {
+                    label6.attributedText = getAttributedString(title: "Best Reseller Price", body: "N/A")
+                }
+            }
+            if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label7.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
+            //label7.text = nil
         }
     }
     
