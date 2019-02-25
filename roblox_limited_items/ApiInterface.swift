@@ -3,10 +3,16 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import os.log
 
 // Conatianer for the data that is passed between view controllers
 struct ApiInterfaceData {
     var data : JSON?
+}
+
+
+struct Log {
+    static var general = OSLog(subsystem: "com.roblox_limited_items.ApiInterface", category: "general")
 }
 
 //handle calls to api and store resultant JSON objects
@@ -60,15 +66,23 @@ class ApiInterface {
                 if let value = response.result.value {
                     self.jsonLatestCollectables = JSON(value)
                     jsonSuccess = true
+                    os_log("retrieveLatestCollectablesData Alamofire closure set json", log: Log.general, type: .debug)
+                }
+                else {
+                    os_log("retrieveLatestCollectablesData Alamofire closure response.result.value is nil", log: Log.general, type: .debug)
+
                 }
             }
             else{
-                print ("Alamofire fail")
+                os_log("retrieveLatestCollectablesData Alamofire success is false", log: Log.general, type: .debug)
             }
             // this completion handler signals that the JSON retrieval is done and buffer
             // has results or is nil
             closure(jsonSuccess)
         }
+       // NSLog(<#T##format: String##String#>, <#T##args: CVarArg...##CVarArg#>)
+       // os_log_t log = os_log_create("com.your_company.subsystem", "network");
+        
     }
     
     //Get number on entries in jsonLatestCollectables buffer
@@ -84,6 +98,15 @@ class ApiInterface {
             // construct the URL to request the thumbnail URL
             let url = largeThumbnailURLTemplate.replacingOccurrences(of: "_ASSETID_", with: "\(assetId)")
             // Alamofire request to get the data
+            
+            
+           // let configuration = URLSessionConfiguration.default
+          //  configuration.timeoutIntervalForRequest = 9 // seconds
+          //  configuration.timeoutIntervalForResource = 9
+          //  let alamoFireManager = Alamofire.SessionManager(configuration: configuration)
+            
+            
+            //alamoFireManager.request("my_url", method: .post, parameters: parameters).responseJSON { response in
             Alamofire.request(url, method: .get).responseJSON { response in
                 let alamofireSuccess : Bool = response.result.isSuccess
                 var jsonSuccess : Bool = false
@@ -121,6 +144,8 @@ class ApiInterface {
     func getSales(index : Int) -> String? { return jsonLatestCollectables?[index]["Sales"].stringValue}
     func getLimitedAltText(index : Int) -> String? {return jsonLatestCollectables?[index]["LimitedAltText"].stringValue}
     func getPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["Price"].stringValue}
+    // test this
+    func getBestPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["BestPrice"].stringValue}
     func getThumbnailUrl(index : Int) -> String?{return jsonLatestCollectables?[index]["ThumbnailUrl"].stringValue }
 }
 
