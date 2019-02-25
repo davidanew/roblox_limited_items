@@ -22,7 +22,7 @@ class ApiInterface {
     let urlLatestCollectablesBase =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage="
     //number of collectables to load in one go, max is 30
     let numLatestCollectables = 30
-    //this hs to be constucted in initialiser
+    //this has to be constucted in initialiser
     var urlLatestCollectables = ""
     //for getting the URL of the large thumbnail
     //This has a placeholder _ASSETID_ which is substitituted in retrieveLargeThumbnailData
@@ -54,7 +54,7 @@ class ApiInterface {
     
     // Function to get the latest collectables list from roblox
     // this function is called externally to the class. the call must include a closure that handles the return
-    // of this function. Most lightly this handler will run gui update.
+    // of this function. Most lightly this handler will run a gui update.
     func retrieveLatestCollectablesData(closure : @escaping (Bool) -> Void ) {
         let url = urlLatestCollectables
         Alamofire.request(url, method: .get).responseJSON { response in
@@ -80,9 +80,6 @@ class ApiInterface {
             // has results or is nil
             closure(jsonSuccess)
         }
-       // NSLog(<#T##format: String##String#>, <#T##args: CVarArg...##CVarArg#>)
-       // os_log_t log = os_log_create("com.your_company.subsystem", "network");
-        
     }
     
     //Get number on entries in jsonLatestCollectables buffer
@@ -98,15 +95,6 @@ class ApiInterface {
             // construct the URL to request the thumbnail URL
             let url = largeThumbnailURLTemplate.replacingOccurrences(of: "_ASSETID_", with: "\(assetId)")
             // Alamofire request to get the data
-            
-            
-           // let configuration = URLSessionConfiguration.default
-          //  configuration.timeoutIntervalForRequest = 9 // seconds
-          //  configuration.timeoutIntervalForResource = 9
-          //  let alamoFireManager = Alamofire.SessionManager(configuration: configuration)
-            
-            
-            //alamoFireManager.request("my_url", method: .post, parameters: parameters).responseJSON { response in
             Alamofire.request(url, method: .get).responseJSON { response in
                 let alamofireSuccess : Bool = response.result.isSuccess
                 var jsonSuccess : Bool = false
@@ -118,9 +106,11 @@ class ApiInterface {
                         jsonSuccess = true
                     }
                 }
+                //TODO this could be removed
                 else{
                     print ("Alamofire fail")
                 }
+                //TODO this should be moved before alomofire call
                 if !jsonSuccess {
                     self.jsonLargeThumbnail = nil
                 }
@@ -144,7 +134,7 @@ class ApiInterface {
     func getSales(index : Int) -> String? { return jsonLatestCollectables?[index]["Sales"].stringValue}
     func getLimitedAltText(index : Int) -> String? {return jsonLatestCollectables?[index]["LimitedAltText"].stringValue}
     func getPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["Price"].stringValue}
-    // test this
+    // TODO test this
     func getBestPrice(index : Int) -> String?{ return jsonLatestCollectables?[index]["BestPrice"].stringValue}
     func getThumbnailUrl(index : Int) -> String?{return jsonLatestCollectables?[index]["ThumbnailUrl"].stringValue }
 }

@@ -60,6 +60,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
             // uses getAttributedString to get attributed text with bold title
             if let name = apiInterface.getName(index: row) {label1.attributedText = getAttributedString(title: "Name", body: name)}
             if let updated = apiInterface.getUpdated(index: row) {label2.attributedText = getAttributedString(title: "Updated", body: updated)}
+            // Get price from ROblox or set to N/A if not available
             if let price = apiInterface.getPrice(index: row) {
                 if price != "" {
                     label3.attributedText = getAttributedString(title: "Roblox Price", body: price)
@@ -71,7 +72,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
             //use getAvailability to work out if item is available from roblox
             if let availability = getAvailability(row: row) {label4.attributedText = getAttributedString(title: "Roblox Availability", body: availability)}
             if let sales = apiInterface.getSales(index: row) {label5.attributedText = getAttributedString(title: "Roblox Sales", body: sales)}
-            
+            //Get resellet price or set to N/A if not available from reseller
             if let bestPrice = apiInterface.getBestPrice(index: row) {
                 if bestPrice != "" {
                     label6.attributedText = getAttributedString(title: "Best Reseller Price", body: bestPrice)
@@ -81,7 +82,6 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                 }
             }
             if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label7.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
-            //label7.text = nil
         }
     }
     
