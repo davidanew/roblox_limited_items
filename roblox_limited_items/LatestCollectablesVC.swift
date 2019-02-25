@@ -11,40 +11,98 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     // need to store selected row as prepare for segue is asyncronous
     var selectedRow : Int?
     
+    @IBOutlet weak var refreshToastHeight: NSLayoutConstraint!
+    @IBOutlet weak var refreshToast: UILabel!
+    //   @IBAction func refreshButtonPressed(_ sender: Any) {
+ //       refreshTableView()
+ //   }
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    //Add refresh control so pulling down refreshes the view
+    //TODO maybe add button for this as well?
     let refreshControl = UIRefreshControl()
+    let refreshTimerInterval : TimeInterval = 5
+    let refreshToastActiveInterval : TimeInterval = 5
+    var requestedRefreshAt : Date?
+    var successfulRefreshAt : Date?
+    var refreshTimer : Timer?
+    var refreshToastTimer : Timer?
+    
+    //func timerHandler (timerObject : Timer) {
+    func refreshTimerHandler(timer: Timer){
+        _ = timer
+        print ("timer returned")
+        let numberOfRowsDisplayed = tableView.numberOfRows(inSection: 0)
+        if numberOfRowsDisplayed < 1 {
+            tableviewIsEmpty()
+        }
+        else if let thisSuccessfulRefreshAt = successfulRefreshAt {
+            if let thisRequestedRefreshAt = requestedRefreshAt {
+                print (thisSuccessfulRefreshAt)
+                print (thisRequestedRefreshAt)
+                print (thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt))
+                if thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt) < 0 {
+                    tableviewIsOutOfDate()
+                }
+            }
+        }
+    }
+        
+ /*
+        else {
+            if successfulRefreshAt?.compare(requestedRefreshAt!) {
+                
+            }
+ */
+            
+    
     
     override func viewDidLoad() {
         //add refresh control
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
     }
     
+    //TODO rename this
     @objc func refresh(_ sender: Any) {
         //when refresh control is triggered we need to refresh the table view
         refreshTableView()
     }
     
     func refreshTableView(){
+        requestedRefreshAt = Date()
+        refreshTimer?.invalidate()
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshTimerInterval, repeats: false, block: { timer in self.refreshTimerHandler(timer: timer)})
+   //     refreshControl.endRefreshing()
+   //     refreshControl.
+        if (!refreshControl.isRefreshing)    {  refreshControl.beginRefreshing()}
         apiInterface.retrieveLatestCollectablesData{ (success) in
             if success {
                 // reload data will make all cells request there data from apiIterface
                 // which should all now be valid
                 self.tableView.reloadData()
+                self.successfulRefreshAt = Date()
+                self.refreshControl.endRefreshing()
             }
-            else {
-                self.internetError()
-            }
+   //         else {
+   //             self.internetError()
+   //         }
             // remove refresh control
-            self.refreshControl.endRefreshing()
         }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        refreshToastTimer = Timer.scheduledTimer(withTimeInterval: refreshToastActiveInterval, repeats: false, block: {timer in
+            self.refreshToastHeight.constant = 0
+        })
+        refreshTableView()
         //Get the list of latest collectables
+        /*
         apiInterface.retrieveLatestCollectablesData{ (success) in
             if success {
                 // reload data will make all cells request there data from apiIterface
@@ -55,6 +113,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 self.internetError()
             }
         }
+        */
     }
 
     // Called by ios to get the number of cells in view
@@ -101,7 +160,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 cell.imageView?.image = thisImage
             }
             //cell.imageView?.image = UIImage(named: "egg")
+           // else {
+           //     cell.imageView?.image = UIImage(named: "RC110")
+           // }
+            
         }
+       
         return cell
     }
     
@@ -154,8 +218,31 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         }
     }
     
+    //may not be being used any more
+    /*
     func internetError(){
         let alert = UIAlertController(title: "Problem getting data from Roblox", message: "Swipe down to refresh to try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    */
+    
+    func tableviewIsEmpty(){
+        let alert = UIAlertController(title: "Problem getting data from Roblox", message: "Please select Refresh or Wait", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Refresh", style: .default, handler: {alert in
+            self.refreshTableView()
+        }))
+        alert.addAction(UIAlertAction(title: "Wait", style: .default, handler: {alert in
+            self.refreshTimer?.invalidate()
+            self.refreshTimer = Timer.scheduledTimer(withTimeInterval: self.refreshTimerInterval, repeats: false, block: { timer in
+                self.refreshTimerHandler(timer: timer)
+            })
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func tableviewIsOutOfDate(){
+        let alert = UIAlertController(title: "Could not refresh data from Roblox", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
