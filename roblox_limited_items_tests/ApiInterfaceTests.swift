@@ -45,6 +45,7 @@ class ApiInterfaceTests: XCTestCase {
             XCTAssertNotNil(iut.getPrice(index : itemNum))
             XCTAssertNotNil(iut.getThumbnailUrl(index : itemNum))
         }
+       // print (iut.jsonLatestCollectables)
     }
     
     // test the functions that pass data between the view controllers
