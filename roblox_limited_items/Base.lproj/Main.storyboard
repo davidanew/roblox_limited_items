@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FS6-Kn-gxR">
-                                <rect key="frame" x="0.0" y="64" width="375" height="563"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="catalogCell" textLabel="rqT-jP-Irh" detailTextLabel="pqZ-dX-vi5" style="IBUITableViewCellStyleSubtitle" id="PEL-uc-5R8">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="catalogCell" textLabel="rqT-jP-Irh" detailTextLabel="pqZ-dX-vi5" imageView="hFs-eL-9ki" style="IBUITableViewCellStyleSubtitle" id="PEL-uc-5R8">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PEL-uc-5R8" id="xIn-iH-4r9">
@@ -30,19 +30,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rqT-jP-Irh">
-                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="74" y="5" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pqZ-dX-vi5">
-                                                    <rect key="frame" x="15" y="25.5" width="33" height="14.5"/>
+                                                    <rect key="frame" x="74" y="25.5" width="33" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="RC110" id="hFs-eL-9ki">
+                                                    <rect key="frame" x="15" y="0.0" width="44" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -52,33 +56,18 @@
                                     <outlet property="delegate" destination="R93-dj-CCs" id="54g-jQ-tLc"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pull down to refresh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYN-WV-oh7" userLabel="Refresh Toast">
-                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
-                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="tWs-3B-f3A"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FS6-Kn-gxR" firstAttribute="top" secondItem="kcs-69-1Zx" secondAttribute="top" id="2pz-PA-Y43"/>
+                            <constraint firstItem="kcs-69-1Zx" firstAttribute="bottom" secondItem="FS6-Kn-gxR" secondAttribute="bottom" id="A0R-xk-iWH"/>
                             <constraint firstItem="FS6-Kn-gxR" firstAttribute="leading" secondItem="kcs-69-1Zx" secondAttribute="leading" id="DNg-sz-GS9"/>
-                            <constraint firstItem="kcs-69-1Zx" firstAttribute="bottom" secondItem="BYN-WV-oh7" secondAttribute="bottom" id="Vyv-RD-5S2"/>
                             <constraint firstItem="FS6-Kn-gxR" firstAttribute="trailing" secondItem="kcs-69-1Zx" secondAttribute="trailing" id="a6h-iA-7g4"/>
-                            <constraint firstItem="kcs-69-1Zx" firstAttribute="trailing" secondItem="BYN-WV-oh7" secondAttribute="trailing" id="bko-zh-u30"/>
-                            <constraint firstItem="BYN-WV-oh7" firstAttribute="top" secondItem="FS6-Kn-gxR" secondAttribute="bottom" id="dlO-nc-QYq"/>
-                            <constraint firstItem="BYN-WV-oh7" firstAttribute="leading" secondItem="kcs-69-1Zx" secondAttribute="leading" id="k6R-8Y-Yu8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kcs-69-1Zx"/>
                     </view>
                     <navigationItem key="navigationItem" title="Latest Collectables" id="GDo-li-DVe"/>
                     <connections>
-                        <outlet property="refreshToast" destination="BYN-WV-oh7" id="7PU-9m-ATe"/>
-                        <outlet property="refreshToastHeight" destination="tWs-3B-f3A" id="0Y1-Pp-Jw8"/>
                         <outlet property="tableView" destination="FS6-Kn-gxR" id="JuJ-Cv-G5X"/>
                         <segue destination="q8Y-4Y-t2X" kind="show" identifier="ShowItemDetail" id="6VS-1z-c7q"/>
                     </connections>
@@ -253,4 +242,7 @@
             <point key="canvasLocation" x="1632.8" y="-1587.256371814093"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="RC110" width="110" height="110"/>
+    </resources>
 </document>
