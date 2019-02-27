@@ -19,32 +19,89 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     // These two variables track the refresh operation
     var requestedRefreshAt : Date?
     var successfulRefreshAt : Date?
-    // Timer for removing the refresh instrucions toast
-    var refreshToastTimer : Timer?
-    // How long to keep the refresh instructios toast displayed
-    let refreshToastActiveInterval : TimeInterval = 5
+    var enteredForegroundTimer : Timer?
     
-    //Label that is only shown after starup giving instrcutions on how to refresh
-    @IBOutlet weak var refreshToast: UILabel!
-    //Need outlet for constaint as the label height is set to 0 after a few seconds
-    @IBOutlet weak var refreshToastHeight: NSLayoutConstraint!
+    //TODO: defined variable for foreground timeer
+//    // Timer for removing the refresh instrucions toast
+//    var refreshToastTimer : Timer?
+//    // How long to keep the refresh instructios toast displayed
+//    let refreshToastActiveInterval : TimeInterval = 5
+    
+ //   //Label that is only shown after starup giving instrcutions on how to refresh
+//    @IBOutlet weak var refreshToast: UILabel!
+//    //Need outlet for constaint as the label height is set to 0 after a few seconds
+//    @IBOutlet weak var refreshToastHeight: NSLayoutConstraint!
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector:"doYourStuff", name:
+        //    UIApplicationWillEnterForegroundNotification, object: nil)
+   //     NotificationCenter.addObserver(<#T##observer: NSObject##NSObject#>, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
+        
         //add refresh control
         tableView.refreshControl = refreshControl
+        let attributedTitle = NSAttributedString(string: "Pull down to refresh")
+        refreshControl.attributedTitle = attributedTitle
         refreshControl.addTarget(self, action: #selector(refreshControlRefresh), for: .valueChanged)
+    }
+    
+    @objc func viewWillEnterForeground () {
+        print("viewWillEnterForeground")
+        //https://github.com/AFNetworking/AFNetworking/issues/4279
+        enteredForegroundTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { timer in
+            print("refreshing view after timer from background")
+            self.refreshTableView()
+            
+        })
+        //refreshTableView()
+    }
+    
+    @objc func viewDidEnterBackground() {
+        print("viewDidEnterBackground")
+        print("kill refreshTimer")
+        refreshTimer?.invalidate()
+        print("kill enteredForegroundTimer")
+        enteredForegroundTimer?.invalidate()
+    }
+    
+    /*
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+ */
+ 
+ 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will disappear")
+        print("removing notifications")
+        NotificationCenter.default.removeObserver(self)
+        print("kill refreshTimer")
+        refreshTimer?.invalidate()
+        print("kill enteredForegroundTimer")
+        enteredForegroundTimer?.invalidate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //Start the timer to indicat when the refresh instructions lable should disapper
-        refreshToastTimer = Timer.scheduledTimer(withTimeInterval: refreshToastActiveInterval, repeats: false, block: {timer in
+//        refreshToastTimer = Timer.scheduledTimer(withTimeInterval: refreshToastActiveInterval, repeats: false, block: {timer in
             //closure removed the label
-            self.refreshToastHeight.constant = 0
-        })
+//            self.refreshToastHeight.constant = 0
+//        })
+        print ("viewWillAppear")
         //get first datas
+ //       refreshTableView()
+    }
+    //let x = UIApplication.didEnter
+    override func viewDidAppear(_ animated: Bool) {
+        print ("viewDidAppear")
+        super.viewDidAppear(animated)
+        print("added notifications")
+        NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         refreshTableView()
     }
     
@@ -72,6 +129,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         else {
             cell.textLabel?.text = "error"
         }
+        cell.imageView?.image = UIImage(named: "white110")
         //set the subtitle
         cell.detailTextLabel?.text = getSubtitleText(row : indexPath.row)
         // Get the thumbnail URL image using imageInterface
@@ -92,6 +150,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 cell.imageView?.image = thisImage
             }
         }
+        //print(cell.frame)
         return cell
     }
     
@@ -126,9 +185,10 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     }
     
     //This run when:
-    //The view loads
+    //The view loads - first time or return from detail view
     //refresh is requested by the user pulling down on the table view
-    //The refresh timer dialog box
+    //The refresh timer dialog box for when all cells are empty
+    //when the app returns from background (with delay)
     func refreshTableView(){
         //log the time that the refresh was requested for use with the request timer
         requestedRefreshAt = Date()
@@ -143,13 +203,14 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         
         apiInterface.retrieveLatestCollectablesData{ (success) in
             if success {
-                // reload data will make all cells request there data from apiIterface
+                // remove the refresh animation
+                self.refreshControl.endRefreshing()
+                // reload data will make all cells request their data from apiIterface
                 // which should all now be valid
                 self.tableView.reloadData()
                 //log the time that the refresh was completed for use with the request timer
                 self.successfulRefreshAt = Date()
-                // remove the refresh animation
-                self.refreshControl.endRefreshing()
+               
             }
         }
     }
@@ -166,6 +227,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     func refreshTimerHandler(timer: Timer){
         //dont't need this variable
         _ = timer
+        //NotificationCenter.default.
         print ("timer returned")
         let numberOfRowsDisplayed = tableView.numberOfRows(inSection: 0)
         //If there is no data displayed the call tableviewIsEmpty
