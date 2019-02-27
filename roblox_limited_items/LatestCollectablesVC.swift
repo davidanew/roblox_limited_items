@@ -19,27 +19,15 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     // These two variables track the refresh operation
     var requestedRefreshAt : Date?
     var successfulRefreshAt : Date?
+    // when app enters foreground refresh data after this timer
     var enteredForegroundTimer : Timer?
-    
-    //TODO: defined variable for foreground timeer
-//    // Timer for removing the refresh instrucions toast
-//    var refreshToastTimer : Timer?
-//    // How long to keep the refresh instructios toast displayed
-//    let refreshToastActiveInterval : TimeInterval = 5
-    
- //   //Label that is only shown after starup giving instrcutions on how to refresh
-//    @IBOutlet weak var refreshToast: UILabel!
-//    //Need outlet for constaint as the label height is set to 0 after a few seconds
-//    @IBOutlet weak var refreshToastHeight: NSLayoutConstraint!
+    //TODO: define variable for foreground timer
+
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector:"doYourStuff", name:
-        //    UIApplicationWillEnterForegroundNotification, object: nil)
-   //     NotificationCenter.addObserver(<#T##observer: NSObject##NSObject#>, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
-        
         //add refresh control
         tableView.refreshControl = refreshControl
         let attributedTitle = NSAttributedString(string: "Pull down to refresh")
@@ -47,17 +35,37 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         refreshControl.addTarget(self, action: #selector(refreshControlRefresh), for: .valueChanged)
     }
     
+    //TODO: remove this
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print ("viewWillAppear")
+    }
+    
+    //Add notifications
+    override func viewDidAppear(_ animated: Bool) {
+    //    print ("viewDidAppear")
+        super.viewDidAppear(animated)
+   //     print("added notifications")
+        //This notification is used to trigger a refresh when the app goes into foregrouns
+        NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        //This notification is used to trigger removal of tasks that should not be run in backgroun
+        NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        refreshTableView()
+    }
+    
+    //triggers a delayed refresh whe the app enters foreground
     @objc func viewWillEnterForeground () {
-        print("viewWillEnterForeground")
+    //    print("viewWillEnterForeground")
+        //refresh needs to be delayed or there is an error - see bug below
         //https://github.com/AFNetworking/AFNetworking/issues/4279
         enteredForegroundTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { timer in
-            print("refreshing view after timer from background")
+ //           print("refreshing view after timer from background")
             self.refreshTableView()
             
         })
-        //refreshTableView()
     }
     
+    //when app goes to backround we remove the timers
     @objc func viewDidEnterBackground() {
         print("viewDidEnterBackground")
         print("kill refreshTimer")
@@ -66,45 +74,20 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         enteredForegroundTimer?.invalidate()
     }
     
-    /*
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
- */
- 
- 
+    //when the VC is closed we don't need any notifications
+    //or timers
+    //These will be re-intatated when the view is appears again
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("view will disappear")
-        print("removing notifications")
+ //       print("view will disappear")
+ //       print("removing notifications")
         NotificationCenter.default.removeObserver(self)
-        print("kill refreshTimer")
+//        print("kill refreshTimer")
         refreshTimer?.invalidate()
-        print("kill enteredForegroundTimer")
+//        print("kill enteredForegroundTimer")
         enteredForegroundTimer?.invalidate()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //Start the timer to indicat when the refresh instructions lable should disapper
-//        refreshToastTimer = Timer.scheduledTimer(withTimeInterval: refreshToastActiveInterval, repeats: false, block: {timer in
-            //closure removed the label
-//            self.refreshToastHeight.constant = 0
-//        })
-        print ("viewWillAppear")
-        //get first datas
- //       refreshTableView()
-    }
-    //let x = UIApplication.didEnter
-    override func viewDidAppear(_ animated: Bool) {
-        print ("viewDidAppear")
-        super.viewDidAppear(animated)
-        print("added notifications")
-        NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        refreshTableView()
-    }
-    
+        
     // Called by ios to get the number of cells in view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //on refresh get number of entries according to apiInterface
