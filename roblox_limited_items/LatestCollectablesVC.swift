@@ -43,6 +43,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         //This notification is used to trigger removal of tasks that should not be run in backgroun
         NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         refreshTableView()
     }
     
@@ -240,9 +243,21 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     // look at, and lots of pop ups will be annoying
     func tableviewIsOutOfDate(){
         let alert = UIAlertController(title: "Could not refresh data from Roblox", message: nil, preferredStyle: .alert)
-        //action does nothing
-        //user already knows how to refresh 
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+
+        //"Wait" button will not do a refresh but will restary the timer so
+        //the situation can be checked again later
+        alert.addAction(UIAlertAction(title: "Wait", style: .default, handler: {alert in
+            self.refreshTimer?.invalidate()
+            self.refreshTimer = Timer.scheduledTimer(withTimeInterval: self.refreshTimerInterval, repeats: false, block: { timer in
+                self.refreshTimerHandler(timer: timer)
+            })
+        }))
+        //TODO: update : action does nothing
+        //user already knows how to refresh
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { alert in
+            self.refreshControl.endRefreshing()
+            
+        }))
         self.present(alert, animated: true)
     }
     
