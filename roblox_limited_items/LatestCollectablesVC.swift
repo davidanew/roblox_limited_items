@@ -43,6 +43,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         //This notification is used to trigger removal of tasks that should not be run in backgroun
         NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        //when we trasistion back from the detail VC sometimes the cell is still selected
+        //fix this here
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
@@ -60,10 +62,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     //when app goes to backround we remove the timers
     @objc func viewDidEnterBackground() {
- //       print("viewDidEnterBackground")
- //       print("kill refreshTimer")
         refreshTimer?.invalidate()
- //       print("kill enteredForegroundTimer")
         enteredForegroundTimer?.invalidate()
     }
     
@@ -122,7 +121,6 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 cell.imageView?.image = thisImage
             }
         }
-        //print(cell.frame)
         return cell
     }
     
@@ -199,8 +197,6 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     func refreshTimerHandler(timer: Timer){
         //dont't need this variable
         _ = timer
-        //NotificationCenter.default.
-//        print ("timer returned")
         let numberOfRowsDisplayed = tableView.numberOfRows(inSection: 0)
         //If there is no data displayed the call tableviewIsEmpty
         if numberOfRowsDisplayed < 1 {
@@ -209,9 +205,6 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             //else check that the refresh has been done after the refresh was requested
         else if let thisSuccessfulRefreshAt = successfulRefreshAt {
             if let thisRequestedRefreshAt = requestedRefreshAt {
- //               print (thisSuccessfulRefreshAt)
- //               print (thisRequestedRefreshAt)
- //               print (thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt))
                 //if request is after the call tableviewIsOutOfDate
                 if thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt) < 0 {
                     tableviewIsOutOfDate()
@@ -252,8 +245,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 self.refreshTimerHandler(timer: timer)
             })
         }))
-        //TODO: update : action does nothing
-        //user already knows how to refresh
+        //Dismiss will remove the refresh indicator otherwide it stays there and can't be removed
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { alert in
             self.refreshControl.endRefreshing()
             
