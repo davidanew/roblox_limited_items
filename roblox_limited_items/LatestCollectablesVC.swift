@@ -21,6 +21,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     var successfulRefreshAt : Date?
     // when app enters foreground refresh data after this timer
     var enteredForegroundTimer : Timer?
+    // delay for enteredForegroundTimer
     let enteredForegroundTimerInterval : TimeInterval = 1
 
     // need this outlet so we can force refreshes
