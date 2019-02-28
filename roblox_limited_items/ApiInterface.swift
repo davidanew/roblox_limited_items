@@ -64,15 +64,15 @@ class ApiInterface {
                 if let value = response.result.value {
                     self.jsonLatestCollectables = JSON(value)
                     jsonSuccess = true
-                    os_log("retrieveLatestCollectablesData Alamofire closure set json", log: Log.general, type: .debug)
+                    os_log("retrieveLatestCollectablesData, Alamofire closure, set json", log: Log.general, type: .debug)
                 }
                 else {
-                    os_log("retrieveLatestCollectablesData Alamofire closure response.result.value is nil", log: Log.general, type: .debug)
+                    os_log("retrieveLatestCollectablesData, Alamofire closure, response.result.value is nil", log: Log.general, type: .debug)
 
                 }
             }
             else{
-                os_log("retrieveLatestCollectablesData Alamofire success is false", log: Log.general, type: .debug)
+                os_log("retrieveLatestCollectablesData, Alamofire success is false", log: Log.general, type: .debug)
             }
             // this completion handler signals that the JSON retrieval is done and buffer
             // has results or is nil
