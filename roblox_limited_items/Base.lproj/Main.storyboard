@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="R93-dj-CCs" userLabel="Latest Collectables Controller" customClass="LatestCollectablesVC" customModule="roblox_limited_items" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XSL-IO-yi7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FS6-Kn-gxR">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="catalogCell" textLabel="rqT-jP-Irh" detailTextLabel="pqZ-dX-vi5" imageView="hFs-eL-9ki" style="IBUITableViewCellStyleSubtitle" id="PEL-uc-5R8">
@@ -66,7 +66,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kcs-69-1Zx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Latest Collectables" id="GDo-li-DVe"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="Latest Collectibles" id="GDo-li-DVe"/>
                     <connections>
                         <outlet property="tableView" destination="FS6-Kn-gxR" id="JuJ-Cv-G5X"/>
                         <segue destination="q8Y-4Y-t2X" kind="show" identifier="ShowItemDetail" id="6VS-1z-c7q"/>
@@ -81,11 +82,11 @@
             <objects>
                 <viewController id="q8Y-4Y-t2X" userLabel="Item Detail VC" customClass="ItemDetailVC" customModule="roblox_limited_items" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H1J-vf-qXr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1XN-Yw-h9a">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcR-qG-muX" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="391.5"/>
@@ -206,6 +207,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="o9R-Mv-dUx"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Item Detail" id="OIV-Cy-N2R"/>
                     <connections>
                         <outlet property="image1" destination="Ijq-ZL-Pvp" id="ov1-sP-iFk"/>
@@ -228,9 +230,10 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3La-aw-cQw" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" badgeValue="New Limited Items" id="0r8-Qi-Svk"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="m08-ey-JsZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="m08-ey-JsZ">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
