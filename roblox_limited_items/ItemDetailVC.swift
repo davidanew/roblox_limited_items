@@ -70,7 +70,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                     label6.attributedText = getAttributedString(title: "Best Reseller Price", body: "N/A")
                 }
             }
-            if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label7.attributedText = getAttributedString(title: "Collectable type", body: limitedAltText)}
+            if let limitedAltText = apiInterface.getLimitedAltText(index: row) {label7.attributedText = getAttributedString(title: "Collectible type", body: limitedAltText)}
         }
     }
     
