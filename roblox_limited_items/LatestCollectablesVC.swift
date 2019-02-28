@@ -21,7 +21,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     var successfulRefreshAt : Date?
     // when app enters foreground refresh data after this timer
     var enteredForegroundTimer : Timer?
-    //TODO: define variable for foreground timer
+    let enteredForegroundTimerInterval : TimeInterval = 1
 
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
@@ -35,17 +35,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         refreshControl.addTarget(self, action: #selector(refreshControlRefresh), for: .valueChanged)
     }
     
-    //TODO: remove this
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print ("viewWillAppear")
-    }
-    
     //Add notifications
     override func viewDidAppear(_ animated: Bool) {
-    //    print ("viewDidAppear")
         super.viewDidAppear(animated)
-   //     print("added notifications")
         //This notification is used to trigger a refresh when the app goes into foregrouns
         NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         //This notification is used to trigger removal of tasks that should not be run in backgroun
@@ -55,22 +47,19 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     //triggers a delayed refresh whe the app enters foreground
     @objc func viewWillEnterForeground () {
-    //    print("viewWillEnterForeground")
         //refresh needs to be delayed or there is an error - see bug below
         //https://github.com/AFNetworking/AFNetworking/issues/4279
-        enteredForegroundTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { timer in
- //           print("refreshing view after timer from background")
+        enteredForegroundTimer = Timer.scheduledTimer(withTimeInterval: enteredForegroundTimerInterval, repeats: false, block: { timer in
             self.refreshTableView()
-            
         })
     }
     
     //when app goes to backround we remove the timers
     @objc func viewDidEnterBackground() {
-        print("viewDidEnterBackground")
-        print("kill refreshTimer")
+ //       print("viewDidEnterBackground")
+ //       print("kill refreshTimer")
         refreshTimer?.invalidate()
-        print("kill enteredForegroundTimer")
+ //       print("kill enteredForegroundTimer")
         enteredForegroundTimer?.invalidate()
     }
     
@@ -79,12 +68,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     //These will be re-intatated when the view is appears again
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
- //       print("view will disappear")
- //       print("removing notifications")
         NotificationCenter.default.removeObserver(self)
-//        print("kill refreshTimer")
         refreshTimer?.invalidate()
-//        print("kill enteredForegroundTimer")
         enteredForegroundTimer?.invalidate()
     }
         
@@ -211,7 +196,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         //dont't need this variable
         _ = timer
         //NotificationCenter.default.
-        print ("timer returned")
+//        print ("timer returned")
         let numberOfRowsDisplayed = tableView.numberOfRows(inSection: 0)
         //If there is no data displayed the call tableviewIsEmpty
         if numberOfRowsDisplayed < 1 {
@@ -220,9 +205,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             //else check that the refresh has been done after the refresh was requested
         else if let thisSuccessfulRefreshAt = successfulRefreshAt {
             if let thisRequestedRefreshAt = requestedRefreshAt {
-                print (thisSuccessfulRefreshAt)
-                print (thisRequestedRefreshAt)
-                print (thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt))
+ //               print (thisSuccessfulRefreshAt)
+ //               print (thisRequestedRefreshAt)
+ //               print (thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt))
                 //if request is after the call tableviewIsOutOfDate
                 if thisSuccessfulRefreshAt.timeIntervalSince(thisRequestedRefreshAt) < 0 {
                     tableviewIsOutOfDate()
