@@ -8,7 +8,6 @@ target 'roblox_limited_items' do
   # Pods for roblox_limited_items
   pod 'SwiftyJSON'
   pod 'Alamofire'
-  pod 'Kingfisher'
 
 end
 

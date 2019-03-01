@@ -12,7 +12,8 @@
 		C837292F2212E5EF0058F292 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837292E2212E5EF0058F292 /* Protocols.swift */; };
 		C84510A22217198300EB0838 /* ItemDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84510A12217198300EB0838 /* ItemDetailVC.swift */; };
 		C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C9D80220F3C7000E31FC8 /* Models.swift */; };
-		C86A8F8E221AB8FD00B818F1 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86A8F8D221AB8FD00B818F1 /* Notes.swift */; };
+		C87BCAB122293BB700125095 /* robloxCollectiblesMain5p5.png in Resources */ = {isa = PBXBuildFile; fileRef = C87BCAB022293BB700125095 /* robloxCollectiblesMain5p5.png */; };
+		C87BCAB322293BBF00125095 /* robloxCollectiblesDetail5p5.png in Resources */ = {isa = PBXBuildFile; fileRef = C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */; };
 		C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDE921F8805F0053DF8D /* AppDelegate.swift */; };
 		C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDED21F8805F0053DF8D /* Main.storyboard */; };
 		C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C88BBDF021F880640053DF8D /* Assets.xcassets */; };
@@ -47,7 +48,8 @@
 		C837292E2212E5EF0058F292 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		C84510A12217198300EB0838 /* ItemDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailVC.swift; sourceTree = "<group>"; };
 		C84C9D80220F3C7000E31FC8 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		C86A8F8D221AB8FD00B818F1 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
+		C87BCAB022293BB700125095 /* robloxCollectiblesMain5p5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesMain5p5.png; sourceTree = "<group>"; };
+		C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesDetail5p5.png; sourceTree = "<group>"; };
 		C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roblox_limited_items.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88BBDE921F8805F0053DF8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C88BBDEE21F8805F0053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -144,7 +146,6 @@
 				C88BBDF221F880640053DF8D /* LaunchScreen.storyboard */,
 				C88BBDF521F880640053DF8D /* Info.plist */,
 				C8FC5C152215A97D00D134CC /* jsonExamples.swift */,
-				C86A8F8D221AB8FD00B818F1 /* Notes.swift */,
 				C8F5423E22281400006D490C /* Notes2.rtf */,
 			);
 			path = roblox_limited_items;
@@ -164,7 +165,9 @@
 			isa = PBXGroup;
 			children = (
 				C8F5423A2228134E006D490C /* robloxCollectiblesMain.png */,
+				C87BCAB022293BB700125095 /* robloxCollectiblesMain5p5.png */,
 				C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */,
+				C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */,
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
@@ -256,7 +259,9 @@
 			files = (
 				C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */,
 				C8F5423F22281400006D490C /* Notes2.rtf in Resources */,
+				C87BCAB322293BBF00125095 /* robloxCollectiblesDetail5p5.png in Resources */,
 				C8F5423D22281356006D490C /* robloxCollectiblesDetail.png in Resources */,
+				C87BCAB122293BB700125095 /* robloxCollectiblesMain5p5.png in Resources */,
 				C8F5423B2228134E006D490C /* robloxCollectiblesMain.png in Resources */,
 				C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */,
 				C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */,
@@ -327,7 +332,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -335,7 +339,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,7 +380,6 @@
 				C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */,
 				C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */,
 				C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */,
-				C86A8F8E221AB8FD00B818F1 /* Notes.swift in Sources */,
 				C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */,
 				C837292F2212E5EF0058F292 /* Protocols.swift in Sources */,
 				C8D2BE2F221608CD0073996B /* ImageInterface.swift in Sources */,
@@ -474,7 +476,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -529,7 +531,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
