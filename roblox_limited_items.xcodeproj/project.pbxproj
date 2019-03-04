@@ -27,6 +27,7 @@
 		C8F5423F22281400006D490C /* Notes2.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C8F5423E22281400006D490C /* Notes2.rtf */; };
 		C8F87B842216CB4500A909C8 /* ImageInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F87B832216CB4500A909C8 /* ImageInterfaceTests.swift */; };
 		C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FC5C152215A97D00D134CC /* jsonExamples.swift */; };
+		C8FD1A2D2229699200A24460 /* robloxCollectiblesMain12p9.png in Resources */ = {isa = PBXBuildFile; fileRef = C8FD1A2C2229699200A24460 /* robloxCollectiblesMain12p9.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		C8F5423E22281400006D490C /* Notes2.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes2.rtf; sourceTree = "<group>"; };
 		C8F87B832216CB4500A909C8 /* ImageInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInterfaceTests.swift; sourceTree = "<group>"; };
 		C8FC5C152215A97D00D134CC /* jsonExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonExamples.swift; sourceTree = "<group>"; };
+		C8FD1A2C2229699200A24460 /* robloxCollectiblesMain12p9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesMain12p9.png; sourceTree = "<group>"; };
 		FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roblox_limited_items.debug.xcconfig"; path = "Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +168,7 @@
 			children = (
 				C8F5423A2228134E006D490C /* robloxCollectiblesMain.png */,
 				C87BCAB022293BB700125095 /* robloxCollectiblesMain5p5.png */,
+				C8FD1A2C2229699200A24460 /* robloxCollectiblesMain12p9.png */,
 				C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */,
 				C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */,
 			);
@@ -257,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FD1A2D2229699200A24460 /* robloxCollectiblesMain12p9.png in Resources */,
 				C88BBDF421F880640053DF8D /* LaunchScreen.storyboard in Resources */,
 				C8F5423F22281400006D490C /* Notes2.rtf in Resources */,
 				C87BCAB322293BBF00125095 /* robloxCollectiblesDetail5p5.png in Resources */,
