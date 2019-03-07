@@ -21,6 +21,7 @@
 		C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */; };
 		C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6A22119645007F9A6D /* ApiInterface.swift */; };
 		C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */; };
+		C8CB87B1222EF0D300D87901 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB87B0222EF0D300D87901 /* NotificationsVC.swift */; };
 		C8D2BE2F221608CD0073996B /* ImageInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2BE2E221608CD0073996B /* ImageInterface.swift */; };
 		C8F5423B2228134E006D490C /* robloxCollectiblesMain.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F5423A2228134E006D490C /* robloxCollectiblesMain.png */; };
 		C8F5423D22281356006D490C /* robloxCollectiblesDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */; };
@@ -57,11 +58,13 @@
 		C88BBDF021F880640053DF8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C88BBDF321F880640053DF8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C88BBDF521F880640053DF8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8A1CA992230116D0020A7D8 /* roblox_limited_items.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = roblox_limited_items.entitlements; sourceTree = "<group>"; };
 		C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCollectablesVC.swift; sourceTree = "<group>"; };
 		C8BC6D6A22119645007F9A6D /* ApiInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterface.swift; sourceTree = "<group>"; };
 		C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = roblox_limited_items_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterfaceTests.swift; sourceTree = "<group>"; };
 		C8BC6D742211AE52007F9A6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8CB87B0222EF0D300D87901 /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		C8D2BE2E221608CD0073996B /* ImageInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInterface.swift; sourceTree = "<group>"; };
 		C8F5423A2228134E006D490C /* robloxCollectiblesMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesMain.png; sourceTree = "<group>"; };
 		C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesDetail.png; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		C88BBDE821F8805F0053DF8D /* roblox_limited_items */ = {
 			isa = PBXGroup;
 			children = (
+				C8A1CA992230116D0020A7D8 /* roblox_limited_items.entitlements */,
 				C837292E2212E5EF0058F292 /* Protocols.swift */,
 				C84C9D80220F3C7000E31FC8 /* Models.swift */,
 				C8BC6D6A22119645007F9A6D /* ApiInterface.swift */,
@@ -149,6 +153,7 @@
 				C88BBDF521F880640053DF8D /* Info.plist */,
 				C8FC5C152215A97D00D134CC /* jsonExamples.swift */,
 				C8F5423E22281400006D490C /* Notes2.rtf */,
+				C8CB87B0222EF0D300D87901 /* NotificationsVC.swift */,
 			);
 			path = roblox_limited_items;
 			sourceTree = "<group>";
@@ -229,6 +234,11 @@
 				TargetAttributes = {
 					C88BBDE521F8805F0053DF8D = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					C8BC6D6F2211AE52007F9A6D = {
 						CreatedOnToolsVersion = 10.1;
@@ -335,6 +345,25 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-roblox_limited_items/Pods-roblox_limited_items-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSAutoScaling/AWSAutoScaling.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCloudWatch/AWSCloudWatch.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSEC2/AWSEC2.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSElasticLoadBalancing/AWSElasticLoadBalancing.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSIoT/AWSIoT.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSKinesis/AWSKinesis.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSLambda/AWSLambda.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSMachineLearning/AWSMachineLearning.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSMobileAnalytics/AWSMobileAnalytics.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSES/AWSSES.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSNS/AWSSNS.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSQS/AWSSQS.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSSimpleDB/AWSSimpleDB.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -342,6 +371,25 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAutoScaling.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCloudWatch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSDynamoDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSEC2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSElasticLoadBalancing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSIoT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSKinesis.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSLambda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMachineLearning.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileAnalytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSES.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSNS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSQS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSSimpleDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -382,6 +430,7 @@
 				C84510A22217198300EB0838 /* ItemDetailVC.swift in Sources */,
 				C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */,
 				C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */,
+				C8CB87B1222EF0D300D87901 /* NotificationsVC.swift in Sources */,
 				C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */,
 				C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */,
 				C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */,
@@ -550,6 +599,7 @@
 			baseConfigurationReference = FA7BCACA0D69A95C33808EE5 /* Pods-roblox_limited_items.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = roblox_limited_items/roblox_limited_items.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64F6S6MS6N;
 				INFOPLIST_FILE = roblox_limited_items/Info.plist;
@@ -570,6 +620,7 @@
 			baseConfigurationReference = 663F1F04499BC9916CCAEC35 /* Pods-roblox_limited_items.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = roblox_limited_items/roblox_limited_items.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64F6S6MS6N;
 				INFOPLIST_FILE = roblox_limited_items/Info.plist;

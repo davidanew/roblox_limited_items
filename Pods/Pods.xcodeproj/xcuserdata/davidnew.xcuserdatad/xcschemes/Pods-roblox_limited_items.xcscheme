@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2FDECD4B0FCAF4B9D8579911F4CE20DE"
+               BlueprintIdentifier = "A5AB842B977C28A94A443B79AE0EED9C"
                BuildableName = "Pods_roblox_limited_items.framework"
                BlueprintName = "Pods-roblox_limited_items"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2FDECD4B0FCAF4B9D8579911F4CE20DE"
+            BlueprintIdentifier = "A5AB842B977C28A94A443B79AE0EED9C"
             BuildableName = "Pods_roblox_limited_items.framework"
             BlueprintName = "Pods-roblox_limited_items"
             ReferencedContainer = "container:Pods.xcodeproj">
