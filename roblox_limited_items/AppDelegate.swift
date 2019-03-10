@@ -2,9 +2,9 @@
 
 import UIKit
 import UserNotifications
-//import AWSCore
-//import AWSSNS
-//import AWSCognito
+import AWSCore
+import AWSSNS
+import AWSCognito
 
 //https://medium.com/@thabodavidnyakalloklass/ios-push-with-amazons-aws-simple-notifications-service-sns-and-swift-made-easy-51d6c79bc206
 
@@ -14,51 +14,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     
-    let SNSPlatformApplicationArn = "https://eu-west-1.console.aws.amazon.com/sns/v2/home?region=eu-west-1#/applications/arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
+    let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.EUWest1, identityPoolId: "eu-west-1:3be9d515-982a-40b5-bd65-d06a773de5bb")
+        let defaultServiceConfiguration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentialsProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             if (success) {
-                UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
-                    print ("User allowed settings \(settings)")
-                })
+                print("Notification center authorisation request success")
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
+            } else {
+                print("Notification center authorisation request failed")
             }
-            print (success)
-//            print (error)
         }
         return true
     }
     
-    /*
-    
-    func registerForPushNotifications(application: UIApplication) {
-        /// The notifications settings
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().delegate = self
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
-                if (granted)
-                {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-                else{
-                    //Do stuff if unsuccessful...
-                }
-            })
-        } else {
-            let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-            application.registerForRemoteNotifications()
-        }
-    }
- 
- */
- 
+
  
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -84,16 +62,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     //https://github.com/thaboklass/SpreebieSNSExample/blob/master/SpreebieSNSExample/AppDelegate.swift
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print ("didRegisterForRemoteNotificationsWithDeviceToken")
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Notifications registration failed")
     }
     
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("didFailToRegisterForRemoteNotificationsWithError")
-    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print ("Notifications registration success")
+        var tokenString = ""
+        for i in 0..<deviceToken.count {
+            tokenString = tokenString + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+        }
+        print("device token \(tokenString)")
+        let endpointInput = AWSSNSCreatePlatformEndpointInput()
+        endpointInput?.token = tokenString
+        endpointInput?.platformApplicationArn = platformApplicationArn
+        AWSSNS.default().createPlatformEndpoint(endpointInput!) { (endpointResponse, error) in
+            print ("Attempted to create endpoint, recieved \(endpointResponse) , \(error)")
+        }
         
+ 
+    }
+    
+
  
 /*
         /// Attach the device token to the user defaults
