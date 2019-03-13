@@ -19,13 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        //set AWS service configuartion
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.EUWest1, identityPoolId: "eu-west-1:3be9d515-982a-40b5-bd65-d06a773de5bb")
         let defaultServiceConfiguration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
+        //request authorisation from local phone notification center
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             if (success) {
                 print("Notification center authorisation request success")
+                //If authorisation is given then resgister for notifications
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
@@ -66,18 +69,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Notifications registration failed")
     }
     
+    // On successful register for notifictions this function is run
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print ("Notifications registration success")
         var tokenString = ""
+        // convert device token to as string ready to send to aws
         for i in 0..<deviceToken.count {
             tokenString = tokenString + String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
         print("device token \(tokenString)")
+        // create AWS SNS endpoint object and populate
         let endpointInput = AWSSNSCreatePlatformEndpointInput()
         endpointInput?.token = tokenString
         endpointInput?.platformApplicationArn = platformApplicationArn
+        // attempt to create endpoint
         AWSSNS.default().createPlatformEndpoint(endpointInput!) { (endpointResponse, error) in
             print ("Attempted to create endpoint, recieved \(endpointResponse) , \(error)")
+            //TODO: do topic subcription
         }
         
  
