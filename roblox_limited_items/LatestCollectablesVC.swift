@@ -26,7 +26,13 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
 
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
-
+    @IBAction func configButton(_ sender: Any) {
+//        print ("pressed button")
+        let alert = UIAlertController(title: "Notifications are disabled", message: "go to settings -> notifocations - roblox Collectibles to enable them", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //add refresh control
