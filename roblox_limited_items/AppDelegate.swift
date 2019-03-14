@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         endpointInput?.platformApplicationArn = platformApplicationArn
         // attempt to create endpoint
         AWSSNS.default().createPlatformEndpoint(endpointInput!) { (endpointResponse, error) in
-            print ("Attempted to create endpoint, recieved \(endpointResponse) , \(error)")
+            print ("Attempted to create endpoint, recieved \(String(describing: endpointResponse)) , \(String(describing: error))")
             //TODO: do topic subcription
         }
         
