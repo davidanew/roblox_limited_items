@@ -8,18 +8,13 @@ import AWSCore
 import AWSSNS
 import AWSCognito
 
-//https://medium.com/@thabodavidnyakalloklass/ios-push-with-amazons-aws-simple-notifications-service-sns-and-swift-made-easy-51d6c79bc206
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-//    var authStatus : Bool?
     
     let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
-    
-    
+        
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         notificationCenterSetup()
@@ -43,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             } else {
                 print("Notification center authorisation request failed")
             }
-            
             DispatchQueue.main.async {
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     print ("set navigationController")
@@ -56,64 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
             }
-            
-            
-                    
-                
-
-          
-            
-           // var rootViewController : UINavigationController
-            /*
-            var rootViewController : UIViewController?
-
-            
-            rootViewController = self.window?.rootViewController
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let profileViewController = mainStoryboard.instantiateViewController(withIdentifier: "InstructionVC") as! InstructionVC
-            rootViewController.pushViewController(profileViewController, animated: true)
-            return true
-            
-            self.navigationController!.viewControllers.first
-            
-            self.window?
-
-            */
-            
-            /*
-            // assuming inital view is tabbar
-            let tabBarController = self.window?.rootViewController as UITabBarController
-            let tabBarRootViewControllers: Array = tabBarController.viewControllers!
-            
-            // assuming first tab bar view is the NavigationController with the DestinationsViewController
-            let navView = tabBarRootViewControllers[0] as UINavigationController
-            let destinationsViewController = navView.viewControllers[0] as DestinationsViewController
-            
-            if let label = destinationsViewController.label{
-                label.text = "Super DUper!"
-            }
-            else{
-                println("Not good 2")
-            }
-            */
-            
-            /*
-            guard let tabBarController = window?.rootViewController as? UITabBarController,
-                let viewControllers = tabBarController.viewControllers else {
-                    return true
-            }
-            for (index, viewController) in viewControllers.enumerated() {
-                if let navigationController = viewController as? UINavigationController,
-                    let contactsViewController = navigationController.viewControllers.first as? ContactsViewController {
-                    contactsViewController.stateController = stateController
-                    contactsViewController.favoritesOnly = index == 1
-                }
-            }
- */
- 
-            
         }
-        
     }
     
 
@@ -165,42 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print ("Attempted to create endpoint, recieved \(String(describing: endpointResponse)) , \(String(describing: error))")
             //TODO: do topic subcription
         }
-        
- 
     }
-    
-
- 
-/*
-        /// Attach the device token to the user defaults
-        var token = ""
-        for i in 0..<deviceToken.count {
-            token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
-        }
-        
-        print(token)
-        
-        UserDefaults.standard.set(token, forKey: "deviceTokenForSNS")
-        
-        /// Create a platform endpoint. In this case,  the endpoint is a
-        /// device endpoint ARN
-        let sns = AWSSNS.default()
-        let request = AWSSNSCreatePlatformEndpointInput()
-        request?.token = token
-        request?.platformApplicationArn = SNSPlatformApplicationArn
-        sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject in
-            if task.error != nil {
-                print("Error: \(String(describing: task.error))")
-            } else {
-                let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-                if let endpointArnForSNS = createEndpointResponse.endpointArn {
-                    print("endpointArn: \(endpointArnForSNS)")
-                    UserDefaults.standard.set(endpointArnForSNS, forKey: "endpointArnForSNS")
-                }
-            }
-        })
-    }
-*/
-
 }
 

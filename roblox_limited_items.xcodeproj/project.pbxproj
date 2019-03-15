@@ -21,7 +21,6 @@
 		C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6822119321007F9A6D /* LatestCollectablesVC.swift */; };
 		C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D6A22119645007F9A6D /* ApiInterface.swift */; };
 		C8BC6D732211AE52007F9A6D /* ApiInterfaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */; };
-		C8CB87B1222EF0D300D87901 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB87B0222EF0D300D87901 /* NotificationsVC.swift */; };
 		C8D2BE2F221608CD0073996B /* ImageInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2BE2E221608CD0073996B /* ImageInterface.swift */; };
 		C8F5423B2228134E006D490C /* robloxCollectiblesMain.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F5423A2228134E006D490C /* robloxCollectiblesMain.png */; };
 		C8F5423D22281356006D490C /* robloxCollectiblesDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */; };
@@ -64,7 +63,6 @@
 		C8BC6D702211AE52007F9A6D /* roblox_limited_items_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = roblox_limited_items_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8BC6D722211AE52007F9A6D /* ApiInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiInterfaceTests.swift; sourceTree = "<group>"; };
 		C8BC6D742211AE52007F9A6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C8CB87B0222EF0D300D87901 /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		C8D2BE2E221608CD0073996B /* ImageInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInterface.swift; sourceTree = "<group>"; };
 		C8F5423A2228134E006D490C /* robloxCollectiblesMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesMain.png; sourceTree = "<group>"; };
 		C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesDetail.png; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				C88BBDF521F880640053DF8D /* Info.plist */,
 				C8FC5C152215A97D00D134CC /* jsonExamples.swift */,
 				C8F5423E22281400006D490C /* Notes2.rtf */,
-				C8CB87B0222EF0D300D87901 /* NotificationsVC.swift */,
 			);
 			path = roblox_limited_items;
 			sourceTree = "<group>";
@@ -430,7 +427,6 @@
 				C84510A22217198300EB0838 /* ItemDetailVC.swift in Sources */,
 				C8FC5C162215A97D00D134CC /* jsonExamples.swift in Sources */,
 				C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */,
-				C8CB87B1222EF0D300D87901 /* NotificationsVC.swift in Sources */,
 				C8BC6D6922119321007F9A6D /* LatestCollectablesVC.swift in Sources */,
 				C8BC6D6B22119645007F9A6D /* ApiInterface.swift in Sources */,
 				C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */,
