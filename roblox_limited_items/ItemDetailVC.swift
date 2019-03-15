@@ -10,6 +10,8 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     // This is the row in the collectables data that the item is at
     var rowInData : Int?
     
+
+    
     // Data is displayed in an imageview and labels
     @IBOutlet weak var image1: UIImageView!
     @IBOutlet weak var label1: UILabel!

@@ -2,6 +2,12 @@
 
 import UIKit
 //import SwiftyJSON
+//TODO: need to remove some things on deinit e.g.:
+/*
+ deinit {
+ NotificationCenter.default.removeObserver(self)
+ }
+ */
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     // object to handle API calles
@@ -23,12 +29,27 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     var enteredForegroundTimer : Timer?
     // delay for enteredForegroundTimer
     let enteredForegroundTimerInterval : TimeInterval = 1
+    //
+    var notificationCenterAuthStatus : Bool?
 
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
     @IBAction func configButton(_ sender: Any) {
-//        print ("pressed button")
-        let alert = UIAlertController(title: "Notifications are disabled", message: "go to settings -> notifocations - roblox Collectibles to enable them", preferredStyle: .alert)
+        var titleText = "Error"
+        var messageText = "Error"
+        print ("pressed button")
+        //print ("notification status is \(String(describing: notificationCenterAuthStatus))")
+        
+        if notificationCenterAuthStatus == true {
+            titleText = "Notifications are enabled"
+            messageText = "go to settings -> notifications - Roblox Collectibles to disable them"
+        }
+        else if notificationCenterAuthStatus == false {
+            titleText = "Notifications are disabled"
+            messageText = "go to settings -> notifications - Roblox Collectibles to enable them"
+        }
+        
+        let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
@@ -263,6 +284,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //if we are using the segue that goes to the detail VC
         if segue.identifier == "ShowItemDetail" {
+            //TODO: fix this, optional cast as delegate
             let destinationVC = segue.destination as!  ItemDetailVC
             //If we have valid data to send (which should always be true as the
             // user clicked on a cell)

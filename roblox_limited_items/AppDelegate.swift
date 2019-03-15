@@ -1,5 +1,7 @@
 //  Copyright © 2019 David New. All rights reserved.
 
+//TODO: look at casting on segue
+
 import UIKit
 import UserNotifications
 import AWSCore
@@ -13,12 +15,18 @@ import AWSCognito
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+//    var authStatus : Bool?
     
     let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        notificationCenterSetup()
+        return true
+    }
+    
+    func notificationCenterSetup(){
         //set AWS service configuartion
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.EUWest1, identityPoolId: "eu-west-1:3be9d515-982a-40b5-bd65-d06a773de5bb")
         let defaultServiceConfiguration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentialsProvider)
@@ -35,8 +43,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             } else {
                 print("Notification center authorisation request failed")
             }
+            
+            DispatchQueue.main.async {
+                if let navigationController = self.window?.rootViewController as? UINavigationController {
+                    print ("set navigationController")
+                    let viewControllers : Array = navigationController.viewControllers
+                    //              if let firstViewController = viewControllers.first?.description {
+                    //print (viewControllers.first?.nibName)
+                    if let latestCollectablesVC = viewControllers.first as? LatestCollectablesVC {
+                        print ("found LatestCollectablesVC")
+                        latestCollectablesVC.notificationCenterAuthStatus = success
+                    }
+                }
+            }
+            
+            
+                    
+                
+
+          
+            
+           // var rootViewController : UINavigationController
+            /*
+            var rootViewController : UIViewController?
+
+            
+            rootViewController = self.window?.rootViewController
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let profileViewController = mainStoryboard.instantiateViewController(withIdentifier: "InstructionVC") as! InstructionVC
+            rootViewController.pushViewController(profileViewController, animated: true)
+            return true
+            
+            self.navigationController!.viewControllers.first
+            
+            self.window?
+
+            */
+            
+            /*
+            // assuming inital view is tabbar
+            let tabBarController = self.window?.rootViewController as UITabBarController
+            let tabBarRootViewControllers: Array = tabBarController.viewControllers!
+            
+            // assuming first tab bar view is the NavigationController with the DestinationsViewController
+            let navView = tabBarRootViewControllers[0] as UINavigationController
+            let destinationsViewController = navView.viewControllers[0] as DestinationsViewController
+            
+            if let label = destinationsViewController.label{
+                label.text = "Super DUper!"
+            }
+            else{
+                println("Not good 2")
+            }
+            */
+            
+            /*
+            guard let tabBarController = window?.rootViewController as? UITabBarController,
+                let viewControllers = tabBarController.viewControllers else {
+                    return true
+            }
+            for (index, viewController) in viewControllers.enumerated() {
+                if let navigationController = viewController as? UINavigationController,
+                    let contactsViewController = navigationController.viewControllers.first as? ContactsViewController {
+                    contactsViewController.stateController = stateController
+                    contactsViewController.favoritesOnly = index == 1
+                }
+            }
+ */
+ 
+            
         }
-        return true
+        
     }
     
 
@@ -53,6 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        notificationCenterSetup()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
