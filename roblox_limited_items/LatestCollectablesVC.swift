@@ -1,13 +1,6 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
-//import SwiftyJSON
-//TODO: need to remove some things on deinit e.g.:
-/*
- deinit {
- NotificationCenter.default.removeObserver(self)
- }
- */
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     // object to handle API calles
@@ -19,12 +12,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     //Add refresh control so pulling down refreshes the view
     let refreshControl = UIRefreshControl()
     // How long we wait to see if a refresh is done
-    let refreshTimerInterval : TimeInterval = 5
+//    let refreshTimerInterval : TimeInterval = 5
     // Timer that checks that the table has been updated
-    var refreshTimer : Timer?
+//    var refreshTimer : Timer?
     // These two variables track the refresh operation
-    var requestedRefreshAt : Date?
-    var successfulRefreshAt : Date?
+//    var requestedRefreshAt : Date?
+//    var successfulRefreshAt : Date?
     // when app enters foreground refresh data after this timer
     var enteredForegroundTimer : Timer?
     // delay for enteredForegroundTimer
@@ -91,7 +84,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     //when app goes to backround we remove the timers
     @objc func viewDidEnterBackground() {
-        refreshTimer?.invalidate()
+//        refreshTimer?.invalidate()
         enteredForegroundTimer?.invalidate()
     }
     
@@ -101,14 +94,14 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-        refreshTimer?.invalidate()
+ //       refreshTimer?.invalidate()
         enteredForegroundTimer?.invalidate()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
         enteredForegroundTimer?.invalidate()
-        refreshTimer?.invalidate()
+ //       refreshTimer?.invalidate()
     }
         
     // Called by ios to get the number of cells in view
@@ -196,28 +189,47 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     //when the app returns from background (with delay)
     func refreshTableView(){
         //log the time that the refresh was requested for use with the request timer
-        requestedRefreshAt = Date()
+ //       requestedRefreshAt = Date()
         //stop any running refresh timer otherwise we will get multiple calls to refreshTimerHandler
-        refreshTimer?.invalidate()
+//        refreshTimer?.invalidate()
         //start refresh timer
         // after refreshTimerInterval the funtion refreshTimerHandler will be called to make sure
         // the table is refreshed
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshTimerInterval, repeats: false, block: { timer in self.refreshTimerHandler(timer: timer)})
+ //       refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshTimerInterval, repeats: false, block: { timer in self.refreshTimerHandler(timer: timer)})
         //start refresh indicator if not already running
         if (!refreshControl.isRefreshing)  {refreshControl.beginRefreshing()}
         
         apiInterface.retrieveLatestCollectablesData{ (success) in
             if success {
+                print ("refresh table view success")
                 // remove the refresh animation
                 self.refreshControl.endRefreshing()
                 // reload data will make all cells request their data from apiIterface
                 // which should all now be valid
                 self.tableView.reloadData()
                 //log the time that the refresh was completed for use with the request timer
-                self.successfulRefreshAt = Date()
-               
+//                self.successfulRefreshAt = Date()
+              
+            }
+            else {
+                print ("refresh table view fail")
+                self.handleAFTimeout()
             }
         }
+    }
+    
+    func handleAFTimeout() {
+        let alert = UIAlertController(title: "Problem getting data from Roblox", message: nil, preferredStyle: .alert)
+        //"refresh" button will start a new refresh cycle
+        alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: {alert in
+            self.refreshTableView()
+        }))
+//
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {alert in
+  //          if (!self.refreshControl.isRefreshing)  {self.refreshControl.endRefreshing()}
+            self.refreshControl.endRefreshing()
+        }))
+        self.present(alert, animated: true)
     }
     
     //called by refreshControl
@@ -226,6 +238,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         refreshTableView()
     }
     
+    
+    /*
     //This function is called by the refresh timer
     //There could be no data returned by apiinterface
     //This function handles that situation
@@ -247,6 +261,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             }
         }
     }
+ */
+    
+    /*
     
     //called if getting initial data failed
     func tableviewIsEmpty(){
@@ -265,10 +282,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         }))
         self.present(alert, animated: true)
     }
-    
+ 
+ */
     //Called if there is data on the screen but a refersh has failed
     //Less agressive than tableviewIsEmpty as the user already has data to
     // look at, and lots of pop ups will be annoying
+    /*
     func tableviewIsOutOfDate(){
         let alert = UIAlertController(title: "Could not refresh data from Roblox", message: nil, preferredStyle: .alert)
 
@@ -287,6 +306,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         }))
         self.present(alert, animated: true)
     }
+ */
+ 
     
     //prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
