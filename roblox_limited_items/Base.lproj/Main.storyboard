@@ -67,13 +67,7 @@
                         <viewLayoutGuide key="safeArea" id="kcs-69-1Zx"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Latest Collectibles" id="GDo-li-DVe">
-                        <barButtonItem key="leftBarButtonItem" title="title" id="9Y7-TD-3Lv">
-                            <connections>
-                                <action selector="configButton:" destination="R93-dj-CCs" id="dWC-QI-atM"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Latest Collectibles" id="GDo-li-DVe"/>
                     <connections>
                         <outlet property="tableView" destination="FS6-Kn-gxR" id="JuJ-Cv-G5X"/>
                         <segue destination="q8Y-4Y-t2X" kind="show" identifier="ShowItemDetail" id="6VS-1z-c7q"/>

@@ -1,12 +1,12 @@
 //  Copyright © 2019 David New. All rights reserved.
 
-//TODO: look at casting on segue
-
 import UIKit
 import UserNotifications
 import AWSCore
 import AWSSNS
 import AWSCognito
+import os.log
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -30,14 +30,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             if (success) {
-                print("Notification center authorisation request success")
+                os_log("Notification center authorisation request success", log: Log.general, type: .debug)
+
                 //If authorisation is given then resgister for notifications
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             } else {
-                print("Notification center authorisation request failed")
+                os_log("Notification center authorisation request failed", log: Log.general, type: .debug)
+//                print (error)
             }
+            
+            /*
             DispatchQueue.main.async {
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     print ("set navigationController")
@@ -50,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
             }
+            */
         }
     }
     
@@ -81,12 +86,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //https://github.com/thaboklass/SpreebieSNSExample/blob/master/SpreebieSNSExample/AppDelegate.swift
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Notifications registration failed")
+        os_log("Notifications registration failed", log: Log.general, type: .debug)
     }
     
     // On successful register for notifictions this function is run
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print ("Notifications registration success")
+        os_log("Notifications registration success", log: Log.general, type: .debug)
         var tokenString = ""
         // convert device token to as string ready to send to aws
         for i in 0..<deviceToken.count {

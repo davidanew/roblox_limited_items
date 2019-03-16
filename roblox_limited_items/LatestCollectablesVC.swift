@@ -29,11 +29,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     var enteredForegroundTimer : Timer?
     // delay for enteredForegroundTimer
     let enteredForegroundTimerInterval : TimeInterval = 1
-    //
-    var notificationCenterAuthStatus : Bool?
+    //    var notificationCenterAuthStatus : Bool?
 
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
+    
+    /*
     @IBAction func configButton(_ sender: Any) {
         var titleText = "Error"
         var messageText = "Error"
@@ -53,7 +54,8 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
-    
+ */
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         //add refresh control
@@ -95,12 +97,18 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     
     //when the VC is closed we don't need any notifications
     //or timers
-    //These will be re-intatated when the view is appears again
+    //These will be re-intantiated when the view is appears again
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         refreshTimer?.invalidate()
         enteredForegroundTimer?.invalidate()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        enteredForegroundTimer?.invalidate()
+        refreshTimer?.invalidate()
     }
         
     // Called by ios to get the number of cells in view
@@ -284,18 +292,19 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //if we are using the segue that goes to the detail VC
         if segue.identifier == "ShowItemDetail" {
-            //TODO: fix this, optional cast as delegate
-            let destinationVC = segue.destination as!  ItemDetailVC
-            //If we have valid data to send (which should always be true as the
-            // user clicked on a cell)
-            let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
-            //also if row number is valid
-            if let rowToSend = selectedRow {
-                //send the data (Uses setLatestCollectablesDelegate)
-                destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
-            }
-            else {
-                print("segue tried to send nil row")
+            //
+            if let destinationVC = segue.destination as?  setLatestCollectablesDelegate {
+                //If we have valid data to send (which should always be true as the
+                // user clicked on a cell)
+                let dataToSend : ApiInterfaceData = apiInterface.getLatestCollectablesData()
+                //also if row number is valid
+                if let rowToSend = selectedRow {
+                    //send the data (Uses setLatestCollectablesDelegate)
+                    destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
+                }
+                else {
+                    print("segue tried to send nil row")
+                }
             }
         }
     }
