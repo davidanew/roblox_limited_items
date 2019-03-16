@@ -138,6 +138,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         else {
             cell.textLabel?.text = "error"
         }
+        //set default image
         cell.imageView?.image = UIImage(named: "white110")
         //set the subtitle
         cell.detailTextLabel?.text = getSubtitleText(row : indexPath.row)

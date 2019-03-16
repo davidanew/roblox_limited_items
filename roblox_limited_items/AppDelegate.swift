@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     
     let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
+    let topicArn = "arn:aws:sns:eu-west-1:168606352827:robloxCollectiblesTopic"
+
         
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -113,12 +115,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             else if let endpointResponse = endpointResponse, let endpointArn = endpointResponse.endpointArn
             {
                 os_log("created endpoint: %@", log: Log.general, type: .debug, endpointArn)
-
-
-                //TODO: do topic subcription
-            
-            
-
+               let subscriptionRequest = AWSSNSSubscribeInput()
+                subscriptionRequest?.protocols = "application"
+                subscriptionRequest?.topicArn = self.topicArn
+                subscriptionRequest?.endpoint = endpointResponse.endpointArn
+                if let subscriptionRequest = subscriptionRequest {
+//                    print("getting subcription response")
+                    let subscriptionResponse = AWSSNS.default().subscribe(subscriptionRequest)
+                    if subscriptionResponse.error == nil {
+                        let confirmSubscriptionInput = AWSSNSConfirmSubscriptionInput()
+                        confirmSubscriptionInput?.token = endpointResponse.endpointArn
+                        confirmSubscriptionInput?.topicArn = self.topicArn
+                        if let confirmSubscriptionInput = confirmSubscriptionInput {
+                            print("confirming subscription")
+                            let confirmSubcriptionResponse = AWSSNS.default().confirmSubscription(confirmSubscriptionInput)
+                            if confirmSubcriptionResponse.error == nil {
+                                os_log("subscription confirmed", log: Log.general, type: .debug)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
