@@ -6,6 +6,7 @@ import AWSCore
 import AWSSNS
 import AWSCognito
 import os.log
+import Alamofire
 
 
 @UIApplicationMain
@@ -18,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         notificationCenterSetup()
+ //     Alamofire.SessionManager.default.session.configuration.timeoutIntervalForRequest = 1 // in seconds
+ //       Alamofire.SessionManager.default.session.configuration.timeoutIntervalForResource = 1 // in seconds
         return true
     }
     
@@ -97,15 +100,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         for i in 0..<deviceToken.count {
             tokenString = tokenString + String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
-        print("device token \(tokenString)")
         // create AWS SNS endpoint object and populate
         let endpointInput = AWSSNSCreatePlatformEndpointInput()
         endpointInput?.token = tokenString
         endpointInput?.platformApplicationArn = platformApplicationArn
         // attempt to create endpoint
         AWSSNS.default().createPlatformEndpoint(endpointInput!) { (endpointResponse, error) in
-            print ("Attempted to create endpoint, recieved \(String(describing: endpointResponse)) , \(String(describing: error))")
-            //TODO: do topic subcription
+            
+            if let error = error {
+                os_log("Error in creating endpoint: %@", log: Log.general, type: .debug, error.localizedDescription)
+            }
+            else if let endpointResponse = endpointResponse, let endpointArn = endpointResponse.endpointArn
+            {
+                os_log("created endpoint: %@", log: Log.general, type: .debug, endpointArn)
+
+
+                //TODO: do topic subcription
+            
+            
+
+            }
         }
     }
 }
