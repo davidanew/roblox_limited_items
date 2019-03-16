@@ -1,6 +1,8 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
+import os.log
+
 
 class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     // object to handle API calles
@@ -19,13 +21,16 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
 //    var requestedRefreshAt : Date?
 //    var successfulRefreshAt : Date?
     // when app enters foreground refresh data after this timer
-    var enteredForegroundTimer : Timer?
+//    var enteredForegroundTimer : Timer?
     // delay for enteredForegroundTimer
-    let enteredForegroundTimerInterval : TimeInterval = 1
+//    let enteredForegroundTimerInterval : TimeInterval = 1
     //    var notificationCenterAuthStatus : Bool?
 
     // need this outlet so we can force refreshes
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     /*
     @IBAction func configButton(_ sender: Any) {
@@ -56,15 +61,15 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         let attributedTitle = NSAttributedString(string: "Pull down to refresh")
         refreshControl.attributedTitle = attributedTitle
         refreshControl.addTarget(self, action: #selector(refreshControlRefresh), for: .valueChanged)
+        activityIndicator.startAnimating()
     }
     
-    //Add notifications
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //This notification is used to trigger a refresh when the app goes into foregrouns
         NotificationCenter.default.addObserver(self, selector:#selector(viewWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         //This notification is used to trigger removal of tasks that should not be run in backgroun
-        NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+ //       NotificationCenter.default.addObserver(self, selector:#selector(viewDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         //when we trasistion back from the detail VC sometimes the cell is still selected
         //fix this here
         if let indexPath = tableView.indexPathForSelectedRow {
@@ -77,17 +82,20 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     @objc func viewWillEnterForeground () {
         //refresh needs to be delayed or there is an error - see bug below
         //https://github.com/AFNetworking/AFNetworking/issues/4279
-        enteredForegroundTimer = Timer.scheduledTimer(withTimeInterval: enteredForegroundTimerInterval, repeats: false, block: { timer in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.refreshTableView()
-        })
+        }
+//        enteredForegroundTimer = Timer.scheduledTimer(withTimeInterval: enteredForegroundTimerInterval, repeats: false, block: { timer in
+//        })
     }
-    
+ 
+ /*
     //when app goes to backround we remove the timers
     @objc func viewDidEnterBackground() {
 //        refreshTimer?.invalidate()
         enteredForegroundTimer?.invalidate()
     }
-    
+*/
     //when the VC is closed we don't need any notifications
     //or timers
     //These will be re-intantiated when the view is appears again
@@ -95,12 +103,12 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
  //       refreshTimer?.invalidate()
-        enteredForegroundTimer?.invalidate()
+//        enteredForegroundTimer?.invalidate()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        enteredForegroundTimer?.invalidate()
+ //       enteredForegroundTimer?.invalidate()
  //       refreshTimer?.invalidate()
     }
         
@@ -118,7 +126,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     // Called by ios to get information on a single cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // this is the cell that will be returned by the function
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle , reuseIdentifier: "catalogCell")
+        //let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle , reuseIdentifier: "catalogCell")
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell", for: indexPath)
         //had to add here as doesn't seem to work when set on storyboard
         cell.accessoryType = .disclosureIndicator
         // populate name of the item
@@ -142,11 +152,19 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 // the callback recieves the row
                 let indexPath = IndexPath(item: row, section: 0)
                 // refresh row
-                self.tableView.reloadRows(at: [indexPath], with: .fade)
+                //self.tableView.reloadRows(at: [indexPath], with: .fade)
+                //thumbnailUrl = ""
+                image = self.imageInterface.getImage(url: thumbnailUrl, row: indexPath.row, closure: {
+                    row in
+                    os_log("Error in retrieving image", log: Log.general, type: .debug)
+                })
+                if let image = image {
+                    self.tableView.cellForRow(at: indexPath)?.imageView?.image = image
+                }
             }
             // display image in cell if valid
-            if let thisImage = image {
-                cell.imageView?.image = thisImage
+            if let image = image {
+                cell.imageView?.image = image
             }
         }
         return cell
@@ -204,6 +222,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 print ("refresh table view success")
                 // remove the refresh animation
                 self.refreshControl.endRefreshing()
+                self.activityIndicator.stopAnimating()
                 // reload data will make all cells request their data from apiIterface
                 // which should all now be valid
                 self.tableView.reloadData()
@@ -219,7 +238,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     }
     
     func handleAFTimeout() {
-        let alert = UIAlertController(title: "Problem getting data from Roblox", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Problem getting data from Roblox", message: "Please check internet connection", preferredStyle: .alert)
         //"refresh" button will start a new refresh cycle
         alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: {alert in
             self.refreshTableView()

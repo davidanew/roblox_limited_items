@@ -56,19 +56,26 @@
                                     <outlet property="delegate" destination="R93-dj-CCs" id="54g-jQ-tLc"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="57G-bI-hRF">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FS6-Kn-gxR" firstAttribute="top" secondItem="kcs-69-1Zx" secondAttribute="top" id="2pz-PA-Y43"/>
                             <constraint firstItem="kcs-69-1Zx" firstAttribute="bottom" secondItem="FS6-Kn-gxR" secondAttribute="bottom" id="A0R-xk-iWH"/>
+                            <constraint firstItem="57G-bI-hRF" firstAttribute="centerX" secondItem="XSL-IO-yi7" secondAttribute="centerX" id="AJU-zr-Oia"/>
                             <constraint firstItem="FS6-Kn-gxR" firstAttribute="leading" secondItem="kcs-69-1Zx" secondAttribute="leading" id="DNg-sz-GS9"/>
                             <constraint firstItem="FS6-Kn-gxR" firstAttribute="trailing" secondItem="kcs-69-1Zx" secondAttribute="trailing" id="a6h-iA-7g4"/>
+                            <constraint firstItem="57G-bI-hRF" firstAttribute="centerY" secondItem="XSL-IO-yi7" secondAttribute="centerY" id="y9I-vt-w7g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kcs-69-1Zx"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Latest Collectibles" id="GDo-li-DVe"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="57G-bI-hRF" id="v4r-dn-5OZ"/>
                         <outlet property="tableView" destination="FS6-Kn-gxR" id="JuJ-Cv-G5X"/>
                         <segue destination="q8Y-4Y-t2X" kind="show" identifier="ShowItemDetail" id="6VS-1z-c7q"/>
                     </connections>

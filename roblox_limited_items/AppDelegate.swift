@@ -6,7 +6,7 @@ import AWSCore
 import AWSSNS
 import AWSCognito
 import os.log
-import Alamofire
+//import Alamofire
 
 
 @UIApplicationMain
