@@ -1,6 +1,7 @@
 //  Copyright © 2019 David New. All rights reserved.
 
 import UIKit
+import os.log
 
 class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
     //need API interface to hold data and use functions for retieval
@@ -39,7 +40,7 @@ class ItemDetailVC: UIViewController, setLatestCollectablesDelegate{
                         self.image1.image = self.imageInterface.getImage(url: imageUrl, row: row, closure: { (row) in
                             //If this closure is run it means that the image has still not been retrieved
                             //If image does not load we will just leave it blank
-                            print("double image cache miss")
+                            os_log("Error in retrieving image", log: Log.general, type: .debug)
                         })
                     })
                     

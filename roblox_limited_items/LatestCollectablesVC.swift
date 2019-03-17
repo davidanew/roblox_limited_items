@@ -153,7 +153,6 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
         //retrieve new data
         apiInterface.retrieveLatestCollectablesData{ (success) in
             if success {
-                print ("refresh table view success")
                 // remove the refresh animation and activity indicator
                 self.refreshControl.endRefreshing()
                 self.activityIndicator.stopAnimating()
@@ -162,7 +161,6 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 self.tableView.reloadData()
             }
             else {
-                print ("refresh table view fail")
                 self.handleAFTimeout()
             }
         }
@@ -203,7 +201,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                     destinationVC.setLatestCollectablesData(latestCollectablesData: dataToSend, detailsForRow: rowToSend)
                 }
                 else {
-                    print("segue tried to send nil row")
+                    //segue tried to send nil row
                 }
             }
         }

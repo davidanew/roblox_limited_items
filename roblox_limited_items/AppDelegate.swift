@@ -106,7 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         confirmSubscriptionInput?.token = endpointResponse.endpointArn
                         confirmSubscriptionInput?.topicArn = self.topicArn
                         if let confirmSubscriptionInput = confirmSubscriptionInput {
-                            print("confirming subscription")
                             //do confirm subscription request
                             let confirmSubcriptionResponse = AWSSNS.default().confirmSubscription(confirmSubscriptionInput)
                             if confirmSubcriptionResponse.error == nil {
