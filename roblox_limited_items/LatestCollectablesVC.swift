@@ -173,9 +173,9 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
             self.refreshTableView()
         }))
         //"cancel' button does nothing but stop refresh animations
-        //TODO:this should stop activity indicator?
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {alert in
             self.refreshControl.endRefreshing()
+            self.activityIndicator.stopAnimating()
         }))
         self.present(alert, animated: true)
     }
