@@ -6,28 +6,23 @@ import AWSCore
 import AWSSNS
 import AWSCognito
 import os.log
-//import Alamofire
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-    
+    //AWS SNS config
     let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
     let topicArn = "arn:aws:sns:eu-west-1:168606352827:robloxCollectiblesTopic"
-
-        
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        //setup notfications when the app loads
         notificationCenterSetup()
- //     Alamofire.SessionManager.default.session.configuration.timeoutIntervalForRequest = 1 // in seconds
- //       Alamofire.SessionManager.default.session.configuration.timeoutIntervalForResource = 1 // in seconds
         return true
     }
     
     func notificationCenterSetup(){
-        //set AWS service configuartion
+        //set AWS default service configuartion
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.EUWest1, identityPoolId: "eu-west-1:3be9d515-982a-40b5-bd65-d06a773de5bb")
         let defaultServiceConfiguration = AWSServiceConfiguration(region: AWSRegionType.EUWest1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
@@ -36,30 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             if (success) {
                 os_log("Notification center authorisation request success", log: Log.general, type: .debug)
-
                 //If authorisation is given then resgister for notifications
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             } else {
                 os_log("Notification center authorisation request failed", log: Log.general, type: .debug)
-//                print (error)
             }
-            
-            /*
-            DispatchQueue.main.async {
-                if let navigationController = self.window?.rootViewController as? UINavigationController {
-                    print ("set navigationController")
-                    let viewControllers : Array = navigationController.viewControllers
-                    //              if let firstViewController = viewControllers.first?.description {
-                    //print (viewControllers.first?.nibName)
-                    if let latestCollectablesVC = viewControllers.first as? LatestCollectablesVC {
-                        print ("found LatestCollectablesVC")
-                        latestCollectablesVC.notificationCenterAuthStatus = success
-                    }
-                }
-            }
-            */
         }
     }
     
@@ -77,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        // Also run notification setup when returning form background, user may have changed settings
         notificationCenterSetup()
     }
 
@@ -88,8 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    //https://github.com/thaboklass/SpreebieSNSExample/blob/master/SpreebieSNSExample/AppDelegate.swift
-    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         os_log("Notifications registration failed", log: Log.general, type: .debug)
     }
@@ -98,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         os_log("Notifications registration success", log: Log.general, type: .debug)
         var tokenString = ""
-        // convert device token to as string ready to send to aws
+        // convert device token to a string ready to send to aws
         for i in 0..<deviceToken.count {
             tokenString = tokenString + String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
@@ -108,28 +85,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         endpointInput?.platformApplicationArn = platformApplicationArn
         // attempt to create endpoint
         AWSSNS.default().createPlatformEndpoint(endpointInput!) { (endpointResponse, error) in
-            
             if let error = error {
                 os_log("Error in creating endpoint: %@", log: Log.general, type: .debug, error.localizedDescription)
             }
-            else if let endpointResponse = endpointResponse, let endpointArn = endpointResponse.endpointArn
-            {
+            else if let endpointResponse = endpointResponse, let endpointArn = endpointResponse.endpointArn{
+                //endpoint sucessfully created
                 os_log("created endpoint: %@", log: Log.general, type: .debug, endpointArn)
-               let subscriptionRequest = AWSSNSSubscribeInput()
+                //create subscription request object
+                let subscriptionRequest = AWSSNSSubscribeInput()
                 subscriptionRequest?.protocols = "application"
                 subscriptionRequest?.topicArn = self.topicArn
                 subscriptionRequest?.endpoint = endpointResponse.endpointArn
                 if let subscriptionRequest = subscriptionRequest {
-//                    print("getting subcription response")
+                    //do subscription request
                     let subscriptionResponse = AWSSNS.default().subscribe(subscriptionRequest)
                     if subscriptionResponse.error == nil {
+                        //subscription request completed
+                        //create confrim subscription input object to confirm subscription
                         let confirmSubscriptionInput = AWSSNSConfirmSubscriptionInput()
                         confirmSubscriptionInput?.token = endpointResponse.endpointArn
                         confirmSubscriptionInput?.topicArn = self.topicArn
                         if let confirmSubscriptionInput = confirmSubscriptionInput {
                             print("confirming subscription")
+                            //do confirm subscription request
                             let confirmSubcriptionResponse = AWSSNS.default().confirmSubscription(confirmSubscriptionInput)
                             if confirmSubcriptionResponse.error == nil {
+                                //subscrition confirmed
                                 os_log("subscription confirmed", log: Log.general, type: .debug)
                             }
                         }

@@ -16,10 +16,9 @@ struct Log {
 
 //handle calls to api and store resultant JSON objects
 class ApiInterface {
-    
+    //Need alamofire manager so when can set a timeout
     var alamofireManager : SessionManager?
     let alamofireTimeout : TimeInterval = 10
-
     //Roblox search API instructions https://developer.roblox.com/articles/Catalog-API
     let urlLatestCollectablesBase =  "https://search.roblox.com/catalog/json?SortType=RecentlyUpdated&IncludeNotForSale=false&Category=Collectibles&ResultsPerPage="
     //number of collectables to load in one go, max is 30
@@ -59,12 +58,12 @@ class ApiInterface {
     // of this function. Most lightly this handler will run a gui update.
     func retrieveLatestCollectablesData(closure : @escaping (Bool) -> Void ) {
         let url = urlLatestCollectables
+        //create alamofire configuration
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = alamofireTimeout
         configuration.timeoutIntervalForResource = alamofireTimeout
         alamofireManager = Alamofire.SessionManager(configuration: configuration)
-        
-
+        //start alamofire request
         alamofireManager?.request(url, method: .get).responseJSON { response in
             let success : Bool = response.result.isSuccess
             var jsonSuccess : Bool = false
