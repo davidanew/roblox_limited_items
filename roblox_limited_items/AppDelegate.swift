@@ -13,6 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     //AWS SNS config
     let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
+    //let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS/robloxCollectiblesSnsProd"
+
     let topicArn = "arn:aws:sns:eu-west-1:168606352827:robloxCollectiblesTopic"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -79,6 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         for i in 0..<deviceToken.count {
             tokenString = tokenString + String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
+        os_log("Device token: %@", log: Log.general, type: .debug , tokenString)
         // create AWS SNS endpoint object and populate
         let endpointInput = AWSSNSCreatePlatformEndpointInput()
         endpointInput?.token = tokenString
@@ -90,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             else if let endpointResponse = endpointResponse, let endpointArn = endpointResponse.endpointArn{
                 //endpoint sucessfully created
-                os_log("created endpoint: %@", log: Log.general, type: .debug, endpointArn)
+                os_log("Created endpoint: %@", log: Log.general, type: .debug, endpointArn)
                 //create subscription request object
                 let subscriptionRequest = AWSSNSSubscribeInput()
                 subscriptionRequest?.protocols = "application"
@@ -110,9 +113,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                             let confirmSubcriptionResponse = AWSSNS.default().confirmSubscription(confirmSubscriptionInput)
                             if confirmSubcriptionResponse.error == nil {
                                 //subscrition confirmed
-                                os_log("subscription confirmed", log: Log.general, type: .debug)
+                                os_log("Subscription confirmation successful", log: Log.general, type: .debug)
+                            }
+                            else{
+                                os_log("Subscription confirmation failed", log: Log.general, type: .debug)
                             }
                         }
+                    }
+                    else {
+                        os_log("Subscription failed", log: Log.general, type: .debug)
                     }
                 }
             }
