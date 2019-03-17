@@ -167,7 +167,7 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
     }
     
     func handleAFTimeout() {
-        let alert = UIAlertController(title: "Problem getting data from Roblox", message: "Please check internet connection", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Problem getting data from Roblox", message: "Please check your internet connection", preferredStyle: .alert)
         //"try again" button will start a new refresh cycle
         alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: {alert in
             self.refreshTableView()
