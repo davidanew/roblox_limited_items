@@ -10,11 +10,16 @@
 
 \f0\fs24 \cf0 TODO\
 \
-more testing\
-change arm to prod\
+\
+fix bugs\
+look at long output log\
+ios 10 testing\
+notification sound - do it after submission\
 \
 NICE TO HAVE:\
 \
+unit tests for for app delegate\
+refector app delegate\
 iPad,  two view controllers, how to do?\
 Customised detail view using table view\
 \
@@ -86,9 +91,25 @@ We understand that there are no hard and fast rules to define useful or entertai
 \f0 \cf0 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f2 \cf0  
-\f0 \
+\f2 \cf0  \
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f2  
+\f0 \cf0 \{\
+  "default": "Sample fallback message",\
+  "APNS": "\{\\"aps\\":\{\\"alert\\": \\"Sample message for iOS endpoints\\"\} \}",\
+  "APNS_SANDBOX": "\{\\"aps\\":\{\\"alert\\":\\"Sample message for iOS development endpoints\\"\}\}"\
+\}
+\f2  \
+\
+\{"default":"New item: Noob Assist: Astronaut Action",\
+   "APNS":"\{\\"aps\\":\{\\"alert\\":\\"New item: Noob Assist: Astronaut Action\\",\\"sound\\":\\"default\\"\}\}",\
+   "APNS_SANDBOX":"\{\\"aps\\":\{\\"alert\\":\\"New item: Noob Assist: Astronaut Action\\",\\"sound\\":\\"default\\"\}\}"\
+\}\
+\
+\
+\
+
 \f0 \
 }
