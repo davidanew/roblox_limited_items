@@ -99,14 +99,18 @@ class LatestCollectablesVC: UIViewController,UITableViewDataSource,UITableViewDe
                 // the callback recieves the row
                 let indexPath = IndexPath(item: row, section: 0)
                 //the callback should recieve an image now
+                
                 image = self.imageInterface.getImage(url: thumbnailUrl, row: indexPath.row, closure: {
                     row in
                     os_log("Error in retrieving image", log: Log.general, type: .debug)
                 })
-                //replace image without refresh to stop anaimation glitches
+                //replace image without refresh to stop animation glitches
                 if let image = image {
                     self.tableView.cellForRow(at: indexPath)?.imageView?.image = image
                 }
+                //self.tableView.reloadRows(at: [indexPath], with: .fade)
+
+ 
             }
             // display image in cell if valid
             if let image = image {
