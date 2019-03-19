@@ -12,8 +12,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     //AWS SNS config
-    let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
-    //let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS/robloxCollectiblesSnsProd"
+    //let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS_SANDBOX/robloxCollectiblesSNS"
+    let platformApplicationArn = "arn:aws:sns:eu-west-1:168606352827:app/APNS/robloxCollectiblesSnsProd"
 
     let topicArn = "arn:aws:sns:eu-west-1:168606352827:robloxCollectiblesTopic"
     
