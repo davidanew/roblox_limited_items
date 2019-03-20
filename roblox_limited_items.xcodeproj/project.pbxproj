@@ -12,6 +12,7 @@
 		C837292F2212E5EF0058F292 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837292E2212E5EF0058F292 /* Protocols.swift */; };
 		C84510A22217198300EB0838 /* ItemDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84510A12217198300EB0838 /* ItemDetailVC.swift */; };
 		C84C9D81220F3C7000E31FC8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84C9D80220F3C7000E31FC8 /* Models.swift */; };
+		C84DB0F82240F17900350233 /* robloxCollectiblesMain12p9iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = C84DB0F72240F17800350233 /* robloxCollectiblesMain12p9iPhone.png */; };
 		C87BCAB122293BB700125095 /* robloxCollectiblesMain5p5.png in Resources */ = {isa = PBXBuildFile; fileRef = C87BCAB022293BB700125095 /* robloxCollectiblesMain5p5.png */; };
 		C87BCAB322293BBF00125095 /* robloxCollectiblesDetail5p5.png in Resources */ = {isa = PBXBuildFile; fileRef = C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */; };
 		C88BBDEA21F8805F0053DF8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88BBDE921F8805F0053DF8D /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		C837292E2212E5EF0058F292 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		C84510A12217198300EB0838 /* ItemDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailVC.swift; sourceTree = "<group>"; };
 		C84C9D80220F3C7000E31FC8 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C84DB0F72240F17800350233 /* robloxCollectiblesMain12p9iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesMain12p9iPhone.png; sourceTree = "<group>"; };
 		C87BCAB022293BB700125095 /* robloxCollectiblesMain5p5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesMain5p5.png; sourceTree = "<group>"; };
 		C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robloxCollectiblesDetail5p5.png; sourceTree = "<group>"; };
 		C88BBDE621F8805F0053DF8D /* roblox_limited_items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roblox_limited_items.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 				C8FD1A2C2229699200A24460 /* robloxCollectiblesMain12p9.png */,
 				C8F5423C22281356006D490C /* robloxCollectiblesDetail.png */,
 				C87BCAB222293BBF00125095 /* robloxCollectiblesDetail5p5.png */,
+				C84DB0F72240F17800350233 /* robloxCollectiblesMain12p9iPhone.png */,
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				C87BCAB322293BBF00125095 /* robloxCollectiblesDetail5p5.png in Resources */,
 				C8F5423D22281356006D490C /* robloxCollectiblesDetail.png in Resources */,
 				C87BCAB122293BB700125095 /* robloxCollectiblesMain5p5.png in Resources */,
+				C84DB0F82240F17900350233 /* robloxCollectiblesMain12p9iPhone.png in Resources */,
 				C8F5423B2228134E006D490C /* robloxCollectiblesMain.png in Resources */,
 				C88BBDF121F880640053DF8D /* Assets.xcassets in Resources */,
 				C88BBDEF21F8805F0053DF8D /* Main.storyboard in Resources */,
